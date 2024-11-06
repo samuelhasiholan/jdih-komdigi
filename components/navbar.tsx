@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -13,6 +15,7 @@ import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
@@ -24,9 +27,15 @@ import {
   HeartFilledIcon,
   SearchIcon,
   Logo,
+  Home,
+  Dokumen,
+  Informasi,
+  Translation,
+  Statistik,
 } from "@/components/icons";
 
 export const Navbar = () => {
+  const pathname = usePathname();
   const searchInput = (
     <Input
       aria-label="Search"
@@ -49,46 +58,67 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
-          </NextLink>
-        </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
+    <NextUINavbar maxWidth="full" position="sticky" className="top-auto bottom-0 fixed bg-menu p-2">
+      <NavbarContent className="basis-1/5 sm:basis-full" justify="center">
+        <ul className="flex gap-4 justify-around items-center w-full">
+          <NavbarItem key="/" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/"}>
+            <NextLink
+              className="flex flex-col items-center navbar-btn"
+              color="primary"
+              href="/"
+            >
+              <Home color={pathname === "/" ? "#515978" : "#0257D9"} />
+              Beranda
+            </NextLink>
+          </NavbarItem>
+          <NavbarItem key="/dokumen" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/dokumen"}>
+            <NextLink
+              className="flex flex-col items-center navbar-btn"
+              color="primary"
+              href="/dokumen"
+            >
+              <Dokumen color={pathname === "/dokumen" ? "#515978" : "#0257D9"} />
+              Dokumen
+            </NextLink>
+          </NavbarItem>
+          <NavbarItem key="/informasi" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/informasi"}>
+            <NextLink
+              className="flex flex-col items-center navbar-btn"
+              color="primary"
+              href="/informasi"
+            >
+              <Informasi color={pathname === "/informasi" ? "#515978" : "#0257D9"} />
+              Informasi
+            </NextLink>
+          </NavbarItem>
+          <NavbarItem key="/translation" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/translation"}>
+            <NextLink
+              className="flex flex-col items-center navbar-btn"
+              color="primary"
+              href="/translation"
+            >
+              <Translation color={pathname === "/translation" ? "#515978" : "#0257D9"} />
+              Translation
+            </NextLink>
+          </NavbarItem>
+          <NavbarItem key="/statistik" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/statistik"}>
+            <NextLink
+              className="flex flex-col items-center navbar-btn"
+              color="primary"
+              href="/statistik"
+            >
+              <Statistik color={pathname === "/statistik" ? "#515978" : "#0257D9"} />
+              Statistik
+            </NextLink>
+          </NavbarItem>
         </ul>
       </NavbarContent>
 
-      <NavbarContent
+      {/*<NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-            <GithubIcon className="text-default-500" />
-          </Link>
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
@@ -104,38 +134,7 @@ export const Navbar = () => {
             Sponsor
           </Button>
         </NavbarItem>
-      </NavbarContent>
-
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
-        <ThemeSwitch />
-        <NavbarMenuToggle />
-      </NavbarContent>
-
-      <NavbarMenu>
-        {searchInput}
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href="#"
-                size="lg"
-              >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </div>
-      </NavbarMenu>
+      </NavbarContent>*/}
     </NextUINavbar>
   );
 };

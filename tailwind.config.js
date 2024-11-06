@@ -9,8 +9,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: "#0159DF",
+        menu: "#F5F5F5",
+        heading: "#1C4481",
+        title: "#383838",
+        description: "#777777",
+      },
       fontFamily: {
-        sans: ["var(--font-sans)"],
+        sans: ["Sofia Pro", "var(--font-sans)"],
         mono: ["var(--font-mono)"],
       },
     },
