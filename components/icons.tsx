@@ -293,3 +293,69 @@ export const PlayIcon: React.FC<IconSvgProps> = ({
     <path d="M0.25 0.75293V29.8066L23.4657 15.2797L0.25 0.75293Z" fill="white"/>
   </svg>
 );
+
+export const CloseIcon = ({ size = 24 }: IconSvgProps) => {
+  return (
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_137_1440)">
+      <path d="M24 12.5428C24 18.5598 18.8927 23.5109 12.5 23.5109C6.1073 23.5109 1 18.5598 1 12.5428C1 6.52582 6.1073 1.57471 12.5 1.57471C18.8927 1.57471 24 6.52582 24 12.5428Z" fill="#E64B4B" stroke="#666666" stroke-width="2"/>
+      <path d="M8.00012 16.8514L12.5001 12.5429L17.0001 8.23438" stroke="white" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
+      <path d="M8.00012 8.23438L12.5001 12.5429L17.0001 16.8514" stroke="white" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
+      </g>
+      <defs>
+      <clipPath id="clip0_137_1440">
+      <rect width="25" height="23.9362" fill="white" transform="translate(0 0.574707)"/>
+      </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+export const BackIcon = ({ size = 14 }: IconSvgProps) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 14 14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <polygon
+        fill-rule="evenodd"
+        points="3 7 10.433 14 12 12.524 6.134 7 12 1.476 10.433 0"
+      ></polygon>
+    </svg>
+  );
+};
+
+export const ChevronDownIcon = () => (
+  <svg
+    fill="none"
+    height="14"
+    viewBox="0 0 24 24"
+    width="14"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M17.9188 8.17969H11.6888H6.07877C5.11877 8.17969 4.63877 9.33969 5.31877 10.0197L10.4988 15.1997C11.3288 16.0297 12.6788 16.0297 13.5088 15.1997L15.4788 13.2297L18.6888 10.0197C19.3588 9.33969 18.8788 8.17969 17.9188 8.17969Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+export const TableIcon = ({ size, ...props }: IconSvgProps) => {
+  return (
+    <svg
+      width={size || "16"}
+      height={size || "16"}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm0 2 .001 4H5V5h14zM5 11h8v8H5v-8zm10 8v-8h4.001l.001 8H15z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  );
+};

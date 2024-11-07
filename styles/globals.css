@@ -239,4 +239,13 @@
   	text-align: left;
   	letter-spacing: 0.025em;
   }
+
+  .modal-head {
+    padding: 10px;
+  }
+  .long-bar {
+    background-color: #0a48a6;
+    height: 5px;
+    border-radius: 10px;
+  }
 }
