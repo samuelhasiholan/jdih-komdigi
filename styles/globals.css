@@ -5,6 +5,7 @@
 @layer base {
 	:root{
 		color: #123132;
+    letter-spacing: .15px;
 	}
 
   	@font-face {
@@ -245,7 +246,18 @@
   }
   .long-bar {
     background-color: #0a48a6;
-    height: 5px;
+    height: 7px;
     border-radius: 10px;
+  }
+  .custom-table-row {
+    &:hover {
+      td {
+        background-color: #d4dae3 !important;
+      }
+    }
+
+    td {
+      background-color: #E7EDF6 !important;
+    }
   }
 }

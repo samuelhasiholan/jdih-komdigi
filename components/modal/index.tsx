@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { DashboardState } from "@/store/slice/dashboard";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import emptyImg from "@/public/empty-image.png";
 
 interface MainModalProps {
   isOpen: boolean;
@@ -108,21 +109,65 @@ export default function MainModal({
                   <TableWrapper
                     ref={tableRef}
                     title="Tes Title"
-                    url=""
-                    columns={
-                      [
-                        {
-                          show: true,
-                          id: "img",
-                          name: "IMAGE",
-                        },
-                        {
-                          show: true,
-                          id: "desc",
-                          name: "DESC",
-                        },
-                      ]
-                    }
+                    // url=""
+                    columns={[
+                      {
+                        width: 280,
+                        show: true,
+                        id: "img",
+                        name: "IMAGE",
+                        format: (value: any) => (
+                          <div style={{ width: "100px", height: "100px", position: "relative", borderRadius: "15px", overflow: "hidden", marginLeft: "10px" }}>
+                            <Image
+                              src={value?.img || emptyImg.src}
+                              alt="image"
+                              // width={100}
+                              // height={100}
+                              layout="fill"
+                              className="w-full self-center object-cover"
+                              onError={(event) => {
+                                // @ts-ignore
+                                event.target.src = emptyImg.src;
+                                // @ts-ignore
+                                event.target.srcset = emptyImg.src;
+                              }}
+                            />
+                          </div>
+                        ),
+                      },
+                      {
+                        show: true,
+                        id: "desc",
+                        name: "DESC",
+                        format: (value: any) => (
+                          <div style={{ paddingRight: "10px" }}>
+                            <p className="font-bold mb-1 text-primary text-large">{value?.title}</p>
+                            <p className="font-light mb-1" style={{ color: "#282828" }}>{value?.body}</p>
+                            <p className="font-bold text-xs" style={{ color: "#827272" }}>Disanggah  pada {value?.date}</p>
+                          </div>
+                        ),
+                      },
+                    ]}
+                    rawData={[
+                      {
+                        img: "https://disperkim.madiunkota.go.id/wp-content/uploads/2021/03/gg.png",
+                        title: "Peraturan Menteri Komunikasi dan informatika Nomor 11 Tahun 2021",
+                        body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2021 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2021 TENTANG ..",
+                        date: "Senin 27 Oct 2021",
+                      },
+                      {
+                        img: "https://disperkim.madiunkota.go.id/wp-content/uploads/2021/03/gg.png",
+                        title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+                        body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+                        date: "Senin 27 Oct 2022",
+                      },
+                      {
+                        img: "https://disperkim.madiunkota.go.id/wp-content/uploads/2021/03/gg.png",
+                        title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+                        body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+                        date: "Senin 27 Oct 2022",
+                      },
+                    ]}
                   />
                 </motion.div>
               </div>

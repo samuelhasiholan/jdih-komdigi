@@ -297,8 +297,8 @@ const TableWrapper = (
 
   return (
     <div className="[& .nextui-table-container]:shadow-none] w-full">
-      <Skeleton isLoaded={!isLoading} className="rounded-lg !bg-transparent mb-5">
-        <div className="text-xs">
+      <Skeleton isLoaded={!isLoading} className="rounded-lg !bg-transparent mb-1">
+        <div className="text-sm">
           <span className="hidden md:inline" style={{ color: "#444444", letterSpacing: "0.15px" }}>Menampilkan</span>{" "}
           {
             data?.length
@@ -337,9 +337,10 @@ const TableWrapper = (
             infiniteScroll && "max-h-[calc(100dvh-178px)]"
           } overflow-scroll`,
         }}
-        // style={{
-        //   minHeight: isLoading ? 300 : "auto",
-        // }}
+        style={{
+          borderCollapse: "separate",
+          borderSpacing: "0 .75em",
+        }}
       >
         <TableHeader columns={columnsShown.filter((c) => c?.show)}>
           {(column) =>
@@ -401,7 +402,7 @@ const TableWrapper = (
           {data.map((item, index) => (
             <TableRow
               key={`row-${index}`}
-              className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn`}
+              className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn custom-table-row`}
               style={{
                 animationDelay: `${index * 50}ms`,
                 animationFillMode: "forwards",
@@ -410,27 +411,7 @@ const TableWrapper = (
             >
               {(columnKey) => (
                 <TableCell key={columnKey} className="p-0">
-                  {/* <Skeleton
-                    isLoaded={!isLoading}
-                    className="rounded-lg !bg-transparent"
-                  > */}
                   <div
-                    // initial={{ height: "0", opacity: 1 }}
-                    // animate={{
-                    //   height: "auto",
-                    //   opacity: 1,
-                    //   transition: { delay: index * 0.05 },
-                    // }}
-                    // exit={{
-                    //   height: "0",
-                    //   opacity: 0,
-                    //   scaleY: 0,
-                    //   transition: { duration: 0.2 },
-                    // }}
-                    // transition={{
-                    //   ease: "easeInOut",
-                    //   duration: 0.4,
-                    // }}
                     className="px-1"
                   >
                     <div className="p-2">
@@ -449,7 +430,6 @@ const TableWrapper = (
                       })}
                     </div>
                   </div>
-                  {/* </Skeleton> */}
                 </TableCell>
               )}
             </TableRow>
