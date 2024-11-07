@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+	:root{
+		color: #123132;
+	}
+
   	@font-face {
 	    font-family: 'Sofia Pro';
 	    font-style: normal;
@@ -124,6 +128,11 @@
     background-color: #F2F7FD;
     padding: 44px 50px;
   }
+  .footer-section {
+  	background: linear-gradient(90deg, rgba(1,89,223,1) 0%, rgba(1,48,121,1) 100%);
+  	padding: 0 50px;
+  	color: #ffffff;
+  }
   .navbar-btn {
   	font-family: var(--font-sans);
   }
@@ -131,13 +140,27 @@
   	color: #515978;
   	font-weight: 400 !important;
   }
-
+  .tema-card {
+  	background-color: #E6EEFC !important;
+  	border-radius: 10px !important;
+  	line-height: 14px !important;
+  	height: unset !important;
+  }
+  .fitur-card {
+  	display: flex;
+  	justify-content: flex-start !important;
+  	background-color: #ffffff !important;
+  	height: unset !important;
+  	padding: 5px !important;
+  	border-radius: 10px !important;
+  	filter:drop-shadow(0px 4px 4px rgba(0,0,0,0.05000000074505806));
+  	border: 1px solid #cccccc;
+  }
   .produk-card {
   	height: unset !important;
   	padding: 0 !important;
   	border-radius: 20px !important;
   }
-
   .produk-card-date {
   	position: absolute;
   	top: 10px;
@@ -160,6 +183,60 @@
   	padding: 10px;
   	text-align: left;
   	font-size: 12px;
+  	letter-spacing: 0.025em;
+  }
+  .video-card {
+  	display: flex;
+  	justify-content: flex-start !important;
+  	background-color: #F2F7FD !important;
+  	height: unset !important;
+  	padding: 0 !important;
+  	border-radius: 10px !important;
+  }
+  .video-card-date {
+  	position: absolute;
+  	top: 10px;
+  	left: 10px;
+  	display: flex;
+  	align-items: center;
+  	padding: 5px;
+  	font-size: 12px;
+  	font-weight: 300;
+  	color: #ffffff;
+  	background-color: #0159DF;
+  	border-radius: 8px;
+  	z-index: 12;
+  }
+  .berita-card {
+  	height: unset !important;
+  	padding: 15px !important;
+  	border-radius: 20px !important;
+  	background-color: #ffffff !important;
+  }
+  .berita-card-body {
+  	display: flex;
+  	flex-direction: column;
+  	width: 100%;
+  	white-space: initial;
+  	margin-top: 15px;
+  	text-align: left;
+  	font-size: 12px;
+  	letter-spacing: 0.025em;
+  }
+  .infografis-card {
+  	height: unset !important;
+  	padding: 0 !important;
+  	border-radius: 10px !important;
+  	background-color: #F2F7FD !important;
+  	filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.10000000149011612));
+  }
+  .infografis-card-body {
+  	display: flex;
+  	flex-direction: column;
+  	width: 100%;
+  	white-space: initial;
+  	padding: 15px !important;
+  	text-align: left;
   	letter-spacing: 0.025em;
   }
 }

@@ -281,3 +281,15 @@ export const NextUILogo: React.FC<IconSvgProps> = (props) => {
     </svg>
   );
 };
+
+export const PlayIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  color,
+  ...props
+}) => (
+  <svg width="8" height="10" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.25 0.75293V29.8066L23.4657 15.2797L0.25 0.75293Z" fill="white"/>
+  </svg>
+);
