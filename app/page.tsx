@@ -18,13 +18,29 @@ export default function Home() {
   const [berita, setBerita] = useState([0,1,2]);
   const [infografis, setInfografis] = useState([0,1,2]);
   const [showMainModal, setShowMainModal] = useState(false);
+  const [modalAction, setModalAction] = useState("");
+  const [modalContent, setModalContent] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+
+  const onCloseMainModal = () => {
+    setModalAction("");
+    setModalContent("");
+    setModalTitle("");
+  }
+
+  const openModal = (action:string, title:string, content:string = null) => {
+    setModalAction(action);
+    setModalContent(content);
+    setModalTitle(title);
+    setShowMainModal(true);
+  }
 
   const searchInput = (
     <form
       className="flex items-center gap-4 w-full"
       onSubmit={(e) => {
         e.preventDefault();
-        setShowMainModal(true);
+        openModal("search", "Pencarian");
       }}
     >
       <Input
@@ -72,37 +88,37 @@ export default function Home() {
             Telusur Tema Peraturan
           </div>
           <div className="grid grid-cols-6 gap-6">
-            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal">
+            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal" onClick={() => openModal("tema", "Telusur Tema", "Pos")}>
               <Image className="mb-4" height={78} alt="pos" radius="none" src="assets/pos.png" removeWrapper/>
               <span>POS</span>
               <br/>
               <span className="text-description" style={{ letterSpacing: "0.3px" }}>6 peraturan</span>
             </Button>
-            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal">
+            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal" onClick={() => openModal("tema", "Telusur Tema", "Telekomunikasi")}>
               <Image className="mb-4" height={78} alt="pos" radius="none" src="assets/tele.png" removeWrapper/>
               <span>Telekomunikasi</span>
               <br/>
               <span className="text-description" style={{ letterSpacing: "0.3px" }}>45 peraturan</span>
             </Button>
-            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal">
+            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal" onClick={() => openModal("tema", "Telusur Tema", "Penyiaran")}>
               <Image className="mb-4" height={78} alt="pos" radius="none" src="assets/penyiaran.png" removeWrapper/>
               <span>Penyiaran</span>
               <br/>
               <span className="text-description" style={{ letterSpacing: "0.3px" }}>11 peraturan</span>
             </Button>
-            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal">
+            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal" onClick={() => openModal("tema", "Telusur Tema", "Informasi & Transaksi Elektronik")}>
               <Image className="mb-4" height={78} alt="pos" radius="none" src="assets/informasi.png" removeWrapper/>
               <span>Informasi & Transaksi Elektronik</span>
               <br/>
               <span className="text-description" style={{ letterSpacing: "0.3px" }}>8 peraturan</span>
             </Button>
-            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal">
+            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal" onClick={() => openModal("tema", "Telusur Tema", "Frekuensi Radio")}>
               <Image className="mb-4" height={78} alt="pos" radius="none" src="assets/frekuensi.png" removeWrapper/>
               <span>Frekuensi Radio</span>
               <br/>
               <span className="text-description" style={{ letterSpacing: "0.3px" }}>17 peraturan</span>
             </Button>
-            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal">
+            <Button className="flex flex-col tema-card items-center p-6 whitespace-normal" onClick={() => openModal("tema", "Telusur Tema", "Sertifikasi")}>
               <Image className="mb-4" height={78} alt="pos" radius="none" src="assets/sertifikasi.png" removeWrapper/>
               <span>Sertifikasi</span>
               <br/>
@@ -310,8 +326,12 @@ export default function Home() {
         </section> 
       </div>
       <MainModal 
+        action={modalAction}
+        content={modalContent}
+        title={modalTitle}
         isOpen={showMainModal}
         onOpenChange={(open) => setShowMainModal(open)}
+        onClose={() => onCloseMainModal()}
       />
     </>
   );

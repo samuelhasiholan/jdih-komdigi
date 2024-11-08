@@ -69,54 +69,57 @@ export default function TableHeaderWrapper({
         </motion.div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-4 justify-between w-full sm:w-min">
-        <div className="flex flex-wrap items-center justify-between p-0 w-full sm:flex-nowrap">
-          <form
-            className="flex items-center gap-4 w-full"
-            onSubmit={(e) => {
-              e.preventDefault();
-              onSearch && onSearch(search);
-            }}
-          >
-            <Input
-              className={`w-full ${
-                isSearchFocused ? "sm:w-[250px]" : "sm:w-[135px]"
-              } transition-all duration-300`}
-              size="md"
-              placeholder="Search"
-              isClearable
-              onClear={() => {
-                setSearch("");
-                onSearch && onSearch("");
+      {
+        onSearch &&
+        <div className="flex flex-wrap items-center gap-4 justify-between w-full sm:w-min">
+          <div className="flex flex-wrap items-center justify-between p-0 w-full sm:flex-nowrap">
+            <form
+              className="flex items-center gap-4 w-full"
+              onSubmit={(e) => {
+                e.preventDefault();
+                onSearch && onSearch(search);
               }}
-              onFocus={() => setIsSearchFocused(true)}
-              onBlur={() => setIsSearchFocused(false)}
-              value={search}
-              onChange={(e) => {
-                const value = e.target.value;
-                setSearch(value);
-                if (onSearch && !value) {
-                  onSearch("");
+            >
+              <Input
+                className={`w-full ${
+                  isSearchFocused ? "sm:w-[250px]" : "sm:w-[135px]"
+                } transition-all duration-300`}
+                size="md"
+                placeholder="Search"
+                isClearable
+                onClear={() => {
+                  setSearch("");
+                  onSearch && onSearch("");
+                }}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
+                value={search}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearch(value);
+                  if (onSearch && !value) {
+                    onSearch("");
+                  }
+                }}
+                startContent={
+                  <Button
+                    disableRipple
+                    isIconOnly
+                    size="sm"
+                    variant="flat"
+                    className="bg-transparent active:scale-75 pointer-events-none"
+                    onPress={() => (onSearch ? onSearch(search) : undefined)}
+                  >
+                    <SearchIcon fill="text-primary-100" size={16} />
+                  </Button>
                 }
-              }}
-              startContent={
-                <Button
-                  disableRipple
-                  isIconOnly
-                  size="sm"
-                  variant="flat"
-                  className="bg-transparent active:scale-75 pointer-events-none"
-                  onPress={() => (onSearch ? onSearch(search) : undefined)}
-                >
-                  <SearchIcon fill="text-primary-100" size={16} />
-                </Button>
-              }
-            />
+              />
 
-            {onExtra}
-          </form>
+              {onExtra}
+            </form>
+          </div>
         </div>
-      </div>
+      }
     </div>
   );
 }
