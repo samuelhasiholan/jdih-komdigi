@@ -10,21 +10,6 @@ const nextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**.jakarta.go.id",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "s3-jaki-dev.jakarta.go.id",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "disperkim.madiunkota.go.id",
-        pathname: "/**",
-      },
     ],
   },
 };

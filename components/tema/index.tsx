@@ -1,6 +1,6 @@
 "use client"
-import TableWrapper from "@/components/table/table";
-import TableHeaderWrapper from "@/components/table/table-header";
+import TableWrapper from "@/components/table/custom-table/table";
+import TableHeaderWrapper from "@/components/table/custom-table/table-header";
 import { AnimatePresence, motion } from "framer-motion";
 import { Input } from "@nextui-org/input";
 import { Spinner } from "@nextui-org/spinner";
@@ -15,7 +15,6 @@ interface TemaProps {
 export default function Tema({
   content,
 }: TemaProps) {
-  const formRef = useRef<any>(null);
   const tableRef = useRef<any>(null);
   
   return (
@@ -79,19 +78,19 @@ export default function Tema({
           ]}
           rawData={[
             {
-              img: "https://disperkim.madiunkota.go.id/wp-content/uploads/2021/03/gg.png",
+              img: "/assets/pdf_thumbnail.png",
               title: "Peraturan Menteri Komunikasi dan informatika Nomor 11 Tahun 2021",
               body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2021 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2021 TENTANG ..",
               date: "Senin 27 Oct 2021",
             },
             {
-              img: "https://disperkim.madiunkota.go.id/wp-content/uploads/2021/03/gg.png",
+              img: "/assets/pdf_thumbnail.png",
               title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
               body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
               date: "Senin 27 Oct 2022",
             },
             {
-              img: "https://disperkim.madiunkota.go.id/wp-content/uploads/2021/03/gg.png",
+              img: "/assets/pdf_thumbnail.png",
               title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
               body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
               date: "Senin 27 Oct 2022",

@@ -8,15 +8,20 @@ import Image from "next/image";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
 
-export default function Search() {
-  const formRef = useRef<any>(null);
-  const tableRef = useRef<any>(null);
+interface TemaProps {
+  content: string;
+}
 
+export default function Tema({
+  content,
+}: TemaProps) {
+  const tableRef = useRef<any>(null);
+  
   return (
     <div className="flex flex-col gap-4">
       <TableHeaderWrapper
         title=""
-        onSearch={(value) => tableRef.current?.search(value)}
+        onSearch={null}
         onExtra={null}
       />
 
@@ -62,30 +67,41 @@ export default function Search() {
               format: (value: any) => (
                 <div style={{ paddingRight: "10px" }}>
                   <p className="font-bold mb-1 text-primary text-large">{value?.title}</p>
+                  <p className="font-light text-xs mb-1" style={{ color: "#827272" }}>{value?.author+", pada "+value?.date}</p>
                   <p className="font-light mb-1" style={{ color: "#282828" }}>{value?.body}</p>
-                  <p className="font-bold text-xs" style={{ color: "#827272" }}>Disanggah pada {value?.date}</p>
+                  <p className="font-light text-primary text-small">Selengkapnya ></p>
                 </div>
               ),
             },
           ]}
           rawData={[
             {
-              img: "/assets/pdf_thumbnail.png",
-              title: "Peraturan Menteri Komunikasi dan informatika Nomor 11 Tahun 2021",
-              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2021 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2021 TENTANG ..",
-              date: "Senin 27 Oct 2021",
+              img: "/assets/berita_thumbnail.png",
+              title: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
+              body: "Denpasar, 12/09/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) ...",
+              author: "CHIARA SABRINA AYURANI",
+              date: "Jumat, 13 September 2024",
             },
             {
-              img: "/assets/pdf_thumbnail.png",
-              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
-              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
-              date: "Senin 27 Oct 2022",
+              img: "/assets/berita_thumbnail.png",
+              title: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
+              body: "Denpasar, 12/09/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) ...",
+              author: "CHIARA SABRINA AYURANI",
+              date: "Jumat, 13 September 2024",
             },
             {
-              img: "/assets/pdf_thumbnail.png",
-              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
-              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
-              date: "Senin 27 Oct 2022",
+              img: "/assets/berita_thumbnail.png",
+              title: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
+              body: "Denpasar, 12/09/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) ...",
+              author: "CHIARA SABRINA AYURANI",
+              date: "Jumat, 13 September 2024",
+            },
+            {
+              img: "/assets/berita_thumbnail.png",
+              title: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
+              body: "Denpasar, 12/09/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) ...",
+              author: "CHIARA SABRINA AYURANI",
+              date: "Jumat, 13 September 2024",
             },
           ]}
         />

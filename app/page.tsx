@@ -205,7 +205,7 @@ export default function Home() {
           </div>
           <div className="flex mb-6">
             <span className="flex-auto text-title">Saksikan tayangan seputar JDIH Kemkomdigi yang berisi seputar penjelasan secara interaktif tentang JDIH Kemkominfo.</span>
-            <span className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary">LIHAT SEMUA</span>
+            <span className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary" onClick={() => openModal("tv", "JDIH Kenkomdigi TV")}>LIHAT SEMUA</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {
@@ -234,7 +234,7 @@ export default function Home() {
           </div>
           <div className="flex mb-6">
             <span className="flex-auto text-title">Berita terkini seputar JDIH Kemkomdigi</span>
-            <span className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary">LIHAT SEMUA</span>
+            <span className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary" onClick={() => openModal("berita", "Berita")}>LIHAT SEMUA</span>
           </div>
           <div className="grid grid-cols-3 gap-4">
             {
@@ -266,6 +266,10 @@ export default function Home() {
           </div>
           <div className="font-bold my-6 text-4xl text-title">
             Infografis
+          </div>
+          <div className="flex mb-6">
+            <span className="flex-auto text-title"></span>
+            <span className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary" onClick={() => openModal("infografis", "Infografis")}>LIHAT SEMUA</span>
           </div>
           <div className="grid grid-cols-3 gap-4 mb-10">
             {

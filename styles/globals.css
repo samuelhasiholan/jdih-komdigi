@@ -200,7 +200,7 @@
   	left: 10px;
   	display: flex;
   	align-items: center;
-  	padding: 5px;
+  	padding: 5px 10px;
   	font-size: 12px;
   	font-weight: 300;
   	color: #ffffff;
@@ -239,6 +239,21 @@
   	padding: 15px !important;
   	text-align: left;
   	letter-spacing: 0.025em;
+  }
+  .block-card {
+    height: unset !important;
+    padding: 0 !important;
+    border-radius: 10px !important;
+    background-color: #E4E4E4 !important;
+  }
+  .block-card-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    white-space: initial;
+    padding: 15px !important;
+    text-align: left;
+    letter-spacing: 0.025em;
   }
 
   .modal-head {

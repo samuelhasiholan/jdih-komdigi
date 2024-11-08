@@ -6,8 +6,11 @@ import { BackIcon, CloseIcon } from "@/components/icons";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { DashboardState } from "@/store/slice/dashboard";
 import { useEffect, useRef, useState } from "react";
+import Berita from "@/components/berita";
+import Infografis from "@/components/infografis";
 import Search from "@/components/search";
 import Tema from "@/components/tema";
+import TV from "@/components/tv";
 import toast from "react-hot-toast";
 
 interface MainModalProps {
@@ -46,6 +49,7 @@ export default function MainModal({
       onOpenChange={onOpenChange}
       onClose={onClose}
       placement="center"
+      scrollBehavior="inside"
       classNames={{
         closeButton: "absolute top-3 right-3",
         backdrop: "bg-black bg-opacity-50",
@@ -67,12 +71,24 @@ export default function MainModal({
             </ModalHeader>
             <ModalBody>
               {
+                action === "berita" &&
+                <Berita />
+              }
+              {
+                action === "infografis" &&
+                <Infografis />
+              }
+              {
                 action === "search" &&
                 <Search />
               }
               {
                 action === "tema" &&
                 <Tema content={content} />
+              }
+              {
+                action === "tv" &&
+                <TV />
               }
             </ModalBody>
           </>

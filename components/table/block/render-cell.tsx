@@ -1,5 +1,5 @@
 import React from "react";
-import { DeleteIcon, EditIcon, EyeIcon } from "../icons";
+import { DeleteIcon, EditIcon, EyeIcon } from "@/components/icons";
 
 interface Props {
   columns: any;

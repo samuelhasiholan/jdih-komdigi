@@ -32,7 +32,7 @@ import {
   useState,
 } from "react";
 import toast from "react-hot-toast";
-import { ChevronDownIcon, TableIcon } from "../icons";
+import { ChevronDownIcon, TableIcon } from "@/components/icons";
 import { RenderCell } from "./render-cell";
 import { FilterType, TableWrapperProps } from "./types";
 import { useAppDispatch } from "@/store";
@@ -47,7 +47,7 @@ const TableWrapper = (
     persistFilters = [],
     persistSearch,
     columns,
-    infiniteScroll = false,
+    infiniteScroll,
     onView,
     onUpdate,
     extraActions,
@@ -309,8 +309,6 @@ const TableWrapper = (
       </Skeleton>
       <Table
         // baseRef={scrollerRef}
-        hideHeader 
-        removeWrapper 
         aria-label="Dynamic Table"
         onSortChange={(e: any) => {
           if (sortDescriptor.column === "") {
@@ -337,10 +335,9 @@ const TableWrapper = (
             infiniteScroll && "max-h-[calc(100dvh-178px)]"
           } overflow-scroll`,
         }}
-        style={{
-          borderCollapse: "separate",
-          borderSpacing: "0 .75em",
-        }}
+        // style={{
+        //   minHeight: isLoading ? 300 : "auto",
+        // }}
       >
         <TableHeader columns={columnsShown.filter((c) => c?.show)}>
           {(column) =>
@@ -402,7 +399,7 @@ const TableWrapper = (
           {data.map((item, index) => (
             <TableRow
               key={`row-${index}`}
-              className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn custom-table-row`}
+              className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn`}
               style={{
                 animationDelay: `${index * 50}ms`,
                 animationFillMode: "forwards",
@@ -430,6 +427,7 @@ const TableWrapper = (
                       })}
                     </div>
                   </div>
+                  {/* </Skeleton> */}
                 </TableCell>
               )}
             </TableRow>

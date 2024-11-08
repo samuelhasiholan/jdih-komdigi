@@ -43,8 +43,7 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <div className="relative flex flex-col h-screen">
-            <Navbar />
-            <main className="w-full flex-grow" style={{ padding: "50px 0 80px" }}>
+            <main className="w-full flex-grow" style={{ padding: "50px 0 0" }}>
               {children}
             </main>
           </div>
