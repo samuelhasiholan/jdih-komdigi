@@ -295,10 +295,10 @@ export const PlayIcon: React.FC<IconSvgProps> = ({
 export const CloseIcon = ({ size = 24 }: IconSvgProps) => {
   return (
     <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_137_1440)">
-      <path d="M24 12.5428C24 18.5598 18.8927 23.5109 12.5 23.5109C6.1073 23.5109 1 18.5598 1 12.5428C1 6.52582 6.1073 1.57471 12.5 1.57471C18.8927 1.57471 24 6.52582 24 12.5428Z" fill="#E64B4B" stroke="#666666" stroke-width="2"/>
-      <path d="M8.00012 16.8514L12.5001 12.5429L17.0001 8.23438" stroke="white" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
-      <path d="M8.00012 8.23438L12.5001 12.5429L17.0001 16.8514" stroke="white" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
+      <g clipPath="url(#clip0_137_1440)">
+      <path d="M24 12.5428C24 18.5598 18.8927 23.5109 12.5 23.5109C6.1073 23.5109 1 18.5598 1 12.5428C1 6.52582 6.1073 1.57471 12.5 1.57471C18.8927 1.57471 24 6.52582 24 12.5428Z" fill="#E64B4B" stroke="#666666" strokeWidth="2"/>
+      <path d="M8.00012 16.8514L12.5001 12.5429L17.0001 8.23438" stroke="white" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round"/>
+      <path d="M8.00012 8.23438L12.5001 12.5429L17.0001 16.8514" stroke="white" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round"/>
       </g>
       <defs>
       <clipPath id="clip0_137_1440">

@@ -44,6 +44,7 @@ export default function Search() {
                     // width={100}
                     // height={100}
                     layout="fill"
+                    sizes="100vw"
                     className="w-full self-center object-cover"
                     onError={(event) => {
                       // @ts-ignore
