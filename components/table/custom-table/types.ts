@@ -7,6 +7,7 @@ export interface TableWrapperProps {
     title: string;
     module: string;
     search?: string;
+    bgClear?: boolean;
     persistFilters?: Array<FilterType>;
     persistSearch?: string;
     columns: ColumnType[];

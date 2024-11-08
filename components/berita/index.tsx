@@ -35,14 +35,14 @@ export default function Tema({
           ref={tableRef}
           title=""
           // url=""
+          bgClear={true}
           columns={[
             {
-              width: 280,
               show: true,
               id: "img",
               name: "IMAGE",
               format: (value: any) => (
-                <div style={{ width: "100px", height: "100px", position: "relative", borderRadius: "15px", overflow: "hidden", marginLeft: "10px" }}>
+                <div style={{ width: "230px", height: "150px", position: "relative", borderRadius: "15px", overflow: "hidden" }}>
                   <Image
                     src={value?.img || emptyImg.src}
                     alt="image"

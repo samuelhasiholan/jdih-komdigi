@@ -53,6 +53,7 @@ const TableWrapper = (
     extraActions,
     rawData,
     defaultSortDescriptor,
+    bgClear = false,
   }: TableWrapperProps,
   refs: any
 ) => {
@@ -402,7 +403,7 @@ const TableWrapper = (
           {data.map((item, index) => (
             <TableRow
               key={`row-${index}`}
-              className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn custom-table-row`}
+              className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn ${bgClear ? "" : "custom-table-row"}`}
               style={{
                 animationDelay: `${index * 50}ms`,
                 animationFillMode: "forwards",
