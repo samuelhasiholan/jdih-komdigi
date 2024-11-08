@@ -13,34 +13,35 @@ import { useState } from "react";
 import MainModal from "@/components/modal";
 
 export default function Home() {
+  const [search, setSearch] = useState<string>("");
   const [produk, setProduk] = useState([0,1,2,3]);
   const [video, setVideo] = useState([0,1]);
   const [berita, setBerita] = useState([0,1,2]);
   const [infografis, setInfografis] = useState([0,1,2]);
   const [showMainModal, setShowMainModal] = useState(false);
   const [modalAction, setModalAction] = useState("");
-  const [modalContent, setModalContent] = useState("");
+  const [modalSearch, setModalSearch] = useState("");
   const [modalTitle, setModalTitle] = useState("");
 
   const onCloseMainModal = () => {
     setModalAction("");
-    setModalContent("");
+    setModalSearch("");
     setModalTitle("");
   }
 
-  const openModal = (action:string, title:string, content:string = null) => {
+  const openModal = (action:string, title:string, search:string = null) => {
     setModalAction(action);
-    setModalContent(content);
+    setModalSearch(search);
     setModalTitle(title);
     setShowMainModal(true);
   }
 
   const searchInput = (
     <form
-      className="flex items-center gap-4 w-full"
+      className="flex items-center w-full rounded-xl overflow-hidden"
       onSubmit={(e) => {
         e.preventDefault();
-        openModal("search", "Pencarian");
+        openModal("search", "Pencarian", search);
       }}
     >
       <Input
@@ -49,13 +50,32 @@ export default function Home() {
           inputWrapper: "bg-default-100",
           input: "text-sm",
         }}
-        labelPlacement="outside"
+        radius="none"
+        isClearable
+        onClear={() => {
+          setSearch("");
+        }}
         placeholder="Masukan kata pencarian.."
-        endContent={
-          <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-        }
-        type="search"
+        value={search}
+        onChange={(e) => {
+          const value = e.target.value;
+          setSearch(value);
+        }}
       />
+      <div style={{ alignSelf: "stretch" }}>
+        <Button
+          disableRipple
+          isIconOnly
+          size="sm"
+          variant="flat"
+          radius="none"
+          className="active:scale-75 h-full w-10"
+          style={{ backgroundColor: "#F9AB00" }}
+          type="submit"
+        >
+          <SearchIcon fill="white" size={16} />
+        </Button>
+      </div>
     </form>
   );
 
@@ -331,7 +351,7 @@ export default function Home() {
       </div>
       <MainModal 
         action={modalAction}
-        content={modalContent}
+        search={modalSearch}
         title={modalTitle}
         isOpen={showMainModal}
         onOpenChange={(open) => setShowMainModal(open)}

@@ -1,25 +1,40 @@
 "use client"
+import { AnimatePresence, motion } from "framer-motion";
+import { Spinner } from "@nextui-org/spinner";
+import { Input } from "@nextui-org/input";
+import { useEffect, useRef, useState } from "react";
+import emptyImg from "@/public/empty-image.png";
+import Image from "next/image";
 import TableWrapper from "@/components/table/custom-table/table";
 import TableHeaderWrapper from "@/components/table/custom-table/table-header";
-import { AnimatePresence, motion } from "framer-motion";
-import { Input } from "@nextui-org/input";
-import { Spinner } from "@nextui-org/spinner";
-import Image from "next/image";
-import emptyImg from "@/public/empty-image.png";
-import { useEffect, useRef, useState } from "react";
+import { jenisPeraturanList, tahunList } from "@/constants";
 
-export default function Search() {
+interface SearchProps {
+  search?: string;
+}
+
+export default function Search({
+  search,
+}: SearchProps) {
   const formRef = useRef<any>(null);
   const tableRef = useRef<any>(null);
+  
+  useEffect(() => {
+    if (search) {
+      tableRef.current?.search(search);
+    }
+  }, [search]);
 
   return (
     <div className="flex flex-col gap-4">
       <TableHeaderWrapper
-        title=""
+        initSearch={search}
         onSearch={(value) => tableRef.current?.search(value)}
-        onExtra={null}
+        onExtra={jenisPeraturanList}
+        onExtraTitle="Pilih Jenis Peraturan"
+        onExtraTwo={tahunList}
+        onExtraTwoTitle="Semua Tahun"
       />
-
       <motion.div
         transition={{
           ease: "linear",
@@ -75,6 +90,54 @@ export default function Search() {
               title: "Peraturan Menteri Komunikasi dan informatika Nomor 11 Tahun 2021",
               body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2021 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2021 TENTANG ..",
               date: "Senin 27 Oct 2021",
+            },
+            {
+              img: "/assets/pdf_thumbnail.png",
+              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+              date: "Senin 27 Oct 2022",
+            },
+            {
+              img: "/assets/pdf_thumbnail.png",
+              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+              date: "Senin 27 Oct 2022",
+            },
+            {
+              img: "/assets/pdf_thumbnail.png",
+              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+              date: "Senin 27 Oct 2022",
+            },
+            {
+              img: "/assets/pdf_thumbnail.png",
+              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+              date: "Senin 27 Oct 2022",
+            },
+            {
+              img: "/assets/pdf_thumbnail.png",
+              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+              date: "Senin 27 Oct 2022",
+            },
+            {
+              img: "/assets/pdf_thumbnail.png",
+              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+              date: "Senin 27 Oct 2022",
+            },
+            {
+              img: "/assets/pdf_thumbnail.png",
+              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+              date: "Senin 27 Oct 2022",
+            },
+            {
+              img: "/assets/pdf_thumbnail.png",
+              title: "Peraturan Menteri Komunikasi dan informatika Nomor 12 Tahun 2022",
+              body: "PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 11 TAHUN 2022 TENTANG PERUBAHAN ATAS PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NOMOR 6 TAHUN 2022 TENTANG ..",
+              date: "Senin 27 Oct 2022",
             },
             {
               img: "/assets/pdf_thumbnail.png",

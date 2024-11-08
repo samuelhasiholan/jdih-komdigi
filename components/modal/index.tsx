@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 
 interface MainModalProps {
   action: string;
-  content: string;
+  search?: string;
   title: string;
   isOpen: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -24,7 +24,7 @@ interface MainModalProps {
 
 export default function MainModal({
   action,
-  content,
+  search,
   title,
   isOpen = false,
   onOpenChange,
@@ -61,38 +61,34 @@ export default function MainModal({
       }
     >
       <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">
-              <div className="modal-head text-3xl font-bold">
-                {title}
-              </div>
-              <div className="long-bar"></div>
-            </ModalHeader>
-            <ModalBody>
-              {
-                action === "berita" &&
-                <Berita />
-              }
-              {
-                action === "infografis" &&
-                <Infografis />
-              }
-              {
-                action === "search" &&
-                <Search />
-              }
-              {
-                action === "tema" &&
-                <Tema content={content} />
-              }
-              {
-                action === "tv" &&
-                <TV />
-              }
-            </ModalBody>
-          </>
-        )}
+        <ModalHeader className="flex flex-col gap-1">
+          <div className="modal-head text-3xl font-bold">
+            {title}
+          </div>
+          <div className="long-bar"></div>
+        </ModalHeader>
+        <ModalBody>
+          {
+            action === "berita" &&
+            <Berita />
+          }
+          {
+            action === "infografis" &&
+            <Infografis />
+          }
+          {
+            action === "search" &&
+            <Search search={search} />
+          }
+          {
+            action === "tema" &&
+            <Tema search={search} />
+          }
+          {
+            action === "tv" &&
+            <TV />
+          }
+        </ModalBody>
       </ModalContent>
     </Modal>
   );

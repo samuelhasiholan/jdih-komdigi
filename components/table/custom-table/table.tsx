@@ -282,11 +282,9 @@ const TableWrapper = (
   const bottomContent =
     pages > 0 && !infiniteScroll ? (
       <div className="flex w-full items-center justify-center gap-4">
-        <div className="flex gap-4">
+        <div className="flex gap-4 overflow-hidden">
           <Pagination
-            isCompact
             showControls
-            showShadow
             color="primary"
             page={page}
             total={pages}

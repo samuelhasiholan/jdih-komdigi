@@ -19,12 +19,6 @@ export default function Tema({
   
   return (
     <div className="flex flex-col gap-4">
-      <TableHeaderWrapper
-        title=""
-        onSearch={null}
-        onExtra={null}
-      />
-
       <motion.div
         transition={{
           ease: "linear",
