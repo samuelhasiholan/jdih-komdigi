@@ -20,7 +20,7 @@ interface MainModalProps {
   title: string;
   isOpen: boolean;
   onOpenChange?: (open: boolean) => void;
-  onClose?: (open: boolean) => void;
+  onClose?: () => void;
 }
 
 export default function MainModal({
