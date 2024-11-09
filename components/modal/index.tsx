@@ -11,6 +11,7 @@ import Infografis from "@/components/infografis";
 import Search from "@/components/search";
 import Tema from "@/components/tema";
 import TV from "@/components/tv";
+import QR from "@/components/qr";
 import toast from "react-hot-toast";
 
 interface MainModalProps {
@@ -61,12 +62,15 @@ export default function MainModal({
       }
     >
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">
-          <div className="modal-head text-3xl font-bold">
-            {title}
-          </div>
-          <div className="long-bar"></div>
-        </ModalHeader>
+        {
+          action !== "qr" &&
+          <ModalHeader className="flex flex-col gap-1">
+            <div className="modal-head text-3xl font-bold">
+              {title}
+            </div>
+            <div className="long-bar"></div>
+          </ModalHeader>
+        }
         <ModalBody>
           {
             action === "berita" &&
@@ -87,6 +91,10 @@ export default function MainModal({
           {
             action === "tv" &&
             <TV />
+          }
+          {
+            action === "qr" &&
+            <QR />
           }
         </ModalBody>
       </ModalContent>

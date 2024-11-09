@@ -327,10 +327,10 @@ export default function Home() {
               <p className="text-small font-light">jdihkemkominfo@mail.kominfo.go.id</p>
               <p className="font-bold mt-4 mb-1">Media Sosial</p>
               <div className="flex gap-2">
-                <Image alt="facebook" src="assets/icon_fb.png" radius="none" removeWrapper/>
-                <Image alt="instagram" src="assets/icon_ig.png" radius="none" removeWrapper/>
-                <Image alt="youtube" src="assets/icon_yt.png" radius="none" removeWrapper/>
-                <Image alt="x" src="assets/icon_x.png" radius="none" removeWrapper/>
+                <Image alt="facebook" src="assets/icon_fb.png" radius="none" removeWrapper onClick={() => openModal("qr", "QR")}/>
+                <Image alt="instagram" src="assets/icon_ig.png" radius="none" removeWrapper onClick={() => openModal("qr", "QR")}/>
+                <Image alt="youtube" src="assets/icon_yt.png" radius="none" removeWrapper onClick={() => openModal("qr", "QR")}/>
+                <Image alt="x" src="assets/icon_x.png" radius="none" removeWrapper onClick={() => openModal("qr", "QR")}/>
               </div>
             </div>
             <div className="flex">
@@ -341,8 +341,8 @@ export default function Home() {
                 <p>Gunakan Apps JDIH</p>
                 <p>Unduh Sekarang</p>
                 <div className="flex gap-2 mt-4">
-                  <Image alt="appstore" src="assets/appstore.png" radius="none" removeWrapper/>
-                  <Image alt="gplay" src="assets/gplay.png" radius="none" removeWrapper/>
+                  <Image alt="appstore" src="assets/appstore.png" radius="none" removeWrapper onClick={() => openModal("qr", "QR")}/>
+                  <Image alt="gplay" src="assets/gplay.png" radius="none" removeWrapper onClick={() => openModal("qr", "QR")}/>
                 </div>
               </div>
             </div>
