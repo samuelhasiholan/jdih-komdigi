@@ -74,7 +74,7 @@ export default function MainModal({
         <ModalBody>
           {
             action === "berita" &&
-            <Berita />
+            <Berita search={search} />
           }
           {
             action === "infografis" &&
