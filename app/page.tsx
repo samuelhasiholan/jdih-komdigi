@@ -512,6 +512,7 @@ export default function Home() {
                                 <Button
                                     className="flex flex-col berita-card text-small gap-0"
                                     key={index}
+                                    onClick={() => openModal('berita', 'Berita', '86')}
                                 >
                                     <Image
                                         alt="produk"

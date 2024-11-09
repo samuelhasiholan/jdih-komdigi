@@ -16,6 +16,8 @@ export default function Berita({
   search,
 }: BeritaProps) {
   const tableRef = useRef<any>(null);
+  const [detail, setDetail] = useState<string>(search);
+
   const dummy = {
     judul: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
     img: "/assets/berita_thumbnail.png",
@@ -32,7 +34,7 @@ export default function Berita({
         }}
       >
         {
-          search
+          detail !== ""
           ? <div className="px-5 pb-5">
             <p className="text-xl text-center mb-5">{dummy.judul}</p>
             <Image
@@ -50,7 +52,12 @@ export default function Berita({
               removeWrapper
             />
             <p className="mb-3 text-primary">{dummy.date_created}</p>
-            <p>{dummy.content}</p>
+            <div>
+              { 
+                <div dangerouslySetInnerHTML={{__html: dummy.content.replace(/(<? *script)/gi, 'illegalscript')}} >
+                </div>
+              }
+            </div>
           </div>
           : <TableWrapper
             ref={tableRef}
@@ -88,13 +95,14 @@ export default function Berita({
                     <p className="font-bold mb-1 text-primary text-large">{value?.title}</p>
                     <p className="font-light text-xs mb-1" style={{ color: "#827272" }}>{value?.author+", pada "+value?.date}</p>
                     <p className="font-light mb-1" style={{ color: "#282828" }}>{value?.body}</p>
-                    <p className="font-light text-primary text-small">Selengkapnya ></p>
+                    <p className="font-light text-primary text-small" onClick={() => setDetail(value?.id)}>Selengkapnya ></p>
                   </div>
                 ),
               },
             ]}
             rawData={[
               {
+                id: 86,
                 img: "/assets/berita_thumbnail.png",
                 title: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
                 body: "Denpasar, 12/09/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) ...",
@@ -102,6 +110,7 @@ export default function Berita({
                 date: "Jumat, 13 September 2024",
               },
               {
+                id: 86,
                 img: "/assets/berita_thumbnail.png",
                 title: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
                 body: "Denpasar, 12/09/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) ...",
@@ -109,6 +118,7 @@ export default function Berita({
                 date: "Jumat, 13 September 2024",
               },
               {
+                id: 86,
                 img: "/assets/berita_thumbnail.png",
                 title: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
                 body: "Denpasar, 12/09/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) ...",
@@ -116,6 +126,7 @@ export default function Berita({
                 date: "Jumat, 13 September 2024",
               },
               {
+                id: 86,
                 img: "/assets/berita_thumbnail.png",
                 title: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
                 body: "Denpasar, 12/09/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) ...",
