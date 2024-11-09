@@ -19,12 +19,15 @@ import Tema from '@/components/tema'
 import TV from '@/components/tv'
 import QR from '@/components/qr'
 import toast from 'react-hot-toast'
+import VideoPlayer from '../video-player'
+import { Video } from '@/app/types/entities'
 
 interface MainModalProps {
     action: string
     search?: string
     title: string
     isOpen: boolean
+    video?: Video | null
     onOpenChange?: (open: boolean) => void
     onClose?: () => void
 }
@@ -34,6 +37,7 @@ export default function MainModal({
     search,
     title,
     isOpen = false,
+    video = null,
     onOpenChange,
     onClose,
 }: MainModalProps) {
@@ -107,6 +111,9 @@ export default function MainModal({
                     {action === 'tema' && <Tema search={search} />}
                     {action === 'tv' && <TV />}
                     {action === 'qr' && <QR />}
+                    {action === 'video' && (
+                        <VideoPlayer linkUrl={video?.linkUrl} />
+                    )}
                 </ModalBody>
             </ModalContent>
         </Modal>

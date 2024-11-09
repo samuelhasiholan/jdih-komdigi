@@ -17,3 +17,13 @@ export interface Berita {
     thumbnail: string
     date_created: string
 }
+
+export interface Video {
+    id: number
+    judul: string
+    filePath: string
+    linkUrl: string
+    createdAt: string
+    orders: number
+    previewPath: string
+}

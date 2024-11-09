@@ -9,6 +9,7 @@ import SectionBerita from '@/components/main/section-berita'
 import SectionInfografis from '@/components/main/section-infografis'
 import SectionFooter from '@/components/main/section-footer'
 import SectionHeader from '@/components/main/section-header'
+import { Video } from './types/entities'
 
 export default function Home() {
     const [search, setSearch] = useState<string>('')
@@ -16,18 +17,26 @@ export default function Home() {
     const [modalAction, setModalAction] = useState('')
     const [modalSearch, setModalSearch] = useState('')
     const [modalTitle, setModalTitle] = useState('')
+    const [modalVideo, setModalVideo] = useState<Video | null>(null)
 
     const onCloseMainModal = () => {
         setModalAction('')
         setModalSearch('')
         setModalTitle('')
+        setModalVideo(null)
     }
 
-    const openModal = (action: string, title: string, search: string = '') => {
+    const openModal = (
+        action: string,
+        title: string,
+        search: string = '',
+        video: Video | null = null,
+    ) => {
         setModalAction(action)
         setModalSearch(search)
         setModalTitle(title)
         setShowMainModal(true)
+        setModalVideo(video)
     }
 
     return (
@@ -37,7 +46,7 @@ export default function Home() {
                 <SectionTemaPeraturan openModal={openModal} />
                 <SectionProdukHukum />
                 <SectionFitur />
-                <SectionTv openModal={openModal} />
+                <SectionTv openModal={openModal} openModalVideo={openModal} />
                 <SectionBerita openModal={openModal} />
                 <SectionInfografis openModal={openModal} />
                 <SectionFooter openModal={openModal} />
@@ -46,6 +55,7 @@ export default function Home() {
                 action={modalAction}
                 search={modalSearch}
                 title={modalTitle}
+                video={modalVideo}
                 isOpen={showMainModal}
                 onOpenChange={(open) => setShowMainModal(open)}
                 onClose={() => onCloseMainModal()}

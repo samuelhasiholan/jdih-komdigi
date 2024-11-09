@@ -1,14 +1,57 @@
 import { Button } from '@nextui-org/button'
 import { PlayIcon } from '@/components/icons'
 import { Image } from '@nextui-org/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useHttp } from '@/app/hooks/useHttp'
+import { Video } from '@/app/types/entities'
+import moment from 'moment'
 
 export interface SectionTvProps {
     openModal: (type: string, title: string) => void
+    openModalVideo: (
+        type: string,
+        title: string,
+        search: string,
+        video: Video,
+    ) => void
 }
 
 const SectionTv: React.FC<SectionTvProps> = (props) => {
     const [video, setVideo] = useState([0, 1])
+    const { get, isLoading } = useHttp()
+    const [data, setData] = useState<Video[]>([])
+
+    const getData = async () => {
+        try {
+            const videos: Video[] = []
+            const res: any = await get('/site/video?limit=2')
+
+            if (res && res.data) {
+                res.data.map((item: any) => {
+                    videos.push({
+                        id: item.id,
+                        judul: item.judul,
+                        filePath: item.file_path,
+                        linkUrl:
+                            process.env.NEXT_PUBLIC_FILE_URL +
+                            '/' +
+                            item.file_path,
+                        createdAt: moment(item.created_at).format(
+                            'DD MMMM YYYY',
+                        ),
+                        orders: item.orders,
+                        previewPath: item.preview_path,
+                    })
+                })
+            }
+
+            setData(videos)
+        } catch (error) {}
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
 
     return (
         <section className="main-section flex flex-col py-11">
@@ -32,27 +75,43 @@ const SectionTv: React.FC<SectionTvProps> = (props) => {
                 </button>
             </div>
             <div className="grid grid-cols-2 gap-4">
-                {video &&
-                    video?.map((value, index) => (
-                        <Button className="video-card text-xl" key={index}>
+                {data &&
+                    data?.map((value, index) => (
+                        <Button
+                            className="video-card text-xl"
+                            key={index}
+                            onClick={() =>
+                                props.openModalVideo(
+                                    'video',
+                                    'JDIH Kenkomdigi TV',
+                                    '',
+                                    value,
+                                )
+                            }
+                        >
                             <div className="video-card-date">
                                 <PlayIcon />
-                                <span className="ml-2">572</span>
                             </div>
                             <Image
                                 className="mr-1"
                                 width={200}
                                 alt="pos"
                                 radius="none"
-                                src="assets/video_thumbnail.png"
+                                src={
+                                    process.env.NEXT_PUBLIC_FILE_URL +
+                                    '/' +
+                                    value.previewPath
+                                }
                                 removeWrapper
                             />
                             <div className="text-left text-small">
+                                {value?.linkUrl}
                                 <p className="whitespace-normal font-bold mb-2">
-                                    UNDANG-UNDANG PERLINDUNGAN DATA PRIBADI -
-                                    #KOMINFOPEDIA
+                                    {value?.judul}
                                 </p>
-                                <p className="whitespace-normal">27 Okt 2021</p>
+                                <p className="whitespace-normal">
+                                    {value?.createdAt}
+                                </p>
                             </div>
                         </Button>
                     ))}
