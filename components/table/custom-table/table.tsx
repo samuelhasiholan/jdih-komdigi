@@ -50,6 +50,7 @@ const TableWrapper = (
         extraActions,
         rawData,
         rawTotal,
+        rawPage,
         defaultSortDescriptor,
         bgClear = false,
         onPageChanged = (page: number) => {},
@@ -156,7 +157,8 @@ const TableWrapper = (
                 setData(filterData.slice(begin, end))
                 setTotal(filterData.length)
             } else {
-                setData(rawData.slice(begin, end))
+                setData(rawData)
+                setPage(rawPage)
                 setTotal(rawTotal)
             }
             setIsLoading(false)

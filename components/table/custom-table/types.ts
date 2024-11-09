@@ -19,6 +19,7 @@ export interface TableWrapperProps {
     extraActions?: (item: any) => React.ReactNode
     rawData?: Array<any>
     rawTotal?: number
+    rawPage?: number
     defaultSortDescriptor?: {
         column: string
         direction: 'ascending' | 'descending'

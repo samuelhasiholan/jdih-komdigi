@@ -172,6 +172,7 @@ export default function Search({ search = '' }: SearchProps) {
                         },
                     ]}
                     rawData={data}
+                    rawPage={currentPage}
                     rawTotal={total}
                 />
             </motion.div>
