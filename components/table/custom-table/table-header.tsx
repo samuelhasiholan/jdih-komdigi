@@ -6,90 +6,51 @@ import { Input } from "@nextui-org/input";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import SelectInput from "@/components/select";
 
 interface TableHeaderWrapperProps {
-  module: string;
-  icon?: any;
-  title?: string;
-  addButtonRedirect?: string;
-  addButtonTitle?: string;
-  onAdd?: () => void;
+  initSearch: string;
   onSearch?: (value: string) => void;
   onExtra?: any;
+  onExtraTwo?: any;
+  onExtraTitle?: string;
+  onExtraTwoTitle?: string;
   formRef?: any;
 }
 
 export default function TableHeaderWrapper({
-  module,
-  icon,
-  title,
-  addButtonRedirect,
-  addButtonTitle,
-  onAdd,
+  initSearch,
   onSearch,
   onExtra,
+  onExtraTwo,
+  onExtraTitle,
+  onExtraTwoTitle,
 }: TableHeaderWrapperProps) {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>(initSearch || "");
   const [isSearchFocused, setIsSearchFocused] = useState<boolean>(false);
   const router = useRouter();
-
+  
   return (
     <div className="flex flex-wrap items-center justify-between gap-4">
-      <div className="flex items-center gap-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            transition: { type: "spring", delay: 0.05 },
-          }}
-          exit={{ opacity: 0, translateX: 30 }}
-          transition={{
-            ease: "linear",
-            duration: 0.2,
-          }}
-        >
-          <div className="!scale-110">{icon}</div>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, translateX: -30 }}
-          animate={{
-            opacity: 1,
-            translateX: 0,
-            transition: { type: "spring" },
-          }}
-          exit={{ opacity: 0, translateX: 30 }}
-          transition={{
-            ease: "linear",
-            duration: 0.2,
-          }}
-          className="text-2xl mb-0 font-bold"
-        >
-          {title}
-        </motion.div>
-      </div>
-
-      {
-        onSearch &&
-        <div className="flex flex-wrap items-center gap-4 justify-between w-full sm:w-min">
-          <div className="flex flex-wrap items-center justify-between p-0 w-full sm:flex-nowrap">
-            <form
-              className="flex items-center gap-4 w-full"
-              onSubmit={(e) => {
-                e.preventDefault();
-                onSearch && onSearch(search);
-              }}
-            >
+      <form
+        className="flex items-center w-full rounded-xl overflow-hidden"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSearch && onSearch(search);
+        }}
+      >
+        <div className="grid grid-cols-5 items-center w-full">
+          {
+            onSearch &&
+            <div className="col-span-2">
               <Input
-                className={`w-full ${
-                  isSearchFocused ? "sm:w-[250px]" : "sm:w-[135px]"
-                } transition-all duration-300`}
+                className="w-full"
+                radius="none"
                 size="md"
-                placeholder="Search"
+                placeholder="Masukan Kata Pencarian"
                 isClearable
                 onClear={() => {
                   setSearch("");
-                  onSearch && onSearch("");
                 }}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
@@ -97,29 +58,57 @@ export default function TableHeaderWrapper({
                 onChange={(e) => {
                   const value = e.target.value;
                   setSearch(value);
-                  if (onSearch && !value) {
-                    onSearch("");
-                  }
                 }}
-                startContent={
-                  <Button
-                    disableRipple
-                    isIconOnly
-                    size="sm"
-                    variant="flat"
-                    className="bg-transparent active:scale-75 pointer-events-none"
-                    onPress={() => (onSearch ? onSearch(search) : undefined)}
-                  >
-                    <SearchIcon fill="text-primary-100" size={16} />
-                  </Button>
-                }
               />
-
-              {onExtra}
-            </form>
-          </div>
+            </div>
+          }
+          {
+            onExtra &&
+            <div className="col-span-2">
+              <SelectInput
+                key={`select-1`}
+                placeholder={onExtraTitle}
+                labelPlacement="outside"
+                items={onExtra}
+                itemLabel="label"
+                itemValue="value"
+                selectInputIndex={1}
+              />
+            </div>
+          }
+          {
+            onExtraTwo &&
+            <div>
+              <SelectInput
+                key={`select-2`}
+                placeholder={onExtraTwoTitle}
+                labelPlacement="outside"
+                items={onExtraTwo}
+                itemLabel="label"
+                itemValue="value"
+                selectInputIndex={2}
+              />
+            </div>
+          }
         </div>
-      }
+        <div style={{ alignSelf: "stretch" }}>
+          {
+            onSearch &&
+            <Button
+              disableRipple
+              isIconOnly
+              size="sm"
+              variant="flat"
+              radius="none"
+              className="active:scale-75 h-full w-10"
+              style={{ backgroundColor: "#F9AB00" }}
+              type="submit"
+            >
+              <SearchIcon fill="white" size={16} />
+            </Button>
+          }
+        </div>
+      </form>
     </div>
   );
 }

@@ -9,25 +9,19 @@ import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
 
 interface TemaProps {
-  content: string;
+  search: string;
 }
 
 export default function Tema({
-  content,
+  search,
 }: TemaProps) {
   const tableRef = useRef<any>(null);
   
   return (
     <div className="flex flex-col gap-4">
       <div className="text-sm">
-        <span style={{ color: "#444444", letterSpacing: "0.15px" }}>Daftar Produk Untuk {" "+content}</span>
+        <span style={{ color: "#444444", letterSpacing: "0.15px" }}>Daftar Produk Untuk {" "+search}</span>
       </div>
-      <TableHeaderWrapper
-        title=""
-        onSearch={null}
-        onExtra={null}
-      />
-
       <motion.div
         transition={{
           ease: "linear",

@@ -263,7 +263,7 @@ const TableWrapper = (
         isLoading 
         ? ""
         : data
-          ? <div className="grid grid-cols-3 gap-4 mb-10">
+          ? <div className="grid grid-cols-3 gap-4 mt-3 mb-4">
               {
                 data.map((value, index) => (
                   <Button className="flex flex-col block-card text-small gap-0" key={index}>

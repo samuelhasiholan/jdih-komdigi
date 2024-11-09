@@ -19,7 +19,6 @@ export default function TV() {
         onSearch={(value) => tableRef.current?.search(value)}
         onExtra={null}
       />
-
       <motion.div
         transition={{
           ease: "linear",
