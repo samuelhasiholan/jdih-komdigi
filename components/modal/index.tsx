@@ -56,7 +56,10 @@ export default function MainModal({
       isOpen={isOpen}
       backdrop="blur"
       onOpenChange={onOpenChange}
-      onClose={onClose}
+      onClose={() => {
+        setDetail("");
+        onClose();
+      }}
       placement="center"
       scrollBehavior="inside"
       classNames={{

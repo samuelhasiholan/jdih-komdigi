@@ -1,13 +1,41 @@
+import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/button'
+import { Berita } from '@/app/types/entities'
 import { Image } from '@nextui-org/image'
-import { useState } from 'react'
+import { useHttp } from '@/app/hooks/useHttp'
 
 export interface SectionBeritaProps {
-    openModal: (type: string, title: string) => void
+    openModal: (type: string, title: string, search: string) => void
 }
 
 const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
-    const [berita, setBerita] = useState([0, 1, 2])
+    const { get, isLoading } = useHttp()
+    const [dataTop5, setDataTop5] = useState<Berita[]>([])
+
+    const top5 = async () => {
+        get('/berita/top5').then((res: any) => {
+            const data: Berita[] = []
+
+            if (res?.data && res?.data.length > 0) {
+                res?.data.map((item: any) => {
+                    data.push({
+                        id: item.id,
+                        judul: item.judul,
+                        excerpt: item.excerpt,
+                        content: item.content,
+                        thumbnail: item.image_path,
+                        dateCreated: item.date_created,
+                    })
+                })
+            }
+
+            setDataTop5(data)
+        })
+    }
+
+    useEffect(() => {
+        top5()
+    }, [])
 
     return (
         <section className="secondary-section flex flex-col py-11">
@@ -29,36 +57,36 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                 </button>
             </div>
             <div className="grid grid-cols-3 gap-4">
-                {berita &&
-                    berita?.map((value, index) => (
+                {dataTop5 &&
+                    dataTop5?.map((value, index) => (
                         <Button
                             className="flex flex-col berita-card text-small gap-0"
                             key={index}
+                            onClick={() => props.openModal('berita', 'Berita', value.id)}
                         >
                             <Image
-                                alt="produk"
-                                className="object-cover w-full"
-                                src="assets/berita_thumbnail.png"
-                                radius="none"
+                                alt="berita"
+                                height={150}
+                                className="object-cover rounded-medium w-full"
+                                src={
+                                    process.env.NEXT_PUBLIC_PICTURE_URL +
+                                    '/' +
+                                    value.thumbnail
+                                }
                                 removeWrapper
                             />
                             <div className="berita-card-body">
                                 <p style={{ color: '#BBBBBB' }}>
-                                    Jumat, 13 September 2024
+                                    {value.dateCreated}
                                 </p>
                                 <p className="font-bold mt-2">
-                                    Benchmarking Pengelola JDIH Kementerian
-                                    Komunikasi dan Informatika dengan Pengelola
-                                    JDIH Provinsi Bali
+                                {value.judul}
                                 </p>
                                 <span
                                     className="font-light mt-2"
                                     style={{ color: '#827272' }}
                                 >
-                                    Denpasar, 12/09/2024 – Pengelola Jaringan
-                                    Dokumentasi dan Informasi Hukum Kementerian
-                                    Komunikasi dan Informatika (JDIH Kemkominfo)
-                                    ...
+                                    {value.excerpt}
                                 </span>
                             </div>
                         </Button>

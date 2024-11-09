@@ -6,3 +6,12 @@ export interface ProdukHukum {
     thumbnail: string
     bidangHukum: string
 }
+
+export interface Berita {
+    id: number
+    judul: string
+    excerpt: string
+    content: string
+    thumbnail: string
+    date_created: string
+}
