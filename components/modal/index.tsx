@@ -35,6 +35,14 @@ export default function MainModal({
     (state) => state.dashboard
   );
 
+  const [detail, setDetail] = useState<string>(search);
+  
+  useEffect(() => {
+    if (search) {
+      setDetail(search);
+    }
+  }, [search]);
+
   useEffect(() => {
     if (error) {
       toast.dismiss();
@@ -65,8 +73,16 @@ export default function MainModal({
         {
           action !== "qr" &&
           <ModalHeader className="flex flex-col gap-1">
-            <div className="modal-head text-3xl font-bold">
-              {title}
+            <div className="modal-head flex">
+              {
+                detail &&
+                <div className="mr-3" onClick={() => setDetail("")}>
+                  <BackIcon />
+                </div>
+              }
+              <span className="text-3xl font-bold">
+                {title}
+              </span>
             </div>
             <div className="long-bar"></div>
           </ModalHeader>
@@ -74,7 +90,7 @@ export default function MainModal({
         <ModalBody>
           {
             action === "berita" &&
-            <Berita search={search} />
+            <Berita search={detail} onOpen={(value) => setDetail(value)} />
           }
           {
             action === "infografis" &&

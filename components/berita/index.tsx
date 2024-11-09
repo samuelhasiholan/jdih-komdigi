@@ -10,14 +10,15 @@ import { useEffect, useRef, useState } from "react";
 
 interface BeritaProps {
   search: string;
+  onOpen: () => void;
 }
 
 export default function Berita({
   search,
+  onOpen,
 }: BeritaProps) {
   const tableRef = useRef<any>(null);
-  const [detail, setDetail] = useState<string>(search);
-
+  // console.log(search);
   const dummy = {
     judul: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
     img: "/assets/berita_thumbnail.png",
@@ -34,7 +35,7 @@ export default function Berita({
         }}
       >
         {
-          detail !== ""
+          search !== ""
           ? <div className="px-5 pb-5">
             <p className="text-xl text-center mb-5">{dummy.judul}</p>
             <Image
@@ -91,11 +92,11 @@ export default function Berita({
                 id: "desc",
                 name: "DESC",
                 format: (value: any) => (
-                  <div style={{ paddingRight: "10px" }}>
+                  <div style={{ paddingRight: "10px" }} onClick={() => onOpen(value?.id)}>
                     <p className="font-bold mb-1 text-primary text-large">{value?.title}</p>
                     <p className="font-light text-xs mb-1" style={{ color: "#827272" }}>{value?.author+", pada "+value?.date}</p>
                     <p className="font-light mb-1" style={{ color: "#282828" }}>{value?.body}</p>
-                    <p className="font-light text-primary text-small" onClick={() => setDetail(value?.id)}>Selengkapnya ></p>
+                    <p className="font-light text-primary text-small">Selengkapnya ></p>
                   </div>
                 ),
               },
