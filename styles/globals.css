@@ -122,6 +122,9 @@
 }
 
 @layer components {
+    .highlight {
+        background: yellow;
+    }
     .main-section {
         padding: 44px 50px;
     }
@@ -200,6 +203,7 @@
     .produk-card-descr {
         font-size: 10px;
     }
+
     .video-card {
         display: flex;
         justify-content: flex-start !important;

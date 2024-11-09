@@ -5,4 +5,6 @@ export interface ProdukHukum {
     filePath: string
     thumbnail: string
     bidangHukum: string
+    content?: string
+    uploadDate?: string
 }
