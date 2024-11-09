@@ -8,3 +8,12 @@ export interface ProdukHukum {
     content?: string
     uploadDate?: string
 }
+
+export interface Berita {
+    id: number
+    judul: string
+    excerpt: string
+    content: string
+    thumbnail: string
+    date_created: string
+}

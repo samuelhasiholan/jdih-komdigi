@@ -7,6 +7,8 @@ import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
+import { Berita } from '@/app/types/entities'
+import { useHttp } from '@/app/hooks/useHttp'
 
 interface BeritaProps {
   search: string;
@@ -18,13 +20,33 @@ export default function Berita({
   onOpen,
 }: BeritaProps) {
   const tableRef = useRef<any>(null);
-  // console.log(search);
-  const dummy = {
-    judul: "Benchmarking Pengelola JDIH Kementerian Komunikasi dan Informatika dengan Pengelola JDIH Provinsi Bali",
-    img: "/assets/berita_thumbnail.png",
-    content: "Jakarta, 13/06/2024 – Pengelola Jaringan Dokumentasi dan Informasi Hukum Pemerintah Provinsi Bali (JDIH Pemprov Bali) telah melakukan kunjungan kerja ke Tim Pengelola JDIH Kementerian Komunikasi dan Informatika (JDIH Kemkominfo) pada tanggal 11 Juni 2024, di Kantor Biro Hukum Sekretariat Jenderal Kemkominfo, Jakarta. Tujuan kunjungan ini adalah untuk melakukan knowledge sharing terkait pengelolaan JDIH Kemkominfo.<br><br>Kunjungan diterima oleh Prananto Nindyo Adi Nugroho selaku Ketua Tim Bantuan dan Dokumentasi Hukum, Biro Hukum, dengan didampingi Tim Pengelola JDIH Kemkominfo. Pada kesempatan ini, Prananto menjelaskan bahwa pengelolaan JDIH Kemkominfo dilakukan berdasarkan Standar Operasional Procedure (SOP) JDIH Kemkominfo yang sudah ada, yaitu SOP terkait Pembuatan dan Distribusi Salinan Peraturan Menteri, SOP Pembuatan Abstrak Peraturan Menteri Kominfo dan SOP Layanan Konsultasi Hukum pada Website JDIH.<br><br>Selanjutnya, Lailah, PIC Dokumentasi Hukum menyampaikan inovasi pengelolaan JDIH Kemkominfo Tahun 2023, salah satunya adalah implementasi fitur Tanda Tangan Elektronik (TTE) pada Manajemen Admin JDIH. Sebelum adanya fitur ini, pembubuhan TTE pada salinan Peraturan Menteri dilakukan melalui Aplikasi Simaya, yang merupakan aplikasi persuratan di internal Kementerian Kominfo. Namun, semenjak tahun 2023, proses pembubuhan TTE dilakukan dalam sistem manajemen admin JDIH, menjadi satu kesatuan dengan proses upload salinan Peraturan Menteri.<br><br>Di penghujung diskusi, pengelola JDIH Kementerian Kominfo dan pengelola JDIH Pemprov Bali saling memberikan masukan dan saran terkait pengelolaan JDIH di instansi masing-masing dengan harapan keduanya dapat mengoptimalkan pengelolaan JDIH. (Lailah)<br><br>",
-    date_created: "2024-06-13",
+  const { get, isLoading } = useHttp()
+  const [dataDetail, setDataDetail] = useState<Berita>({})
+
+  const detailBerita = async (id) => {
+      get('/berita/detail/'+id).then((res: any) => {
+          const data: Berita[] = []
+
+          if (res?.data) {
+            if (res?.data.berita) {
+              setDataDetail({
+                  id: res?.data.berita.id,
+                  judul: res?.data.berita.judul,
+                  excerpt: res?.data.berita.excerpt,
+                  content: res?.data.berita.content,
+                  thumbnail: res?.data.berita.image_path,
+                  dateCreated: res?.data.berita.date_created,
+              })
+            }
+          }
+      })
   }
+  
+  useEffect(() => {
+    if(search){
+      detailBerita(search); 
+    }
+  }, [search])
 
   return (
     <div className="flex flex-col gap-4">
@@ -37,9 +59,13 @@ export default function Berita({
         {
           search !== ""
           ? <div className="px-5 pb-5">
-            <p className="text-xl text-center mb-5">{dummy.judul}</p>
+            <p className="text-xl text-center mb-5">{dataDetail.judul}</p>
             <Image
-              src={dummy?.img || emptyImg.src}
+              src={
+                  process.env.NEXT_PUBLIC_PICTURE_URL +
+                  '/' +
+                  dataDetail.thumbnail
+              }
               alt="image"
               layout="fill"
               radius="md"
@@ -52,10 +78,11 @@ export default function Berita({
               }}
               removeWrapper
             />
-            <p className="mb-3 text-primary">{dummy.date_created}</p>
+            <p className="mb-3 text-primary">{dataDetail.dateCreated}</p>
             <div>
               { 
-                <div dangerouslySetInnerHTML={{__html: dummy.content.replace(/(<? *script)/gi, 'illegalscript')}} >
+                dataDetail.content &&
+                <div dangerouslySetInnerHTML={{__html: dataDetail.content.replace(/(<? *script)/gi, 'illegalscript')}} >
                 </div>
               }
             </div>

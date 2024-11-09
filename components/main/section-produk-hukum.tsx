@@ -12,8 +12,8 @@ const SectionProdukHukum: React.FC = () => {
         get('/produk-hukum/top5').then((res: any) => {
             const data: ProdukHukum[] = []
 
-            if (res.data && res.data.length > 0) {
-                res.data.map((item: any) => {
+            if (res?.data && res?.data.length > 0) {
+                res?.data.map((item: any) => {
                     data.push({
                         id: item.id,
                         productName: item.product_name,

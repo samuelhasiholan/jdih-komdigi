@@ -62,7 +62,10 @@ export default function MainModal({
             isOpen={isOpen}
             backdrop="blur"
             onOpenChange={onOpenChange}
-            onClose={onClose}
+            onClose={() => {
+                setDetail('')
+                onClose()
+            }}
             placement="center"
             scrollBehavior="inside"
             classNames={{
@@ -80,12 +83,12 @@ export default function MainModal({
                     <ModalHeader className="flex flex-col gap-1">
                         <div className="modal-head flex">
                             {detail && (
-                                <button
+                                <div
                                     className="mr-3"
                                     onClick={() => setDetail('')}
                                 >
                                     <BackIcon />
-                                </button>
+                                </div>
                             )}
                             <span className="text-3xl font-bold">{title}</span>
                         </div>
@@ -96,7 +99,7 @@ export default function MainModal({
                     {action === 'berita' && (
                         <Berita
                             search={detail}
-                            onOpen={(value: any) => setDetail(value)}
+                            onOpen={(value) => setDetail(value)}
                         />
                     )}
                     {action === 'infografis' && <Infografis />}
