@@ -51,6 +51,7 @@ const TableWrapper = (
         rawData,
         rawTotal,
         rawPage,
+        rawLoading,
         defaultSortDescriptor,
         bgClear = false,
         onPageChanged = (page: number) => {},
@@ -80,7 +81,7 @@ const TableWrapper = (
     const [selectedItem, setSelectedItem] = useState<any>(null)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
     const [isDeleteLoading, setIsDeleteLoading] = useState(false)
-
+    
     const fetchData = async () => {
         if (isLoading) return
 
@@ -306,14 +307,11 @@ const TableWrapper = (
     return (
         <div className="[& .nextui-table-container]:shadow-none] w-full">
             <Skeleton
-                isLoaded={!isLoading}
-                className="rounded-lg !bg-transparent mb-1"
+                isLoaded={!rawLoading}
+                className="inline-block rounded-lg !bg-transparent mb-1"
             >
-                <div className="text-sm">
-                    <span
-                        className="hidden md:inline"
-                        style={{ color: '#444444', letterSpacing: '0.15px' }}
-                    >
+                <div className="text-sm inline-block">
+                    <span style={{ color: '#444444', letterSpacing: '0.15px' }}>
                         Menampilkan
                     </span>{' '}
                     {data?.length
@@ -325,148 +323,153 @@ const TableWrapper = (
                         : 0}
                 </div>
             </Skeleton>
-            <Table
-                // baseRef={scrollerRef}
-                hideHeader
-                removeWrapper
-                aria-label="Dynamic Table"
-                onSortChange={(e: any) => {
-                    if (sortDescriptor.column === '') {
-                        setSortDescriptor(e)
-                    } else if (sortDescriptor?.direction === 'ascending') {
-                        setSortDescriptor(e)
-                    } else if (sortDescriptor?.direction === 'descending') {
-                        setSortDescriptor({
-                            column: '',
-                            direction: 'descending',
-                        })
-                    }
-                }}
-                sortDescriptor={sortDescriptor}
-                bottomContent={bottomContent}
-                bottomContentPlacement="outside"
-                isHeaderSticky
-                classNames={{
-                    wrapper: `p-2 bg-content1/70 ${
-                        !infiniteScroll && 'overflow-y-hidden'
-                    }`,
-                    emptyWrapper: '!h-auto',
-                    base: `${
-                        infiniteScroll && 'max-h-[calc(100dvh-194px)]'
-                    } shadow-xs rounded-xl`,
-                    table: `${
-                        infiniteScroll && 'max-h-[calc(100dvh-178px)]'
-                    } overflow-scroll`,
-                }}
-                style={{
-                    borderCollapse: 'separate',
-                    borderSpacing: '0 .75em',
-                }}
-            >
-                <TableHeader columns={columnsShown.filter((c) => c?.show)}>
-                    {(column) =>
-                        column.id !== 'actions' ? (
-                            <TableColumn
-                                key={column.id}
-                                hideHeader={column.id === 'actions'}
-                                align={
-                                    ['actions', 'no'].includes(column.id)
-                                        ? 'center'
-                                        : column?.align || 'start'
-                                }
-                                allowsSorting={column.sortable}
-                                style={{
-                                    minWidth: column?.width
-                                        ? column.width
-                                        : colWidth(column.id),
-                                    width: column?.width
-                                        ? column.width
-                                        : colWidth(column.id),
-                                }}
-                            >
-                                <motion.span
-                                    initial={{ opacity: 0 }}
-                                    animate={{
-                                        opacity: 1,
-                                        transition: { delay: 0.4 },
-                                    }}
-                                    exit={{ opacity: 0 }}
-                                >
-                                    {
-                                        columns?.find((c) => c.id === column.id)
-                                            ?.name
-                                    }
-                                </motion.span>
-                            </TableColumn>
-                        ) : (
-                            dropdownColumn(columns)
-                        )
-                    }
-                </TableHeader>
-                <TableBody
-                    isLoading={isLoading}
-                    // items={infiniteScroll ? list.items : data}
-                    items={data}
-                    // loadingContent={<Spinner className="mt-8" />}
-                    emptyContent={
-                        isLoading ? (
-                            ''
-                        ) : (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{
-                                    height: 200,
-                                    opacity: 1,
-                                    transition: { delay: 0.4 },
-                                }}
-                                exit={{
-                                    height: 0,
-                                    opacity: 0,
-                                }}
-                                className="flex items-center justify-center p-0 overflow-hidden"
-                            >
-                                No data found
-                            </motion.div>
-                        )
-                    }
-                >
-                    {data.map((item, index) => (
-                        <TableRow
-                            key={`row-${index}`}
-                            className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn ${bgClear ? '' : 'custom-table-row'}`}
-                            style={{
-                                animationDelay: `${index * 50}ms`,
-                                animationFillMode: 'forwards',
-                            }}
-                            onClick={() => onView && onView(item)}
-                        >
-                            {(columnKey) => (
-                                <TableCell key={columnKey} className="p-0">
-                                    <div className="px-1">
-                                        <div className="p-2">
-                                            {RenderCell({
-                                                columns: columns,
-                                                index:
-                                                    (page - 1) * rowsPerPage +
-                                                    index,
-                                                item: item,
-                                                columnKey: columnKey,
-                                                onView,
-                                                onUpdate,
-                                                onDelete: (item) => {
-                                                    setSelectedItem(item)
-                                                    setIsDeleteModalOpen(true)
-                                                },
-                                                extraActions,
-                                            })}
-                                        </div>
-                                    </div>
-                                </TableCell>
-                            )}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            {
+              rawLoading
+              ? <Skeleton className="w-full rounded-lg mb-3">
+                <div className="h-10 w-full rounded-lg bg-default-200"></div>
+              </Skeleton>
+              : <Table
+                  // baseRef={scrollerRef}
+                  hideHeader
+                  removeWrapper
+                  aria-label="Dynamic Table"
+                  onSortChange={(e: any) => {
+                      if (sortDescriptor.column === '') {
+                          setSortDescriptor(e)
+                      } else if (sortDescriptor?.direction === 'ascending') {
+                          setSortDescriptor(e)
+                      } else if (sortDescriptor?.direction === 'descending') {
+                          setSortDescriptor({
+                              column: '',
+                              direction: 'descending',
+                          })
+                      }
+                  }}
+                  sortDescriptor={sortDescriptor}
+                  isHeaderSticky
+                  classNames={{
+                      wrapper: `p-2 bg-content1/70 ${
+                          !infiniteScroll && 'overflow-y-hidden'
+                      }`,
+                      emptyWrapper: '!h-auto',
+                      base: `${
+                          infiniteScroll && 'max-h-[calc(100dvh-194px)]'
+                      } shadow-xs rounded-xl`,
+                      table: `${
+                          infiniteScroll && 'max-h-[calc(100dvh-178px)]'
+                      } overflow-scroll`,
+                  }}
+                  style={{
+                      borderCollapse: 'separate',
+                      borderSpacing: '0 .75em',
+                  }}
+              >
+                  <TableHeader columns={columnsShown.filter((c) => c?.show)}>
+                      {(column) =>
+                          column.id !== 'actions' ? (
+                              <TableColumn
+                                  key={column.id}
+                                  hideHeader={column.id === 'actions'}
+                                  align={
+                                      ['actions', 'no'].includes(column.id)
+                                          ? 'center'
+                                          : column?.align || 'start'
+                                  }
+                                  allowsSorting={column.sortable}
+                                  style={{
+                                      minWidth: column?.width
+                                          ? column.width
+                                          : colWidth(column.id),
+                                      width: column?.width
+                                          ? column.width
+                                          : colWidth(column.id),
+                                  }}
+                              >
+                                  <motion.span
+                                      initial={{ opacity: 0 }}
+                                      animate={{
+                                          opacity: 1,
+                                          transition: { delay: 0.4 },
+                                      }}
+                                      exit={{ opacity: 0 }}
+                                  >
+                                      {
+                                          columns?.find((c) => c.id === column.id)
+                                              ?.name
+                                      }
+                                  </motion.span>
+                              </TableColumn>
+                          ) : (
+                              dropdownColumn(columns)
+                          )
+                      }
+                  </TableHeader>
+                  <TableBody
+                      isLoading={isLoading}
+                      // items={infiniteScroll ? list.items : data}
+                      items={data}
+                      // loadingContent={<Spinner className="mt-8" />}
+                      emptyContent={
+                          isLoading ? (
+                              ''
+                          ) : (
+                              <motion.div
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{
+                                      height: 200,
+                                      opacity: 1,
+                                      transition: { delay: 0.4 },
+                                  }}
+                                  exit={{
+                                      height: 0,
+                                      opacity: 0,
+                                  }}
+                                  className="flex items-center justify-center p-0 overflow-hidden"
+                              >
+                                  No data found
+                              </motion.div>
+                          )
+                      }
+                  >
+                      {data.map((item, index) => (
+                          <TableRow
+                              key={`row-${index}`}
+                              className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn ${bgClear ? '' : 'custom-table-row'}`}
+                              style={{
+                                  animationDelay: `${index * 50}ms`,
+                                  animationFillMode: 'forwards',
+                              }}
+                              onClick={() => onView && onView(item)}
+                          >
+                              {(columnKey) => (
+                                  <TableCell key={columnKey} className="p-0">
+                                      <div className="px-1">
+                                          <div className="p-2">
+                                              {RenderCell({
+                                                  columns: columns,
+                                                  index:
+                                                      (page - 1) * rowsPerPage +
+                                                      index,
+                                                  item: item,
+                                                  columnKey: columnKey,
+                                                  onView,
+                                                  onUpdate,
+                                                  onDelete: (item) => {
+                                                      setSelectedItem(item)
+                                                      setIsDeleteModalOpen(true)
+                                                  },
+                                                  extraActions,
+                                              })}
+                                          </div>
+                                      </div>
+                                  </TableCell>
+                              )}
+                          </TableRow>
+                      ))}
+                  </TableBody>
+              </Table>
+            }
+            {bottomContent}
         </div>
     )
 }
