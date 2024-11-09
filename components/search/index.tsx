@@ -19,15 +19,17 @@ interface SearchProps {
 export default function Search({ search = '' }: SearchProps) {
     const formRef = useRef<any>(null)
     const tableRef = useRef<any>(null)
+    const [currentSearch, setCurrentSearch] = useState<string>(search)
+    const [currentPage, setCurrentPage] = useState<number>(1)
     const [data, setData] = useState<ProdukHukum[]>([])
     const [total, setTotal] = useState<number>(1)
     const { get, isLoading } = useHttp()
 
-    const getData = async (keyword: string) => {
+    const getData = async () => {
         try {
             const dataProduk: ProdukHukum[] = []
             const res: any = await get(
-                `/produk-hukum/advance-search?tentang=${keyword}`,
+                `/produk-hukum/advance-search?tentang=${currentSearch}&page=${currentPage}`,
             )
             console.log(res.data)
             if (
@@ -57,6 +59,7 @@ export default function Search({ search = '' }: SearchProps) {
 
             setData(dataProduk)
             setTotal(res.data.total)
+            tableRef.current?.setTotal(20)
             // tableRef.current?.setData(dataProduk)
             console.log(dataProduk)
         } catch (error) {
@@ -65,23 +68,28 @@ export default function Search({ search = '' }: SearchProps) {
     }
 
     useEffect(() => {
-        if (search) {
-            getData(search)
+        if (currentSearch) {
+            setCurrentPage(1)
+            getData()
             // tableRef.current?.search(search)
         }
-    }, [search])
+    }, [currentSearch])
+
+    useEffect(() => {
+        getData()
+    }, [currentPage])
 
     return (
         <div className="flex flex-col gap-4">
             <TableHeaderWrapper
                 initSearch={search}
-                onSearch={(value) => {
-                    getData(value)
-                }}
                 onExtra={jenisPeraturanList}
                 onExtraTitle="Pilih Jenis Peraturan"
                 onExtraTwo={tahunList}
                 onExtraTwoTitle="Semua Tahun"
+                onSearch={(value) => {
+                    setCurrentSearch(value)
+                }}
             />
             <motion.div
                 transition={{
@@ -94,6 +102,9 @@ export default function Search({ search = '' }: SearchProps) {
                     module=""
                     ref={tableRef}
                     title=""
+                    onPageChanged={(page: number) => {
+                        setCurrentPage(page)
+                    }}
                     // url=""
                     columns={[
                         {
