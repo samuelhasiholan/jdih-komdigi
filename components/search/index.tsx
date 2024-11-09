@@ -48,7 +48,7 @@ export default function Search({ search = '' }: SearchProps) {
                             item.thumbnail,
                         content: item.content,
                         uploadDate: moment(item.upload_date).format(
-                            'DD MMM YYYY',
+                            'DD MMMM YYYY',
                         ),
                     })
                 })

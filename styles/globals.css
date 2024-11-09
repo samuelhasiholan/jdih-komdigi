@@ -122,9 +122,6 @@
 }
 
 @layer components {
-    .highlight {
-        background: yellow;
-    }
     .main-section {
         padding: 44px 50px;
     }
@@ -295,4 +292,7 @@
             background-color: #e7edf6 !important;
         }
     }
+}
+span.highlight {
+    background: yellow;
 }
