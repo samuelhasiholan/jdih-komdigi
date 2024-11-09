@@ -20,6 +20,7 @@ export interface TableWrapperProps {
     rawData?: Array<any>
     rawTotal?: number
     rawPage?: number
+    rawLoading?: boolean
     defaultSortDescriptor?: {
         column: string
         direction: 'ascending' | 'descending'

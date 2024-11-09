@@ -59,9 +59,6 @@ export default function Search({ search = '' }: SearchProps) {
 
             setData(dataProduk)
             setTotal(res.data.total)
-            tableRef.current?.setTotal(20)
-            // tableRef.current?.setData(dataProduk)
-            console.log(dataProduk)
         } catch (error) {
             console.log(error)
         }
@@ -174,6 +171,7 @@ export default function Search({ search = '' }: SearchProps) {
                     rawData={data}
                     rawPage={currentPage}
                     rawTotal={total}
+                    rawLoading={isLoading}
                 />
             </motion.div>
         </div>
