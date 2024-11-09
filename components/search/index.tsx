@@ -20,6 +20,7 @@ export default function Search({ search = '' }: SearchProps) {
     const formRef = useRef<any>(null)
     const tableRef = useRef<any>(null)
     const [data, setData] = useState<ProdukHukum[]>([])
+    const [total, setTotal] = useState<number>(1)
     const { get, isLoading } = useHttp()
 
     const getData = async (keyword: string) => {
@@ -55,6 +56,7 @@ export default function Search({ search = '' }: SearchProps) {
             }
 
             setData(dataProduk)
+            setTotal(res.data.total)
             // tableRef.current?.setData(dataProduk)
             console.log(dataProduk)
         } catch (error) {
@@ -159,6 +161,7 @@ export default function Search({ search = '' }: SearchProps) {
                         },
                     ]}
                     rawData={data}
+                    rawTotal={total}
                 />
             </motion.div>
         </div>

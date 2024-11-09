@@ -52,6 +52,7 @@ const TableWrapper = (
     onUpdate,
     extraActions,
     rawData,
+    rawTotal,
     defaultSortDescriptor,
     bgClear = false,
   }: TableWrapperProps,
@@ -151,7 +152,7 @@ const TableWrapper = (
         setTotal(filterData.length);
       } else {
         setData(rawData.slice(begin, end));
-        setTotal(rawData.length);
+        setTotal(rawTotal);
       }
       setIsLoading(false);
     }

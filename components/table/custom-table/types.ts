@@ -18,6 +18,7 @@ export interface TableWrapperProps {
     onDelete?: (item: any) => void;
     extraActions?: (item: any) => React.ReactNode;
     rawData?: Array<any>;
+    rawTotal?: number;
     defaultSortDescriptor?: {
         column: string;
         direction: "ascending" | "descending";
