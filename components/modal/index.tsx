@@ -20,7 +20,7 @@ interface MainModalProps {
   title: string;
   isOpen: boolean;
   onOpenChange?: (open: boolean) => void;
-  onClose?: (open: boolean) => void;
+  onClose?: () => void;
 }
 
 export default function MainModal({
@@ -34,6 +34,14 @@ export default function MainModal({
   const { isLoading, error }: DashboardState = useAppSelector(
     (state) => state.dashboard
   );
+
+  const [detail, setDetail] = useState<string>(search);
+  
+  useEffect(() => {
+    if (search) {
+      setDetail(search);
+    }
+  }, [search]);
 
   useEffect(() => {
     if (error) {
@@ -65,8 +73,16 @@ export default function MainModal({
         {
           action !== "qr" &&
           <ModalHeader className="flex flex-col gap-1">
-            <div className="modal-head text-3xl font-bold">
-              {title}
+            <div className="modal-head flex">
+              {
+                detail &&
+                <div className="mr-3" onClick={() => setDetail("")}>
+                  <BackIcon />
+                </div>
+              }
+              <span className="text-3xl font-bold">
+                {title}
+              </span>
             </div>
             <div className="long-bar"></div>
           </ModalHeader>
@@ -74,7 +90,7 @@ export default function MainModal({
         <ModalBody>
           {
             action === "berita" &&
-            <Berita />
+            <Berita search={detail} onOpen={(value) => setDetail(value)} />
           }
           {
             action === "infografis" &&
