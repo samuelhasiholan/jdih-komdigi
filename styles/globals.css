@@ -182,6 +182,7 @@
     .produk-card-body {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
         width: 100%;
         white-space: initial;
         color: #ffffff;
@@ -190,7 +191,6 @@
         text-align: left;
         font-size: 12px;
         letter-spacing: 0.025em;
-        height: 150px;
     }
     .produk-card-image {
         max-height: 140px;

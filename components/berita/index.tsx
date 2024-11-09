@@ -9,6 +9,7 @@ import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
 import { Berita } from '@/app/types/entities'
 import { useHttp } from '@/app/hooks/useHttp'
+import moment from "moment";
 
 interface BeritaProps {
   search: string;
@@ -47,7 +48,7 @@ export default function Berita({
       detailBerita(search); 
     }
   }, [search])
-
+  
   return (
     <div className="flex flex-col gap-4">
       <motion.div
@@ -78,7 +79,13 @@ export default function Berita({
               }}
               removeWrapper
             />
-            <p className="mb-3 text-primary">{dataDetail.dateCreated}</p>
+            <p className="mb-3 text-primary">
+              {
+                dataDetail?.dateCreated
+                ? moment(dataDetail?.dateCreated).format("dddd, DD MMMM YYYY")
+                : ""
+              }
+              </p>
             <div>
               { 
                 dataDetail.content &&

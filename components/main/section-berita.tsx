@@ -3,6 +3,7 @@ import { Button } from '@nextui-org/button'
 import { Berita } from '@/app/types/entities'
 import { Image } from '@nextui-org/image'
 import { useHttp } from '@/app/hooks/useHttp'
+import moment from 'moment'
 
 export interface SectionBeritaProps {
     openModal: (type: string, title: string, search: string) => void
@@ -77,7 +78,11 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                             />
                             <div className="berita-card-body">
                                 <p style={{ color: '#BBBBBB' }}>
-                                    {value.dateCreated}
+                                    {
+                                        value.dateCreated
+                                        ? moment(value.dateCreated).format("dddd, DD MMMM YYYY")
+                                        : ""
+                                    }
                                 </p>
                                 <p className="font-bold mt-2">
                                 {value.judul}
