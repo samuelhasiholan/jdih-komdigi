@@ -31,7 +31,7 @@ export default function Search({ search = '' }: SearchProps) {
             const res: any = await get(
                 `/produk-hukum/advance-search?tentang=${currentSearch}&page=${currentPage}`,
             )
-            console.log(res.data)
+            console.log(res?.data)
             if (
                 res &&
                 res.data &&
@@ -58,7 +58,7 @@ export default function Search({ search = '' }: SearchProps) {
             }
 
             setData(dataProduk)
-            setTotal(res.data.total)
+            setTotal(res?.data.total)
         } catch (error) {
             console.log(error)
         }

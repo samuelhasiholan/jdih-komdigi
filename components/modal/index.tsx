@@ -14,6 +14,7 @@ import { DashboardState } from '@/store/slice/dashboard'
 import { useEffect, useRef, useState } from 'react'
 import Berita from '@/components/berita'
 import Infografis from '@/components/infografis'
+import ProdukHukum from '@/components/produk-hukum'
 import Search from '@/components/search'
 import Tema from '@/components/tema'
 import TV from '@/components/tv'
@@ -102,6 +103,12 @@ export default function MainModal({
                 <ModalBody>
                     {action === 'berita' && (
                         <Berita
+                            search={detail}
+                            onOpen={(value) => setDetail(value)}
+                        />
+                    )}
+                    {action === 'produk' && (
+                        <ProdukHukum
                             search={detail}
                             onOpen={(value) => setDetail(value)}
                         />

@@ -7,74 +7,82 @@ import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
-import { Berita } from '@/app/types/entities';
+import { ProdukHukum } from '@/app/types/entities';
 import { useHttp } from '@/app/hooks/useHttp';
 import moment from "moment";
 
-interface BeritaProps {
+interface ProdukHukumProps {
   search: string;
   onOpen: () => void;
 }
 
-export default function Berita({
+export default function ProdukHukum({
   search,
   onOpen,
-}: BeritaProps) {
+}: ProdukHukumProps) {
   const tableRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [data, setData] = useState<Berita[]>([])
+  const [data, setData] = useState<ProdukHukum[]>([])
   const [total, setTotal] = useState<number>(1)
-  const [dataDetail, setDataDetail] = useState<Berita>({})
+  const [dataDetail, setDataDetail] = useState<ProdukHukum>({})
   const { get, isLoading } = useHttp()
 
   const getData = async () => {
       try {
-          const dataBerita: Berita[] = []
+          const dataProduk: ProdukHukum[] = []
           const res: any = await get(
-              `/berita/all?page=${currentPage}`,
+              `/produk-hukum/pencarian?tahun=&kategori=&tentang=&page=${currentPage}`,
           )
           console.log(res.data)
           if (
               res &&
               res.data &&
-              res.data.list &&
-              res.data.list.data &&
-              res.data.list.data.length > 0
+              res.data.produk &&
+              res.data.produk.data &&
+              res.data.produk.data.length > 0
           ) {
-              res.data.list.data.map((item: any) => {
-                  dataBerita.push({
-                      id:item.id,
-                      judul:item.judul,
-                      excerpt:item.excerpt,
-                      content:item.content,
-                      thumbnail:item.image_path,
-                      penulis:item.penulis,
-                      dateCreated:item.date_created,
+              res.data.produk.data.map((item: any) => {
+                  dataProduk.push({
+                      id: item.id,
+                      productName: item.product_name,
+                      descr: item.descr,
+                      filePath: item.file_path,
+                      bidangHukum: item.bidang_hukum,
+                      thumbnail:
+                          process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                          '/' +
+                          item.thumbnail,
+                      content: item.content,
+                      uploadDate: moment(item.upload_date).format(
+                          'DD MMMM YYYY',
+                      ),
                   })
               })
           }
 
-          setData(dataBerita)
-          setTotal(res.data.list.total)
+          setData(dataProduk)
+          setTotal(res.data.produk.total)
       } catch (error) {
           console.log(error)
       }
   }
 
-  const detailBerita = async (id) => {
-      get('/berita/detail/'+id).then((res: any) => {
-          const data: Berita[] = []
+  const detailProdukHukum = async (id) => {
+      get('/produk-hukum/detail/'+id).then((res: any) => {
+          const data: ProdukHukum[] = []
 
           if (res?.data) {
-            if (res?.data.berita) {
+            if (res?.data.produk) {
               setDataDetail({
-                  id: res?.data.berita.id,
-                  judul: res?.data.berita.judul,
-                  excerpt: res?.data.berita.excerpt,
-                  content: res?.data.berita.content,
-                  thumbnail: res?.data.berita.image_path,
-                  penulis: res?.data.berita.penulis,
-                  dateCreated: res?.data.berita.date_created,
+                  id: res?.data.produk.id,
+                  productName: res?.data.produk.product_name,
+                  descr: res?.data.produk.descr,
+                  filePath: res?.data.produk.file_path,
+                  thumbnail: res?.data.produk.thumbnail,
+                  bidangHukum: res?.data.produk.bidang_hukum,
+                  title: res?.data.produk.title,
+                  content: res?.data.produk.content,
+                  uploadDate: res?.data.produk.upload_date,
               })
             }
           }
@@ -83,7 +91,7 @@ export default function Berita({
   
   useEffect(() => {
     if (search) {
-      detailBerita(search); 
+      detailProdukHukum(search); 
     }
   }, [search])
 
@@ -102,7 +110,7 @@ export default function Berita({
         {
           search !== ""
           ? <div className="px-5 pb-5">
-            <p className="text-xl text-center mb-5">{dataDetail.judul}</p>
+            <p className="text-xl text-center mb-5">{dataDetail.title}</p>
             <Image
               src={
                   process.env.NEXT_PUBLIC_PICTURE_URL +
@@ -123,15 +131,8 @@ export default function Berita({
             />
             <p className="mb-3 text-primary">
               {
-                dataDetail?.penulis
-              }
-              {
-                dataDetail?.penulis && dataDetail?.dateCreated &&
-                ", pada "
-              }
-              {
-                dataDetail?.dateCreated
-                ? moment(dataDetail?.dateCreated).format("dddd, DD MMMM YYYY")
+                dataDetail?.uploadDate
+                ? moment(dataDetail?.uploadDate).format("dddd, DD MMMM YYYY")
                 : ""
               }
               </p>
@@ -146,9 +147,7 @@ export default function Berita({
           : <TableWrapper
             ref={tableRef}
             title=""
-            onPageChanged={(page: number) => {
-                setCurrentPage(page)
-            }}
+            // url=""
             bgClear={true}
             columns={[
               {
@@ -156,19 +155,12 @@ export default function Berita({
                 id: "img",
                 name: "IMAGE",
                 format: (value: any) => (
-                  <div style={{ width: "280px", height: "180px", position: "relative", borderRadius: "15px", overflow: "hidden" }}>
+                  <div style={{ width: "230px", height: "150px", position: "relative", borderRadius: "15px", overflow: "hidden" }}>
                     <Image
-                      removeWrapper
+                      src={value?.img || emptyImg.src}
                       alt="image"
-                      height={180}
-                      className="object-cover rounded-medium w-full"
-                      src={
-                        value?.thumbnail
-                        ? process.env.NEXT_PUBLIC_PICTURE_URL +
-                          '/' +
-                          value.thumbnail
-                        : emptyImg.src
-                      }
+                      layout="fill"
+                      className="w-full self-center object-cover"
                       onError={(event) => {
                         // @ts-ignore
                         event.target.src = emptyImg.src;
@@ -184,16 +176,10 @@ export default function Berita({
                 id: "desc",
                 name: "DESC",
                 format: (value: any) => (
-                  <div style={{ paddingRight: "10px" }} onClick={() => {setDataDetail({});onOpen(value?.id)}}>
-                    <p className="font-bold mb-1 text-primary text-large">{value?.judul}</p>
-                    <p className="font-light text-xs mb-1" style={{ color: "#827272" }}>{value?.penulis+", pada "+value?.dateCreated}</p>
-                    <p className="font-light mb-1" style={{ color: "#282828" }}>
-                      {
-                        value.excerpt.length > 200
-                        ? value.excerpt.substr(0, value.excerpt.slice(0, 200).lastIndexOf(" ")).concat("…")
-                        : value.excerpt
-                      }
-                    </p>
+                  <div style={{ paddingRight: "10px" }} onClick={() => onOpen(value?.id)}>
+                    <p className="font-bold mb-1 text-primary text-large">{value?.productName}</p>
+                    <p className="font-light text-xs mb-1" style={{ color: "#827272" }}>{"Diunggah pada "+value?.uploadDate}</p>
+                    <p className="font-light mb-1" style={{ color: "#282828" }}>{value?.descr}</p>
                     <p className="font-light text-primary text-small">Selengkapnya ></p>
                   </div>
                 ),

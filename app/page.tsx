@@ -44,8 +44,8 @@ export default function Home() {
             <div>
                 <SectionHeader openModal={openModal} />
                 <SectionTemaPeraturan openModal={openModal} />
-                <SectionProdukHukum />
-                <SectionFitur />
+                <SectionProdukHukum openModal={openModal} />
+                <SectionFitur openModal={openModal} />
                 <SectionTv openModal={openModal} openModalVideo={openModal} />
                 <SectionBerita openModal={openModal} />
                 <SectionInfografis openModal={openModal} />

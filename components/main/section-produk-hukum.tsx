@@ -8,7 +8,11 @@ import "react-multi-carousel/lib/styles.css";
 import emptyImg from "@/public/empty-image.png";
 import moment from "moment";
 
-const SectionProdukHukum: React.FC = () => {
+export interface SectionProdukHukumProps {
+    openModal: (type: string, title: string, search: string) => void
+}
+
+const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
     const { get, isLoading } = useHttp();
     const [dataTop5Produk, setDataTop5Produk] = useState<ProdukHukum[]>([]);
     const [dataPopularProduk, setDataPopularProduk] = useState<ProdukHukum[]>([]);
@@ -91,6 +95,7 @@ const SectionProdukHukum: React.FC = () => {
                             <Button
                                 className="flex flex-col produk-card text-small w-full gap-0"
                                 key={index}
+                                onClick={() => props.openModal('produk', 'Detail Produk Hukum', value.id)}
                             >
                                 {
                                     value?.uploadDate
@@ -136,6 +141,7 @@ const SectionProdukHukum: React.FC = () => {
                             <Button
                                 className="flex flex-col produk-card text-small w-full gap-0"
                                 key={index}
+                                onClick={() => props.openModal('produk', 'Detail Produk Hukum', value.id)}
                             >
                                 {
                                     value?.uploadDate

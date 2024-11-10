@@ -81,7 +81,7 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                         >
                             <Image
                                 alt="berita"
-                                height={150}
+                                height={180}
                                 className="object-cover rounded-medium w-full"
                                 src={
                                     process.env.NEXT_PUBLIC_PICTURE_URL +
@@ -107,8 +107,8 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                                 >
                                     {
                                         value.excerpt.length > 200
-                                          ? value.excerpt.substr(0, value.excerpt.slice(0, 200).lastIndexOf(" ")).concat("…")
-                                          : value.excerpt
+                                        ? value.excerpt.substr(0, value.excerpt.slice(0, 200).lastIndexOf(" ")).concat("…")
+                                        : value.excerpt
                                     }
                                 </span>
                             </div>

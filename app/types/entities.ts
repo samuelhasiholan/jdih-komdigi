@@ -4,7 +4,8 @@ export interface ProdukHukum {
     descr: string
     filePath: string
     thumbnail: string
-    bidangHukum: string
+    bidangHukum: 
+    title?: string
     content?: string
     uploadDate?: string
 }
@@ -15,6 +16,7 @@ export interface Berita {
     excerpt: string
     content: string
     thumbnail: string
+    penulis: string
     dateCreated: string
 }
 

@@ -333,19 +333,6 @@ const TableWrapper = (
                   hideHeader
                   removeWrapper
                   aria-label="Dynamic Table"
-                  onSortChange={(e: any) => {
-                      if (sortDescriptor.column === '') {
-                          setSortDescriptor(e)
-                      } else if (sortDescriptor?.direction === 'ascending') {
-                          setSortDescriptor(e)
-                      } else if (sortDescriptor?.direction === 'descending') {
-                          setSortDescriptor({
-                              column: '',
-                              direction: 'descending',
-                          })
-                      }
-                  }}
-                  sortDescriptor={sortDescriptor}
                   isHeaderSticky
                   classNames={{
                       wrapper: `p-2 bg-content1/70 ${
@@ -358,6 +345,7 @@ const TableWrapper = (
                       table: `${
                           infiniteScroll && 'max-h-[calc(100dvh-178px)]'
                       } overflow-scroll`,
+                      td: `align-top`,
                   }}
                   style={{
                       borderCollapse: 'separate',
