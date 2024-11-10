@@ -7,8 +7,8 @@ import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
-import { Berita } from '@/app/types/entities'
-import { useHttp } from '@/app/hooks/useHttp'
+import { Berita } from '@/app/types/entities';
+import { useHttp } from '@/app/hooks/useHttp';
 import moment from "moment";
 
 interface BeritaProps {

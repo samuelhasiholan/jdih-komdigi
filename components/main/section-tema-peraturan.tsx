@@ -1,20 +1,35 @@
-import { Button } from '@nextui-org/button'
-import { Image } from '@nextui-org/image'
+import { Button } from '@nextui-org/button';
+import { Image } from '@nextui-org/image';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 export interface SectionTemaPeraturanProps {
     openModal: (type: string, title: string, tema: string) => void
 }
 
 const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
+    const responsive = {
+      any: {
+        breakpoint: { max: 4000, min: 0 },
+        items: 6,
+      }
+    };
+
     return (
-        <section className="main-section flex flex-col items-center py-11">
-            <Button color="primary">TEMA</Button>
-            <div className="font-bold my-6 text-4xl text-title">
+        <section className="main-section flex flex-col py-11">
+            <Button color="primary" className="self-center">TEMA</Button>
+            <div className="self-center font-bold my-6 text-4xl text-title">
                 Telusur Tema Peraturan
             </div>
-            <div className="grid grid-cols-6 gap-6">
+            <Carousel 
+                responsive={responsive}
+                arrows={false}
+                infinite autoPlay autoPlaySpeed={8000}
+                centerMode={true}
+                itemClass="px-2"
+            >
                 <Button
-                    className="flex flex-col tema-card items-center p-6 whitespace-normal"
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
                     onClick={() =>
                         props.openModal('tema', 'Telusur Tema', 'Pos')
                     }
@@ -28,7 +43,6 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                         removeWrapper
                     />
                     <span>POS</span>
-                    <br />
                     <span
                         className="text-description"
                         style={{ letterSpacing: '0.3px' }}
@@ -37,7 +51,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                     </span>
                 </Button>
                 <Button
-                    className="flex flex-col tema-card items-center p-6 whitespace-normal"
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
                     onClick={() =>
                         props.openModal(
                             'tema',
@@ -55,7 +69,6 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                         removeWrapper
                     />
                     <span>Telekomunikasi</span>
-                    <br />
                     <span
                         className="text-description"
                         style={{ letterSpacing: '0.3px' }}
@@ -64,7 +77,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                     </span>
                 </Button>
                 <Button
-                    className="flex flex-col tema-card items-center p-6 whitespace-normal"
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
                     onClick={() =>
                         props.openModal('tema', 'Telusur Tema', 'Penyiaran')
                     }
@@ -78,7 +91,6 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                         removeWrapper
                     />
                     <span>Penyiaran</span>
-                    <br />
                     <span
                         className="text-description"
                         style={{ letterSpacing: '0.3px' }}
@@ -87,7 +99,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                     </span>
                 </Button>
                 <Button
-                    className="flex flex-col tema-card items-center p-6 whitespace-normal"
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
                     onClick={() =>
                         props.openModal(
                             'tema',
@@ -105,7 +117,6 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                         removeWrapper
                     />
                     <span>Informasi & Transaksi Elektronik</span>
-                    <br />
                     <span
                         className="text-description"
                         style={{ letterSpacing: '0.3px' }}
@@ -114,7 +125,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                     </span>
                 </Button>
                 <Button
-                    className="flex flex-col tema-card items-center p-6 whitespace-normal"
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
                     onClick={() =>
                         props.openModal(
                             'tema',
@@ -132,7 +143,6 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                         removeWrapper
                     />
                     <span>Frekuensi Radio</span>
-                    <br />
                     <span
                         className="text-description"
                         style={{ letterSpacing: '0.3px' }}
@@ -141,7 +151,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                     </span>
                 </Button>
                 <Button
-                    className="flex flex-col tema-card items-center p-6 whitespace-normal"
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
                     onClick={() =>
                         props.openModal('tema', 'Telusur Tema', 'Sertifikasi')
                     }
@@ -155,7 +165,6 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                         removeWrapper
                     />
                     <span>Sertifikasi</span>
-                    <br />
                     <span
                         className="text-description"
                         style={{ letterSpacing: '0.3px' }}
@@ -163,7 +172,85 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                         11 peraturan
                     </span>
                 </Button>
-            </div>
+                <Button
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
+                    onClick={() =>
+                        props.openModal(
+                            'tema',
+                            'Telusur Tema',
+                            'Frekuensi Radio',
+                        )
+                    }
+                >
+                    <Image
+                        className="mb-4"
+                        height={78}
+                        alt="pos"
+                        radius="none"
+                        src="assets/perizinan.png"
+                        removeWrapper
+                    />
+                    <span>Perizinan</span>
+                    <span
+                        className="text-description"
+                        style={{ letterSpacing: '0.3px' }}
+                    >
+                        13 peraturan
+                    </span>
+                </Button>
+                <Button
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
+                    onClick={() =>
+                        props.openModal(
+                            'tema',
+                            'Telusur Tema',
+                            'Frekuensi Radio',
+                        )
+                    }
+                >
+                    <Image
+                        className="mb-4"
+                        height={78}
+                        alt="pos"
+                        radius="none"
+                        src="assets/infokom.png"
+                        removeWrapper
+                    />
+                    <span>Komunikasi Publik</span>
+                    <span
+                        className="text-description"
+                        style={{ letterSpacing: '0.3px' }}
+                    >
+                        1 peraturan
+                    </span>
+                </Button>
+                <Button
+                    className="flex flex-col tema-card items-center whitespace-normal w-full"
+                    onClick={() =>
+                        props.openModal(
+                            'tema',
+                            'Telusur Tema',
+                            'Frekuensi Radio',
+                        )
+                    }
+                >
+                    <Image
+                        className="mb-4"
+                        height={78}
+                        alt="pos"
+                        radius="none"
+                        src="assets/organisasi.png"
+                        removeWrapper
+                    />
+                    <span>Kepegawaian & Organisasi</span>
+                    <span
+                        className="text-description"
+                        style={{ letterSpacing: '0.3px' }}
+                    >
+                        31 peraturan
+                    </span>
+                </Button>
+            </Carousel>
         </section>
     )
 }

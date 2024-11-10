@@ -15,7 +15,7 @@ export interface Berita {
     excerpt: string
     content: string
     thumbnail: string
-    date_created: string
+    dateCreated: string
 }
 
 export interface Video {

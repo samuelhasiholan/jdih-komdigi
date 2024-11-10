@@ -149,7 +149,9 @@
         background-color: #e6eefc !important;
         border-radius: 10px !important;
         line-height: 14px !important;
-        height: unset !important;
+        height: 100% !important;
+        padding: 1rem .65rem !important;
+        transition: none !important;
     }
     .fitur-card {
         display: flex;
@@ -162,10 +164,11 @@
         border: 1px solid #cccccc;
     }
     .produk-card {
-        height: unset !important;
+        height: 100% !important;
         padding: 0 !important;
         border-radius: 20px !important;
         justify-content: flex-start !important;
+        transition: none !important;
     }
     .produk-card-date {
         position: absolute;
@@ -187,7 +190,7 @@
         white-space: initial;
         color: #ffffff;
         background-color: #0a48a6;
-        padding: 10px;
+        padding: 1rem;
         text-align: left;
         font-size: 12px;
         letter-spacing: 0.025em;
@@ -195,13 +198,6 @@
     .produk-card-image {
         max-height: 140px;
     }
-    .produk-card-title {
-        font-size: 12px;
-    }
-    .produk-card-descr {
-        font-size: 10px;
-    }
-
     .video-card {
         display: flex;
         justify-content: flex-start !important;

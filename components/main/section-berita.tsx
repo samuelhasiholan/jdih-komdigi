@@ -1,17 +1,25 @@
-import { useEffect, useState } from 'react'
-import { Button } from '@nextui-org/button'
-import { Berita } from '@/app/types/entities'
-import { Image } from '@nextui-org/image'
-import { useHttp } from '@/app/hooks/useHttp'
-import moment from 'moment'
+import { useEffect, useState } from 'react';
+import { Button } from '@nextui-org/button';
+import { Berita } from '@/app/types/entities';
+import { Image } from '@nextui-org/image';
+import { useHttp } from '@/app/hooks/useHttp';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import moment from 'moment';
 
 export interface SectionBeritaProps {
     openModal: (type: string, title: string, search: string) => void
 }
 
 const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
-    const { get, isLoading } = useHttp()
-    const [dataTop5, setDataTop5] = useState<Berita[]>([])
+    const { get, isLoading } = useHttp();
+    const [dataTop5, setDataTop5] = useState<Berita[]>([]);
+    const responsive = {
+      any: {
+        breakpoint: { max: 4000, min: 0 },
+        items: 3,
+      }
+    };
 
     const top5 = async () => {
         get('/berita/top5').then((res: any) => {
@@ -32,11 +40,11 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
 
             setDataTop5(data)
         })
-    }
+    };
 
     useEffect(() => {
         top5()
-    }, [])
+    }, []);
 
     return (
         <section className="secondary-section flex flex-col py-11">
@@ -57,9 +65,15 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                     LIHAT SEMUA
                 </button>
             </div>
-            <div className="grid grid-cols-3 gap-4">
-                {dataTop5 &&
-                    dataTop5?.map((value, index) => (
+            {
+                dataTop5 &&
+                <Carousel 
+                    responsive={responsive}
+                    arrows={false}
+                    infinite autoPlay autoPlaySpeed={8000}
+                    itemClass="px-2"
+                >
+                    {dataTop5?.map((value, index) => (
                         <Button
                             className="flex flex-col berita-card text-small gap-0"
                             key={index}
@@ -91,12 +105,17 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                                     className="font-light mt-2"
                                     style={{ color: '#827272' }}
                                 >
-                                    {value.excerpt}
+                                    {
+                                        value.excerpt.length > 200
+                                          ? value.excerpt.substr(0, value.excerpt.slice(0, 200).lastIndexOf(" ")).concat("…")
+                                          : value.excerpt
+                                    }
                                 </span>
                             </div>
                         </Button>
                     ))}
-            </div>
+                </Carousel>
+            }
         </section>
     )
 }
