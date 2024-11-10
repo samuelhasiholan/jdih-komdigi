@@ -5,7 +5,7 @@ const SectionFitur: React.FC = () => {
     return (
         <section className="main-section flex flex-col py-11">
             <div>
-                <Button color="primary">FITUR</Button>
+                <Button color="primary" disableRipple disableAnimation>FITUR</Button>
             </div>
             <div className="font-bold my-6 text-4xl text-title">
                 Jelajahi Fitur JDIH

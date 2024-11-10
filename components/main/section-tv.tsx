@@ -56,7 +56,7 @@ const SectionTv: React.FC<SectionTvProps> = (props) => {
     return (
         <section className="main-section flex flex-col py-11">
             <div>
-                <Button color="primary">TV</Button>
+                <Button color="primary" disableRipple disableAnimation>TV</Button>
             </div>
             <div className="font-bold my-6 text-4xl text-title">
                 JDIH Kenkomdigi TV

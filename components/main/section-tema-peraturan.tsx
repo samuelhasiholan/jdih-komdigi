@@ -17,7 +17,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
 
     return (
         <section className="main-section flex flex-col py-11">
-            <Button color="primary" className="self-center">TEMA</Button>
+            <Button color="primary" className="self-center" disableRipple disableAnimation>TEMA</Button>
             <div className="self-center font-bold my-6 text-4xl text-title">
                 Telusur Tema Peraturan
             </div>

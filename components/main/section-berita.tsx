@@ -49,7 +49,7 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
     return (
         <section className="secondary-section flex flex-col py-11">
             <div>
-                <Button color="primary">BERITA</Button>
+                <Button color="primary" disableRipple disableAnimation>BERITA</Button>
             </div>
             <div className="font-bold my-6 text-4xl text-title">
                 Berita Terkini

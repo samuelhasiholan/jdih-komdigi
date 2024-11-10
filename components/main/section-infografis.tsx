@@ -12,7 +12,7 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
     return (
         <section className="main-section flex flex-col py-11">
             <div>
-                <Button color="primary">INFOGRAFIS</Button>
+                <Button color="primary" disableRipple disableAnimation>INFOGRAFIS</Button>
             </div>
             <div className="font-bold my-6 text-4xl text-title">Infografis</div>
             <div className="flex mb-6">

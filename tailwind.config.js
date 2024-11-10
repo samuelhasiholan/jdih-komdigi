@@ -27,6 +27,8 @@ module.exports = {
         fadeInScaleIn: "fadeInScaleIn 400ms ease-in-out",
         leftAndRight: "leftAndRight 1s linear infinite",
         spin: "spin 1s linear infinite",
+        spinOnce: "spin .4s ease 1",
+        bounce: "bounce .4s ease 1",
         levitate: "levitate 12s linear infinite",
       },
       keyframes: {
@@ -111,6 +113,29 @@ module.exports = {
           },
           "70%": {
             transform: "translateY(-15px)",
+          },
+          "100%": {
+            transform: "translateY(0)",
+          },
+        },
+        bounce: {
+          "30%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-12%)",
+          },
+          "70%": {
+            transform: "translateY(0)",
+          },
+          "80%": {
+            transform: "translateY(-6%)",
+          },
+          "90%": {
+            transform: "translateY(0)",
+          },
+          "95%": {
+            transform: "translateY(-3%)",
           },
           "100%": {
             transform: "translateY(0)",
