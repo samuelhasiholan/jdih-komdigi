@@ -1,9 +1,6 @@
 "use client"
 import TableWrapper from "@/components/table/custom-table/table";
-import TableHeaderWrapper from "@/components/table/custom-table/table-header";
-import { AnimatePresence, motion } from "framer-motion";
-import { Input } from "@nextui-org/input";
-import { Spinner } from "@nextui-org/spinner";
+import { motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";

@@ -20,6 +20,14 @@ export interface Berita {
     dateCreated: string
 }
 
+export interface Infografis {
+    id: number
+    judul: string
+    konten: string
+    thumbnail: string
+    dateCreated: string
+}
+
 export interface Video {
     id: number
     judul: string

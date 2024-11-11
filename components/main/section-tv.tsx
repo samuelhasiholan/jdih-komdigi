@@ -105,7 +105,6 @@ const SectionTv: React.FC<SectionTvProps> = (props) => {
                                 removeWrapper
                             />
                             <div className="text-left text-small">
-                                {value?.linkUrl}
                                 <p className="whitespace-normal font-bold mb-2">
                                     {value?.judul}
                                 </p>

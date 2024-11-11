@@ -113,10 +113,20 @@ export default function MainModal({
                             onOpen={(value) => setDetail(value)}
                         />
                     )}
-                    {action === 'infografis' && <Infografis />}
+                    {action === 'tv' && (
+                        <TV
+                            search={detail}
+                            onOpen={(value) => setDetail(value)}
+                        />
+                    )}
+                    {action === 'infografis' && (
+                        <Infografis
+                            search={detail}
+                            onOpen={(value) => setDetail(value)}
+                        />
+                    )}
                     {action === 'search' && <Search search={search} />}
                     {action === 'tema' && <Tema search={search} />}
-                    {action === 'tv' && <TV />}
                     {action === 'qr' && <QR />}
                     {action === 'video' && (
                         <VideoPlayer linkUrl={video?.linkUrl} />

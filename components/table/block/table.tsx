@@ -49,10 +49,8 @@ const TableWrapper = (
     persistSearch,
     columns,
     infiniteScroll = false,
-    onView,
-    onUpdate,
-    extraActions,
     rawData,
+    rawLoading,
     defaultSortDescriptor,
   }: TableWrapperProps,
   refs: any
@@ -248,15 +246,22 @@ const TableWrapper = (
 
   return (
     <div className="[& .nextui-table-container]:shadow-none] w-full">
-      <Skeleton isLoaded={!isLoading} className="rounded-lg !bg-transparent mb-1">
-        <div className="text-sm">
-          <span className="hidden md:inline" style={{ color: "#444444", letterSpacing: "0.15px" }}>Menampilkan</span>{" "}
-          {
-            data?.length
-            ? (page === 1 ? 1 : (page - 1) * rowsPerPage + 1)+" - "+(data?.length + rowsPerPage * (page - 1))+" dari "+total
-            : 0
-          }
-        </div>
+      <Skeleton
+          isLoaded={!rawLoading}
+          className="inline-block rounded-lg !bg-transparent mb-1"
+      >
+          <div className="text-sm inline-block">
+              <span style={{ color: '#444444', letterSpacing: '0.15px' }}>
+                  Menampilkan
+              </span>{' '}
+              {data?.length
+                  ? (page === 1 ? 1 : (page - 1) * rowsPerPage + 1) +
+                    ' - ' +
+                    total +
+                    ' dari ' +
+                    total
+                  : 0}
+          </div>
       </Skeleton>
       
       {
@@ -274,12 +279,12 @@ const TableWrapper = (
                     <Image
                       alt="produk"
                       className="object-cover w-full"
-                      src={value.img}
+                      src={value.thumbnail}
                       radius="none"
                       removeWrapper
                     />
                     <div className="block-card-body">
-                      <p className="font-bold text-primary">{value.title}</p>
+                      <p className="font-bold text-primary">{value.judul}</p>
                     </div>
                   </Button>
                 ))
