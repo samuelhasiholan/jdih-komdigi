@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import TableWrapper from "@/components/table/custom-table/table";
 import { motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
-import { Berita } from '@/app/types/entities';
-import { useHttp } from '@/app/hooks/useHttp';
+import { BeritaInterface } from "@/app/types/entities";
+import { useHttp } from "@/app/hooks/useHttp";
 import moment from "moment";
 
 interface BeritaProps {
@@ -13,81 +13,76 @@ interface BeritaProps {
   onOpen: () => void;
 }
 
-export default function Berita({
-  search,
-  onOpen,
-}: BeritaProps) {
+export default function Berita({ search, onOpen }: BeritaProps) {
   const tableRef = useRef<any>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [data, setData] = useState<Berita[]>([])
-  const [total, setTotal] = useState<number>(1)
-  const [dataDetail, setDataDetail] = useState<Berita>({})
-  const { get, isLoading } = useHttp()
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [data, setData] = useState<BeritaInterface[]>([]);
+  const [total, setTotal] = useState<number>(1);
+  const [dataDetail, setDataDetail] = useState<BeritaInterface>({});
+  const { get, isLoading } = useHttp();
 
   const getData = async () => {
-      try {
-          const dataBerita: Berita[] = []
-          const res: any = await get(
-              `/berita/all?page=${currentPage}`,
-          )
-          console.log(res.data)
-          if (
-              res &&
-              res.data &&
-              res.data.list &&
-              res.data.list.data &&
-              res.data.list.data.length > 0
-          ) {
-              res.data.list.data.map((item: any) => {
-                  dataBerita.push({
-                      id:item.id,
-                      judul:item.judul,
-                      excerpt:item.excerpt,
-                      content:item.content,
-                      thumbnail:item.image_path,
-                      penulis:item.penulis,
-                      dateCreated:item.date_created,
-                  })
-              })
-          }
-
-          setData(dataBerita)
-          setTotal(res.data.list.total)
-      } catch (error) {
-          console.log(error)
+    try {
+      const dataBerita: BeritaInterface[] = [];
+      const res: any = await get(`/berita/all?page=${currentPage}`);
+      console.log(res.data);
+      if (
+        res &&
+        res.data &&
+        res.data.list &&
+        res.data.list.data &&
+        res.data.list.data.length > 0
+      ) {
+        res.data.list.data.map((item: any) => {
+          dataBerita.push({
+            id: item.id,
+            judul: item.judul,
+            excerpt: item.excerpt,
+            content: item.content,
+            thumbnail: item.image_path,
+            penulis: item.penulis,
+            dateCreated: item.date_created,
+          });
+        });
       }
-  }
+
+      setData(dataBerita);
+      setTotal(res.data.list.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const detailBerita = async (id) => {
-      get('/berita/detail/'+id).then((res: any) => {
-          const data: Berita[] = []
+    get("/berita/detail/" + id).then((res: any) => {
+      const data: BeritaInterface[] = [];
 
-          if (res?.data) {
-            if (res?.data.berita) {
-              setDataDetail({
-                  id: res?.data.berita.id,
-                  judul: res?.data.berita.judul,
-                  excerpt: res?.data.berita.excerpt,
-                  content: res?.data.berita.content,
-                  thumbnail: res?.data.berita.image_path,
-                  penulis: res?.data.berita.penulis,
-                  dateCreated: res?.data.berita.date_created,
-              })
-            }
-          }
-      })
-  }
-  
+      if (res?.data) {
+        if (res?.data.berita) {
+          setDataDetail({
+            id: res?.data.berita.id,
+            judul: res?.data.berita.judul,
+            excerpt: res?.data.berita.excerpt,
+            content: res?.data.berita.content,
+            thumbnail: res?.data.berita.image_path,
+            penulis: res?.data.berita.penulis,
+            dateCreated: res?.data.berita.date_created,
+          });
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     if (search) {
-      detailBerita(search); 
+      detailBerita(search);
     }
-  }, [search])
+  }, [search]);
 
   useEffect(() => {
-      getData()
-  }, [currentPage])
-  
+    getData();
+  }, [currentPage]);
+
   return (
     <div className="flex flex-col gap-4">
       <motion.div
@@ -96,15 +91,12 @@ export default function Berita({
           duration: 0.2,
         }}
       >
-        {
-          search !== ""
-          ? <div className="px-5 pb-5">
+        {search !== "" ? (
+          <div className="px-5 pb-5">
             <p className="text-xl text-center mb-5">{dataDetail.judul}</p>
             <Image
               src={
-                  process.env.NEXT_PUBLIC_PICTURE_URL +
-                  '/' +
-                  dataDetail.thumbnail
+                process.env.NEXT_PUBLIC_PICTURE_URL + "/" + dataDetail.thumbnail
               }
               alt="image"
               layout="fill"
@@ -119,32 +111,31 @@ export default function Berita({
               removeWrapper
             />
             <p className="mb-3 text-primary">
-              {
-                dataDetail?.penulis
-              }
-              {
-                dataDetail?.penulis && dataDetail?.dateCreated &&
-                ", pada "
-              }
-              {
-                dataDetail?.dateCreated
+              {dataDetail?.penulis}
+              {dataDetail?.penulis && dataDetail?.dateCreated && ", pada "}
+              {dataDetail?.dateCreated
                 ? moment(dataDetail?.dateCreated).format("dddd, DD MMMM YYYY")
-                : ""
-              }
-              </p>
+                : ""}
+            </p>
             <div>
-              { 
-                dataDetail.content &&
-                <div dangerouslySetInnerHTML={{__html: dataDetail.content.replace(/(<? *script)/gi, 'illegalscript')}} >
-                </div>
-              }
+              {dataDetail.content && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: dataDetail.content.replace(
+                      /(<? *script)/gi,
+                      "illegalscript",
+                    ),
+                  }}
+                ></div>
+              )}
             </div>
           </div>
-          : <TableWrapper
+        ) : (
+          <TableWrapper
             ref={tableRef}
             title=""
             onPageChanged={(page: number) => {
-                setCurrentPage(page)
+              setCurrentPage(page);
             }}
             bgClear={true}
             columns={[
@@ -153,7 +144,15 @@ export default function Berita({
                 id: "img",
                 name: "IMAGE",
                 format: (value: any) => (
-                  <div style={{ width: "280px", height: "180px", position: "relative", borderRadius: "15px", overflow: "hidden" }}>
+                  <div
+                    style={{
+                      width: "280px",
+                      height: "180px",
+                      position: "relative",
+                      borderRadius: "15px",
+                      overflow: "hidden",
+                    }}
+                  >
                     <Image
                       removeWrapper
                       alt="image"
@@ -161,10 +160,10 @@ export default function Berita({
                       className="object-cover rounded-medium w-full"
                       src={
                         value?.thumbnail
-                        ? process.env.NEXT_PUBLIC_PICTURE_URL +
-                          '/' +
-                          value.thumbnail
-                        : emptyImg.src
+                          ? process.env.NEXT_PUBLIC_PICTURE_URL +
+                            "/" +
+                            value.thumbnail
+                          : emptyImg.src
                       }
                       onError={(event) => {
                         // @ts-ignore
@@ -181,17 +180,35 @@ export default function Berita({
                 id: "desc",
                 name: "DESC",
                 format: (value: any) => (
-                  <div style={{ paddingRight: "10px" }} onClick={() => {setDataDetail({});onOpen(value?.id)}}>
-                    <p className="font-bold mb-1 text-primary text-large">{value?.judul}</p>
-                    <p className="font-light text-xs mb-1" style={{ color: "#827272" }}>{value?.penulis+", pada "+value?.dateCreated}</p>
-                    <p className="font-light mb-1" style={{ color: "#282828" }}>
-                      {
-                        value.excerpt.length > 200
-                        ? value.excerpt.substr(0, value.excerpt.slice(0, 200).lastIndexOf(" ")).concat("…")
-                        : value.excerpt
-                      }
+                  <div
+                    style={{ paddingRight: "10px" }}
+                    onClick={() => {
+                      setDataDetail({});
+                      onOpen(value?.id);
+                    }}
+                  >
+                    <p className="font-bold mb-1 text-primary text-large">
+                      {value?.judul}
                     </p>
-                    <p className="font-light text-primary text-small">Selengkapnya ></p>
+                    <p
+                      className="font-light text-xs mb-1"
+                      style={{ color: "#827272" }}
+                    >
+                      {value?.penulis + ", pada " + value?.dateCreated}
+                    </p>
+                    <p className="font-light mb-1" style={{ color: "#282828" }}>
+                      {value.excerpt.length > 200
+                        ? value.excerpt
+                            .substr(
+                              0,
+                              value.excerpt.slice(0, 200).lastIndexOf(" "),
+                            )
+                            .concat("…")
+                        : value.excerpt}
+                    </p>
+                    <p className="font-light text-primary text-small">
+                      Selengkapnya &gt;
+                    </p>
                   </div>
                 ),
               },
@@ -201,8 +218,8 @@ export default function Berita({
             rawTotal={total}
             rawLoading={isLoading}
           />
-        }
+        )}
       </motion.div>
     </div>
-  )
+  );
 }

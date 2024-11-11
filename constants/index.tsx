@@ -1,20 +1,20 @@
 import { color } from "framer-motion";
 
 export const jenisPeraturanList = [
-  {key: 1, label: "Undang-undang", value: 1},
-  {key: 2, label: "Peraturan Pemerintah Pengganti Undang-Undang", value: 2},
-  {key: 3, label: "Peraturan Pemerintah", value: 3},
-  {key: 4, label: "Peraturan Presiden", value: 4},
-  {key: 5, label: "Keputusan Presiden", value: 5},
-  {key: 6, label: "Instruksi Presiden", value: 6},
-  {key: 7, label: "English Translation", value: 17},
-  {key: 8, label: "Memorandum of Understanding", value: 15},
-  {key: 9, label: "Pedoman Menteri KOMINFO", value: 16},
-  {key: 10, label: "Surat Edaran", value: 11},
-  {key: 11, label: "Peraturan Kebijakan Eselon I", value: 19},
-  {key: 12, label: "Instruksi Menteri KOMINFO", value: 14},
-  {key: 13, label: "Keputusan Menteri KOMINFO", value: 8},
-  {key: 14, label: "Peraturan Menteri KOMINFO", value: 7},
+  { key: 1, label: "Undang-undang", value: 1 },
+  { key: 2, label: "Peraturan Pemerintah Pengganti Undang-Undang", value: 2 },
+  { key: 3, label: "Peraturan Pemerintah", value: 3 },
+  { key: 4, label: "Peraturan Presiden", value: 4 },
+  { key: 5, label: "Keputusan Presiden", value: 5 },
+  { key: 6, label: "Instruksi Presiden", value: 6 },
+  { key: 7, label: "English Translation", value: 17 },
+  { key: 8, label: "Memorandum of Understanding", value: 15 },
+  { key: 9, label: "Pedoman Menteri KOMINFO", value: 16 },
+  { key: 10, label: "Surat Edaran", value: 11 },
+  { key: 11, label: "Peraturan Kebijakan Eselon I", value: 19 },
+  { key: 12, label: "Instruksi Menteri KOMINFO", value: 14 },
+  { key: 13, label: "Keputusan Menteri KOMINFO", value: 8 },
+  { key: 14, label: "Peraturan Menteri KOMINFO", value: 7 },
 ];
 
 export const tahunList = [

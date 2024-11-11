@@ -5,7 +5,7 @@ import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from "@nextui-org/dropdown";
 import { Pagination } from "@nextui-org/pagination";
 import { Button } from "@nextui-org/button";
@@ -18,12 +18,9 @@ import {
   TableColumn,
   TableRow,
   TableCell,
-  SortDescriptor
+  SortDescriptor,
 } from "@nextui-org/table";
-import {
-  Modal, 
-  ModalContent
-} from "@nextui-org/modal";
+import { Modal, ModalContent } from "@nextui-org/modal";
 import {
   forwardRef,
   useEffect,
@@ -54,7 +51,7 @@ const TableWrapper = (
     rawData,
     defaultSortDescriptor,
   }: TableWrapperProps,
-  refs: any
+  refs: any,
 ) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const dispatch = useAppDispatch();
@@ -64,10 +61,11 @@ const TableWrapper = (
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
-    defaultSortDescriptor || {
-      // column: "createdAt",
-      // direction: "descending",
-    }
+    defaultSortDescriptor ||
+      {
+        // column: "createdAt",
+        // direction: "descending",
+      },
   );
   const [filter, setFilter] = useState<FilterType[]>([]);
   const [search, setSearch] = useState("");
@@ -86,7 +84,7 @@ const TableWrapper = (
     let queryParams = queryString({
       page: page,
       pageSize: rowsPerPage || 10,
-      ...(persistSearch ? {[persistSearch]: search} : {keyword: search}),
+      ...(persistSearch ? { [persistSearch]: search } : { keyword: search }),
       sort: sortDescriptor.column,
       sortType: sortDescriptor.direction
         ? sortDescriptor.direction === "ascending"
@@ -262,7 +260,7 @@ const TableWrapper = (
             setColumnsShown(newColumnsShown);
             localStorage.setItem(
               `columns-${module}-${title}`,
-              JSON.stringify(newColumnsShown)
+              JSON.stringify(newColumnsShown),
             );
           }}
         >
@@ -297,14 +295,24 @@ const TableWrapper = (
 
   return (
     <div className="[& .nextui-table-container]:shadow-none] w-full">
-      <Skeleton isLoaded={!isLoading} className="rounded-lg !bg-transparent mb-1">
+      <Skeleton
+        isLoaded={!isLoading}
+        className="rounded-lg !bg-transparent mb-1"
+      >
         <div className="text-sm">
-          <span className="hidden md:inline" style={{ color: "#444444", letterSpacing: "0.15px" }}>Menampilkan</span>{" "}
-          {
-            data?.length
-            ? (page === 1 ? 1 : (page - 1) * rowsPerPage + 1)+" - "+(data?.length + rowsPerPage * (page - 1))+" dari "+total
-            : 0
-          }
+          <span
+            className="hidden md:inline"
+            style={{ color: "#444444", letterSpacing: "0.15px" }}
+          >
+            Menampilkan
+          </span>{" "}
+          {data?.length
+            ? (page === 1 ? 1 : (page - 1) * rowsPerPage + 1) +
+              " - " +
+              (data?.length + rowsPerPage * (page - 1)) +
+              " dari " +
+              total
+            : 0}
         </div>
       </Skeleton>
       <Table
@@ -408,9 +416,7 @@ const TableWrapper = (
             >
               {(columnKey) => (
                 <TableCell key={columnKey} className="p-0">
-                  <div
-                    className="px-1"
-                  >
+                  <div className="px-1">
                     <div className="p-2">
                       {RenderCell({
                         columns: columns,

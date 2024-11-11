@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Navbar as NextUINavbar,
@@ -58,10 +58,21 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="full" position="sticky" className="top-auto bottom-0 fixed bg-menu p-2">
+    <NextUINavbar
+      maxWidth="full"
+      position="sticky"
+      className="top-auto bottom-0 fixed bg-menu p-2"
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="center">
         <ul className="flex gap-4 justify-around items-center w-full">
-          <NavbarItem key="/" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/"}>
+          <NavbarItem
+            key="/"
+            className={clsx(
+              linkStyles({ color: "primary" }),
+              "data-[active=true]:navbar-active",
+            )}
+            isActive={pathname === "/"}
+          >
             <NextLink
               className="flex flex-col items-center navbar-btn"
               color="primary"
@@ -71,43 +82,79 @@ export const Navbar = () => {
               Beranda
             </NextLink>
           </NavbarItem>
-          <NavbarItem key="/dokumen" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/dokumen"}>
+          <NavbarItem
+            key="/dokumen"
+            className={clsx(
+              linkStyles({ color: "primary" }),
+              "data-[active=true]:navbar-active",
+            )}
+            isActive={pathname === "/dokumen"}
+          >
             <NextLink
               className="flex flex-col items-center navbar-btn"
               color="primary"
               href="/dokumen"
             >
-              <Dokumen color={pathname === "/dokumen" ? "#515978" : "#0257D9"} />
+              <Dokumen
+                color={pathname === "/dokumen" ? "#515978" : "#0257D9"}
+              />
               Dokumen
             </NextLink>
           </NavbarItem>
-          <NavbarItem key="/informasi" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/informasi"}>
+          <NavbarItem
+            key="/informasi"
+            className={clsx(
+              linkStyles({ color: "primary" }),
+              "data-[active=true]:navbar-active",
+            )}
+            isActive={pathname === "/informasi"}
+          >
             <NextLink
               className="flex flex-col items-center navbar-btn"
               color="primary"
               href="/informasi"
             >
-              <Informasi color={pathname === "/informasi" ? "#515978" : "#0257D9"} />
+              <Informasi
+                color={pathname === "/informasi" ? "#515978" : "#0257D9"}
+              />
               Informasi
             </NextLink>
           </NavbarItem>
-          <NavbarItem key="/translation" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/translation"}>
+          <NavbarItem
+            key="/translation"
+            className={clsx(
+              linkStyles({ color: "primary" }),
+              "data-[active=true]:navbar-active",
+            )}
+            isActive={pathname === "/translation"}
+          >
             <NextLink
               className="flex flex-col items-center navbar-btn"
               color="primary"
               href="/translation"
             >
-              <Translation color={pathname === "/translation" ? "#515978" : "#0257D9"} />
+              <Translation
+                color={pathname === "/translation" ? "#515978" : "#0257D9"}
+              />
               Translation
             </NextLink>
           </NavbarItem>
-          <NavbarItem key="/statistik" className={clsx(linkStyles({ color: "primary" }),"data-[active=true]:navbar-active")} isActive={pathname === "/statistik"}>
+          <NavbarItem
+            key="/statistik"
+            className={clsx(
+              linkStyles({ color: "primary" }),
+              "data-[active=true]:navbar-active",
+            )}
+            isActive={pathname === "/statistik"}
+          >
             <NextLink
               className="flex flex-col items-center navbar-btn"
               color="primary"
               href="/statistik"
             >
-              <Statistik color={pathname === "/statistik" ? "#515978" : "#0257D9"} />
+              <Statistik
+                color={pathname === "/statistik" ? "#515978" : "#0257D9"}
+              />
               Statistik
             </NextLink>
           </NavbarItem>

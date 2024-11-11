@@ -23,8 +23,7 @@ export default function TableHeaderWrapper({
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-4">
-      {
-        onSearch &&
+      {onSearch && (
         <form
           className="flex items-center rounded-xl overflow-hidden"
           onSubmit={(e) => {
@@ -64,7 +63,7 @@ export default function TableHeaderWrapper({
             </Button>
           </div>
         </form>
-      }
+      )}
     </div>
   );
 }

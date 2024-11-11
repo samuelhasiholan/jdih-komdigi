@@ -4,13 +4,13 @@ export interface ProdukHukum {
     descr: string
     filePath: string
     thumbnail: string
-    bidangHukum: 
+    bidangHukum: string
     title?: string
     content?: string
     uploadDate?: string
 }
 
-export interface Berita {
+export interface BeritaInterface {
     id: number
     judul: string
     excerpt: string

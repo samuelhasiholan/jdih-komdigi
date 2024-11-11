@@ -28,7 +28,7 @@ export class Casl {
       const ability = localStorage.getItem("ability");
       if (ability) {
         const parsedAbility: PermissionData[] = JSON.parse(
-          ability
+          ability,
         ) as PermissionData[];
 
         if (parsedAbility.length > 0) {
@@ -46,7 +46,7 @@ export class Casl {
 
                 if (
                   [Ability.CREATE, Ability.UPDATE].includes(
-                    permission as Ability
+                    permission as Ability,
                   )
                 ) {
                   canManage = true;

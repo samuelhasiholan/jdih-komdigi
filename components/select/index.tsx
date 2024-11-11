@@ -1,6 +1,11 @@
 import { useAppDispatch } from "@/store";
 import { Http } from "@/utils/http";
-import { Select, SelectSection, SelectItem, SelectProps } from "@nextui-org/select";
+import {
+  Select,
+  SelectSection,
+  SelectItem,
+  SelectProps,
+} from "@nextui-org/select";
 import React, { useEffect, useState } from "react";
 
 interface Props extends SelectProps {

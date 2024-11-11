@@ -69,8 +69,7 @@ export default function TableHeaderWrapper({
         </motion.div>
       </div>
 
-      {
-        onSearch &&
+      {onSearch && (
         <div className="flex flex-wrap items-center gap-4 justify-between w-full sm:w-min">
           <div className="flex flex-wrap items-center justify-between p-0 w-full sm:flex-nowrap">
             <form
@@ -119,7 +118,7 @@ export default function TableHeaderWrapper({
             </form>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }

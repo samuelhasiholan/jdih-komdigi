@@ -16,13 +16,13 @@ export const validateUrl = (url: string) => {
 };
 
 export const getFileExtension = (filename: string) => {
-  const parts = filename.split('.');
+  const parts = filename.split(".");
   if (parts.length > 1) {
     return parts[parts.length - 1];
   } else {
     return "";
   }
-}
+};
 
 export const inputErrorHelper: any = (isError: boolean, errorMsg?: string) => {
   return {
@@ -100,24 +100,20 @@ export const slugify = (text: string) => {
     .replace(/--+/g, "-") // Replace multiple - with single -
     .replace(/^-+/, "") // Trim - from start of text
     .replace(/-+$/, ""); // Trim - from end of text
-}
+};
 
 export const deslugify = (slug: string) => {
-  return slug
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, char => char.toUpperCase());
-}
+  return slug.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+};
 
 export const isUUID = (uuid: string = "") => {
   const pattern = new RegExp(
-    "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
   );
   return pattern.test(uuid);
-}
+};
 
 export const isUrl = (text: string = "") => {
-  const pattern = new RegExp(
-    "^(ftp|http|https):\/\/[^ \"\n]+"
-  );
+  const pattern = new RegExp('^(ftp|http|https)://[^ "\n]+');
   return pattern.test(text);
-}
+};
