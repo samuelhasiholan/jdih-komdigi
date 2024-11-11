@@ -52,6 +52,7 @@ const TableWrapper = (
     rawData,
     rawLoading,
     defaultSortDescriptor,
+    onClick = (id: number) => {},
   }: TableWrapperProps,
   refs: any
 ) => {
@@ -271,7 +272,11 @@ const TableWrapper = (
           ? <div className="grid grid-cols-3 gap-4 mt-3 mb-4">
               {
                 data.map((value, index) => (
-                  <Button className="flex flex-col block-card text-small gap-0" key={index}>
+                  <Button 
+                    className="flex flex-col block-card text-small gap-0" 
+                    key={index}
+                    onClick={() => onClick(value.id)}
+                  >
                     {
                       value.views &&
                       <div className="video-card-date"><PlayIcon /><span className="ml-2">{value.views}</span></div>
@@ -279,7 +284,7 @@ const TableWrapper = (
                     <Image
                       alt="produk"
                       className="object-cover w-full"
-                      src={value.thumbnail}
+                      src={value.thumbnail || value.previewPath}
                       radius="none"
                       removeWrapper
                     />

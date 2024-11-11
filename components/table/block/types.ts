@@ -22,6 +22,7 @@ export interface TableWrapperProps {
         column: string
         direction: 'ascending' | 'descending'
     }
+    onClick?: (id: number) => void
 }
 
 export type DataTableOperator =

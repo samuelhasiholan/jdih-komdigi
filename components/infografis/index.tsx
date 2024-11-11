@@ -54,29 +54,24 @@ export default function Infografis({
       }
   }
 
-  const detailInfografis = async (id) => {
-      get('/infografis/detail/'+id).then((res: any) => {
-          const data: Infografis[] = []
-
-          if (res?.data) {
-            if (res?.data.infografis) {
-              setDataDetail({
-                  id: res?.data.infografis.id,
-                  judul: res?.data.infografis.judul,
-                  konten:res?.data.infografis.konten,
-                  thumbnail:res?.data.infografis.file_path ? process.env.NEXT_PUBLIC_INFOGRAFIS_URL + '/' + res?.data.infografis.file_path : null,
-                  dateCreated:res?.data.infografis.created_at,
-              })
-            }
-          }
-      })
+  const detailInfografis = (id) => {
+    let i = 0;
+    while (i < data.length){
+      if (data[i].id === id) {
+        setDataDetail(data[i]);
+        break;
+      }
+      i++;
+    }
   }
 
   useEffect(() => {
     if (search) {
       detailInfografis(search); 
+    } else {
+      setDataDetail({});
     }
-  }, [search])
+  }, [search, data])
 
   useEffect(() => {
       getData()
@@ -95,11 +90,7 @@ export default function Infografis({
           ? <div className="px-5 pb-5">
             <p className="text-xl text-center mb-5">{dataDetail.judul}</p>
             <Image
-              src={
-                  process.env.NEXT_PUBLIC_PICTURE_URL +
-                  '/' +
-                  dataDetail.thumbnail
-              }
+              src={dataDetail.thumbnail}
               alt="image"
               layout="fill"
               radius="md"
@@ -128,8 +119,8 @@ export default function Infografis({
               </p>
             <div>
               { 
-                dataDetail.content &&
-                <div dangerouslySetInnerHTML={{__html: dataDetail.content.replace(/(<? *script)/gi, 'illegalscript')}} >
+                dataDetail.konten &&
+                <div dangerouslySetInnerHTML={{__html: dataDetail.konten.replace(/(<? *script)/gi, 'illegalscript')}} >
                 </div>
               }
             </div>
@@ -137,9 +128,7 @@ export default function Infografis({
           : <TableWrapper
             ref={tableRef}
             title=""
-            onPageChanged={(page: number) => {
-                setCurrentPage(page)
-            }}
+            onClick={(id:number) => {setDataDetail({});onOpen(id)}}
             bgClear={true}
             columns={[]}
             rawData={data}

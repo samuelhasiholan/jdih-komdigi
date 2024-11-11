@@ -72,6 +72,7 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
                         <Button
                             className="flex flex-col infografis-card text-small gap-0"
                             key={index}
+                            onClick={() => props.openModal('infografis', 'Infografis', value.id)}
                         >
                             <Image
                                 alt="infografis"
