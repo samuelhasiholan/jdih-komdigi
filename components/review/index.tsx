@@ -112,14 +112,6 @@ export default function Review({
                             })}
                         </div>
                     </div>
-                    <div className="mb-3">
-                        <p className="mb-2 text-lg" style={{ color: "#949494" }}>Masukan Captcha</p>
-                        <Input
-                            placeholder=" "
-                            size="lg"
-                            variant="bordered"
-                        />
-                    </div>
                     <div>
                         <Button
                             className="w-full cursor-pointer flex-shrink-0 font-bold bg-primary text-primary-foreground"

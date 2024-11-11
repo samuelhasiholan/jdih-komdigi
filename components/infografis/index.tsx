@@ -20,7 +20,6 @@ export default function Infografis({
   const tableRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [data, setData] = useState<Infografis[]>([])
-  const [total, setTotal] = useState<number>(1)
   const [dataDetail, setDataDetail] = useState<Infografis>({})
   const { get, isLoading } = useHttp()
 
@@ -30,7 +29,7 @@ export default function Infografis({
           const res: any = await get(
               `/infografis/all`,
           )
-          console.log(res.data)
+          
           if (
               res &&
               res.data &&

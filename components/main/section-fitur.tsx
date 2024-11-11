@@ -1,7 +1,11 @@
 import { Button } from '@nextui-org/button'
 import { Image } from '@nextui-org/image'
 
-const SectionFitur: React.FC = () => {
+export interface SectionFiturProps {
+    openModal: (type: string, title: string, search: string) => void
+}
+
+const SectionFitur: React.FC<SectionFiturProps> = (props) => {
     return (
         <section className="main-section flex flex-col py-11">
             <div>

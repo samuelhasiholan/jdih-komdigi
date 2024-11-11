@@ -1,12 +1,10 @@
 "use client"
 import TableWrapper from "@/components/table/block/table";
-import TableHeaderWrapper from "@/components/table/block/table-header";
 import { motion } from "framer-motion";
-import { Image } from "@nextui-org/image";
-import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
 import { Video } from '@/app/types/entities';
 import { useHttp } from '@/app/hooks/useHttp';
+import VideoPlayer from '../video-player'
 import moment from "moment";
 
 interface TVProps {
@@ -21,7 +19,6 @@ export default function TV({
   const tableRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [data, setData] = useState<Video[]>([])
-  const [total, setTotal] = useState<number>(1)
   const [dataDetail, setDataDetail] = useState<TV>({})
   const { get, isLoading } = useHttp()
 
@@ -61,29 +58,24 @@ export default function TV({
       }
   }
 
-  const detailTV = async (id) => {
-      get('/site/video/'+id).then((res: any) => {
-          const data: Video[] = []
-
-          if (res?.data) {
-            if (res?.data.infografis) {
-              setDataDetail({
-                  id: res?.data.infografis.id,
-                  judul: res?.data.infografis.judul,
-                  konten:res?.data.infografis.konten,
-                  thumbnail:res?.data.infografis.file_path ? process.env.NEXT_PUBLIC_FILE_URL + '/' + res?.data.infografis.file_path : null,
-                  dateCreated:res?.data.infografis.created_at,
-              })
-            }
-          }
-      })
+  const detailTV = (id) => {
+    let i = 0;
+    while (i < data.length){
+      if (data[i].id === id) {
+        setDataDetail(data[i]);
+        break;
+      }
+      i++;
+    }
   }
 
   useEffect(() => {
     if (search) {
       detailTV(search); 
+    } else {
+      setDataDetail({});
     }
-  }, [search])
+  }, [search, data])
 
   useEffect(() => {
       getData()
@@ -91,11 +83,6 @@ export default function TV({
 
   return (
     <div className="flex flex-col gap-4">
-        <TableHeaderWrapper
-            title=""
-            onSearch={(value) => tableRef.current?.search(value)}
-            onExtra={null}
-        />
       <motion.div
         transition={{
           ease: "linear",
@@ -104,54 +91,14 @@ export default function TV({
       >
         {
           search !== ""
-          ? <div className="px-5 pb-5">
-            <p className="text-xl text-center mb-5">{dataDetail.judul}</p>
-            <Image
-              src={
-                  process.env.NEXT_PUBLIC_PICTURE_URL +
-                  '/' +
-                  dataDetail.thumbnail
-              }
-              alt="image"
-              layout="fill"
-              radius="md"
-              className="w-full self-center object-cover mb-5"
-              onError={(event) => {
-                // @ts-ignore
-                event.target.src = emptyImg.src;
-                // @ts-ignore
-                event.target.srcset = emptyImg.src;
-              }}
-              removeWrapper
-            />
-            <p className="mb-3 text-primary">
-              {
-                dataDetail?.penulis
-              }
-              {
-                dataDetail?.penulis && dataDetail?.dateCreated &&
-                ", pada "
-              }
-              {
-                dataDetail?.dateCreated
-                ? moment(dataDetail?.dateCreated).format("dddd, DD MMMM YYYY")
-                : ""
-              }
-              </p>
-            <div>
-              { 
-                dataDetail.content &&
-                <div dangerouslySetInnerHTML={{__html: dataDetail.content.replace(/(<? *script)/gi, 'illegalscript')}} >
-                </div>
-              }
-            </div>
-          </div>
+          ? (
+            dataDetail.linkUrl &&
+            <VideoPlayer linkUrl={dataDetail?.linkUrl} /> 
+          )
           : <TableWrapper
             ref={tableRef}
             title=""
-            onPageChanged={(page: number) => {
-                setCurrentPage(page)
-            }}
+            onClick={(id:number) => {setDataDetail({});onOpen(id)}}
             bgClear={true}
             columns={[]}
             rawData={data}
