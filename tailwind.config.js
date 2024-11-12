@@ -27,7 +27,7 @@ module.exports = {
         fadeInScaleIn: "fadeInScaleIn 400ms ease-in-out",
         leftAndRight: "leftAndRight 1s linear infinite",
         spin: "spin 1s linear infinite",
-        spinOnce: "spin .4s ease 1",
+        scaleInOut: "scaleInOut .4s ease-in-out 1",
         bounce: "bounce .4s ease 1",
         levitate: "levitate 12s linear infinite",
       },
@@ -96,6 +96,20 @@ module.exports = {
         scaleIn: {
           "0%": {
             transform: "scale(0)",
+          },
+          "100%": {
+            transform: "scale(1)",
+          },
+        },
+        scaleInOut: {
+          "0%": {
+            transform: "scale(1)",
+          },
+          "10%": {
+            transform: "scale(.95)",
+          },
+          "50%": {
+            transform: "scale(1.05)",
           },
           "100%": {
             transform: "scale(1)",

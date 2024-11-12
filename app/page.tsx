@@ -127,10 +127,10 @@ export default function Home() {
             Anda menggunakan layanan kami?
           </div>
           <button
-            className="review-card-action text-xl font-bold"
+            className="review-card-action text-xl font-bold align-center"
             onClick={() => setShowReviewModal(true)}
           >
-            Berikan Ulasan
+            Rating Sekarang
           </button>
         </div>
         <button
@@ -143,7 +143,7 @@ export default function Home() {
       <Image
         removeWrapper
         alt="review"
-        className={`${showReviewWindow ? "animate-spinOnce" : ""} review-button `}
+        className={`${showReviewWindow ? "animate-scaleInOut" : ""} review-button `}
         src="/assets/review_button.png"
         onClick={() => setShowReviewWindow(true)}
       />

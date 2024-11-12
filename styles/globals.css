@@ -157,7 +157,9 @@
     z-index: 11;
   }
   .review-card {
-    background-color: #fffffff2;
+    background-color: #0e61e1e6;
+    color: #fff;
+    text-align: center;
     padding: 20px 25px;
     border: 1px solid #0000001a;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.05000000074505806));
@@ -169,6 +171,7 @@
     left: 12px;
   }
   .review-card-text {
+    text-align: left;
     padding: 15px;
     border-bottom: 3px solid #878787;
   }
