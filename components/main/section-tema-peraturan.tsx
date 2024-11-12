@@ -25,7 +25,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
                 arrows={false}
                 autoPlay
                 autoPlaySpeed={8000}
-                centerMode={true}
+                centerMode={false}
                 itemClass="px-2"
             >
                 <div className="carausel-gap"></div>

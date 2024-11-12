@@ -47,17 +47,24 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
     }, [])
 
     return (
-        <section className="main-section flex flex-col py-11">
-            <div className="font-bold my-6 text-4xl text-title">Infografis</div>
-            <div className="flex mb-6">
-                <span className="flex-auto text-title"></span>
-                <button
-                    className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary"
-                    onClick={() => props.openModal('infografis', 'Infografis')}
-                >
-                    LIHAT SEMUA
-                </button>
+        <section className="carousel-section flex flex-col py-11">
+            <div className="secondary-carousel-section">
+                <div className="font-bold my-6 text-4xl text-title">
+                    Infografis
+                </div>
+                <div className="flex mb-6">
+                    <span className="flex-auto text-title"></span>
+                    <button
+                        className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary"
+                        onClick={() =>
+                            props.openModal('infografis', 'Infografis')
+                        }
+                    >
+                        LIHAT SEMUA
+                    </button>
+                </div>
             </div>
+
             {isLoading ? (
                 <div className="flex">
                     <Skeleton
@@ -83,6 +90,7 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
                         autoPlaySpeed={8000}
                         itemClass="px-2 pb-3"
                     >
+                        <div className="carausel-gap"></div>
                         {dataTop5?.map((value, index) => (
                             <Button
                                 className="flex flex-col infografis-card text-small gap-0"

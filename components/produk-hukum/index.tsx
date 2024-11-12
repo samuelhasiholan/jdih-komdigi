@@ -1,392 +1,428 @@
-"use client";
-import TableWrapper from "@/components/table/custom-table/table";
-import TableHeaderWrapper from "@/components/table/custom-table/table-header";
-import TableWrapperDefault from "@/components/table/default/table";
-import { AnimatePresence, motion } from "framer-motion";
-import { jenisPeraturanList, tahunList } from "@/constants";
-import { Image } from "@nextui-org/image";
-import { Skeleton } from "@nextui-org/skeleton";
-import { Tabs, Tab } from "@nextui-org/tabs";
-import emptyImg from "@/public/empty-image.png";
-import { useEffect, useRef, useState } from "react";
-import { ProdukHukumInterface } from "@/app/types/entities";
-import { useHttp } from "@/app/hooks/useHttp";
-import moment from "moment";
+'use client'
+import TableWrapper from '@/components/table/custom-table/table'
+import TableHeaderWrapper from '@/components/table/custom-table/table-header'
+import TableWrapperDefault from '@/components/table/default/table'
+import { AnimatePresence, motion } from 'framer-motion'
+import { jenisPeraturanList, tahunList } from '@/constants'
+import { Image } from '@nextui-org/image'
+import { Skeleton } from '@nextui-org/skeleton'
+import { Tabs, Tab } from '@nextui-org/tabs'
+import emptyImg from '@/public/empty-image.png'
+import { useEffect, useRef, useState } from 'react'
+import { ProdukHukumInterface } from '@/app/types/entities'
+import { useHttp } from '@/app/hooks/useHttp'
+import moment from 'moment'
+import PdfViewer from '../pdfviewer'
 
 interface ProdukHukumProps {
-  search: string | number;
-  onOpen: (value: number | string) => void;
+    search: string | number
+    onOpen: (value: number | string) => void
 }
 
 export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
-  const tableRef = useRef<any>(null);
-  const [currentSearch, setCurrentSearch] = useState<string | number>(search);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [data, setData] = useState<ProdukHukumInterface[]>([]);
-  const [total, setTotal] = useState<number>(1);
-  const [dataDetail, setDataDetail] = useState<ProdukHukumInterface>({});
-  const { get, isLoading } = useHttp();
+    const tableRef = useRef<any>(null)
+    const [currentSearch, setCurrentSearch] = useState<string | number>(search)
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [data, setData] = useState<ProdukHukumInterface[]>([])
+    const [total, setTotal] = useState<number>(1)
+    const [dataDetail, setDataDetail] = useState<ProdukHukumInterface>({})
+    const { get, isLoading } = useHttp()
 
-  const getData = async () => {
-    try {
-      const dataProduk: ProdukHukumInterface[] = [];
-      const res: any = await get(
-        `/produk-hukum/advance-search?tentang=${currentSearch}&page=${currentPage}`
-      );
+    const getData = async () => {
+        try {
+            const dataProduk: ProdukHukumInterface[] = []
+            const res: any = await get(
+                `/produk-hukum/advance-search?tentang=${currentSearch}&page=${currentPage}`,
+            )
 
-      if (res && res.data && res.data.produk && res.data.produk.length > 0) {
-        res.data.produk.map((item: any) => {
-          dataProduk.push({
-            id: item.id,
-            productName: item.product_name,
-            descr: item.descr,
-            filePath: item.file_path,
-            bidangHukum: item.bidang_hukum,
-            thumbnail:
-              process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL + "/" + item.thumbnail,
-            content: item.content,
-            uploadDate: moment(item.upload_date).format("DD MMMM YYYY"),
-          });
-        });
-      }
+            if (
+                res &&
+                res.data &&
+                res.data.produk &&
+                res.data.produk.length > 0
+            ) {
+                res.data.produk.map((item: any) => {
+                    dataProduk.push({
+                        id: item.id,
+                        productName: item.product_name,
+                        descr: item.descr,
+                        filePath: item.file_path,
+                        bidangHukum: item.bidang_hukum,
+                        thumbnail:
+                            process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                            '/' +
+                            item.thumbnail,
+                        content: item.content,
+                        uploadDate: moment(item.upload_date).format(
+                            'DD MMMM YYYY',
+                        ),
+                    })
+                })
+            }
 
-      setData(dataProduk);
-      setTotal(res?.data.total);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const detailProdukHukum = async (id: number | string) => {
-    get("/produk-hukum/detail/" + id).then((res: any) => {
-      const data: ProdukHukumInterface[] = [];
-
-      if (res?.data) {
-        if (res?.data.produk) {
-          setDataDetail({
-            id: res?.data.produk.id,
-            productName: res?.data.produk.product_name,
-            descr: res?.data.produk.descr,
-            filePath: res?.data.produk.file_path,
-            thumbnail: res?.data.produk.thumbnail,
-            bidangHukum: res?.data.produk.bidang_hukum,
-            title: res?.data.produk.title,
-            content: res?.data.produk.content,
-            uploadDate: res?.data.produk.upload_date,
-            judulSeragam: res?.data.produk.katalogrel.judul_seragam,
-            tajukEntriUtama: res?.data.produk.katalogrel.tajuk_entri_utama,
-            nomor: res?.data.produk.nomor,
-            categoryName: res?.data.produk.kategori.category_name,
-            singkatan: res?.data.produk.kategori.singkatan,
-            tempatPenetapan: res?.data.produk.tempat_penetapan,
-            tanggalPenetapanPengundangan:
-              res?.data.produk.tanggal_penetapan +
-              "/" +
-              res?.data.produk.tanggal_pengundangan,
-            sumber: res?.data.produk.sumber,
-            jejakan: res?.data.produk.katalogrel.jejakan,
-            status: res?.data.produk.status_peraturan.status,
-            bahasa:
-              res?.data.produk.bahasa === "0"
-                ? "Indonesia"
-                : res?.data.produk.bahasa === "1"
-                  ? "Inggris"
-                  : res?.data.produk.bahasa,
-            lokasi: res?.data.produk.lokasi,
-            produkPasal: res?.data.produkPasal,
-          });
+            setData(dataProduk)
+            setTotal(res?.data.total)
+        } catch (error) {
+            console.log(error)
         }
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (search) {
-      detailProdukHukum(search);
     }
-  }, [search]);
 
-  useEffect(() => {
-    setCurrentPage(1);
-    getData();
-  }, [currentSearch]);
+    const detailProdukHukum = async (id: number | string) => {
+        get('/produk-hukum/detail/' + id).then((res: any) => {
+            const data: ProdukHukumInterface[] = []
 
-  useEffect(() => {
-    getData();
-  }, [currentPage]);
+            if (res?.data) {
+                if (res?.data.produk) {
+                    setDataDetail({
+                        id: res?.data.produk.id,
+                        productName: res?.data.produk.product_name,
+                        descr: res?.data.produk.descr,
+                        filePath: res?.data.produk.file_path,
+                        thumbnail: res?.data.produk.thumbnail,
+                        bidangHukum: res?.data.produk.bidang_hukum,
+                        title: res?.data.produk.title,
+                        content: res?.data.produk.content,
+                        uploadDate: res?.data.produk.upload_date,
+                        judulSeragam: res?.data.produk.katalogrel.judul_seragam,
+                        tajukEntriUtama:
+                            res?.data.produk.katalogrel.tajuk_entri_utama,
+                        nomor: res?.data.produk.nomor,
+                        categoryName: res?.data.produk.kategori.category_name,
+                        singkatan: res?.data.produk.kategori.singkatan,
+                        tempatPenetapan: res?.data.produk.tempat_penetapan,
+                        tanggalPenetapanPengundangan:
+                            res?.data.produk.tanggal_penetapan +
+                            '/' +
+                            res?.data.produk.tanggal_pengundangan,
+                        sumber: res?.data.produk.sumber,
+                        jejakan: res?.data.produk.katalogrel.jejakan,
+                        status: res?.data.produk.status_peraturan.status,
+                        bahasa:
+                            res?.data.produk.bahasa === '0'
+                                ? 'Indonesia'
+                                : res?.data.produk.bahasa === '1'
+                                  ? 'Inggris'
+                                  : res?.data.produk.bahasa,
+                        lokasi: res?.data.produk.lokasi,
+                        produkPasal: res?.data.produkPasal,
+                    })
+                }
+            }
+        })
+    }
 
-  return (
-    <div className="flex flex-col gap-4">
-      <motion.div
-        transition={{
-          ease: "linear",
-          duration: 0.2,
-        }}
-      >
-        {search !== "" ? (
-          isLoading ? (
-            <div className="flex flex-col px-5 pb-5">
-              <Skeleton
-                isLoaded={!isLoading}
-                className="h-6 w-4/6 rounded-lg mb-5"
-              />
-              <Skeleton
-                isLoaded={!isLoading}
-                className="h-6 w-5/6 rounded-lg mb-5"
-              />
-              <Skeleton
-                isLoaded={!isLoading}
-                className="h-6 w-3/6 rounded-lg mb-5"
-              />
-            </div>
-          ) : (
-            <div className="px-5 pb-5">
-              <p className="text-xl text-center mb-10">{dataDetail.title}</p>
-              {dataDetail.produkPasal && (
-                <div className="grid grid-cols-2 gap-4 mb-10">
-                  <Tabs
-                    items={dataDetail.produkPasal}
-                    disableAnimation
-                    classNames={{
-                      tabList: "custom-tab-tablist flex-wrap",
-                      tab: "custom-tab-button",
-                      panel: "custom-tab-panel p-4 rounded-medium",
-                    }}
-                  >
-                    {(item) => (
-                      <Tab key={item.id} title={item.label}>
-                        <p className="font-bold mb-2">{item.label}</p>
-                        {item.konten && (
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: item.konten.replace(
-                                /(<? *script)/gi,
-                                "illegalscript"
-                              ),
-                            }}
-                          ></div>
-                        )}
-                      </Tab>
-                    )}
-                  </Tabs>
-                </div>
-              )}
-              <div>
-                {dataDetail.content && (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: dataDetail.content.replace(
-                        /(<? *script)/gi,
-                        "illegalscript"
-                      ),
-                    }}
-                  ></div>
-                )}
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <TableWrapperDefault
-                  columns={[
-                    {
-                      show: true,
-                      id: "meta",
-                      name: "Meta",
-                    },
-                    {
-                      show: true,
-                      id: "keterangan",
-                      name: "Keterangan",
-                      format: (value: any) => {
-                        if (value.meta === "Lampiran") {
-                          return (
-                            <button className="font-bold bg-primary text-white p-2 rounded-medium">
-                              Unduh Produk Hukum
-                            </button>
-                          );
-                        } else {
-                          return value.keterangan;
-                        }
-                      },
-                    },
-                  ]}
-                  rawData={[
-                    {
-                      meta: "Tipe Dokumen",
-                      keterangan: dataDetail.judulSeragam,
-                    },
-                    {
-                      meta: "Judul",
-                      keterangan: dataDetail.title,
-                    },
-                    {
-                      meta: "T.E.U. Badan/Pengarang",
-                      keterangan: dataDetail.tajukEntriUtama,
-                    },
-                    {
-                      meta: "Nomor Peraturan",
-                      keterangan: dataDetail.nomor,
-                    },
-                    {
-                      meta: "Jenis / Bentuk Peraturan",
-                      keterangan: dataDetail.categoryName,
-                    },
-                    {
-                      meta: "Singkatan Jenis/Bentuk Peraturan",
-                      keterangan: dataDetail.singkatan,
-                    },
-                    {
-                      meta: "Tempat Penetapan",
-                      keterangan: dataDetail.tempatPenetapan,
-                    },
-                    {
-                      meta: "Tanggal-Bulan-Tahun Penetapan/Pengundangan",
-                      keterangan: dataDetail.tanggalPenetapanPengundangan,
-                    },
-                    {
-                      meta: "Sumber",
-                      keterangan: dataDetail.sumber,
-                    },
-                    {
-                      meta: "Subjek",
-                      keterangan: dataDetail.jejakan,
-                    },
-                    {
-                      meta: "Status Peraturan",
-                      keterangan: dataDetail.status,
-                    },
-                    {
-                      meta: "Bahasa",
-                      keterangan: dataDetail.bahasa,
-                    },
-                    {
-                      meta: "Lokasi",
-                      keterangan: dataDetail.lokasi,
-                    },
-                    {
-                      meta: "Bidang Hukum",
-                      keterangan: dataDetail.bidangHukum,
-                    },
-                    {
-                      meta: "Lampiran",
-                      keterangan: dataDetail.filePath,
-                    },
-                  ]}
-                />
-                <embed
-                  src={
-                    process.env.NEXT_PUBLIC_FILE_URL + "/" + dataDetail.filePath
-                  }
-                  width="100%"
-                  height="600"
-                  type="application/pdf"
-                ></embed>
-              </div>
-            </div>
-          )
-        ) : (
-          <>
-            <TableHeaderWrapper
-              initSearch={search}
-              onExtra={jenisPeraturanList}
-              onExtraTitle="Pilih Jenis Peraturan"
-              onExtraTwo={tahunList}
-              onExtraTwoTitle="Semua Tahun"
-              onSearch={(value) => {
-                setCurrentSearch(value);
-              }}
-            />
+    useEffect(() => {
+        if (search) {
+            detailProdukHukum(search)
+        }
+    }, [search])
+
+    useEffect(() => {
+        setCurrentPage(1)
+        getData()
+    }, [currentSearch])
+
+    useEffect(() => {
+        getData()
+    }, [currentPage])
+
+    return (
+        <div className="flex flex-col gap-4">
             <motion.div
-              transition={{
-                ease: "linear",
-                duration: 0.2,
-              }}
-            >
-              <TableWrapper
-                url=""
-                module=""
-                ref={tableRef}
-                title=""
-                onSelectedRow={(id: number) => onOpen(id)}
-                onPageChanged={(page: number) => {
-                  setCurrentPage(page);
+                transition={{
+                    ease: 'linear',
+                    duration: 0.2,
                 }}
-                // url=""
-                columns={[
-                  {
-                    width: 280,
-                    show: true,
-                    id: "thumbnail",
-                    name: "IMAGE",
-                    format: (value: ProdukHukumInterface) => (
-                      <div
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          position: "relative",
-                          borderRadius: "15px",
-                          overflow: "hidden",
-                          marginLeft: "10px",
-                        }}
-                      >
-                        <Image
-                          src={value?.thumbnail || emptyImg.src}
-                          alt="image"
-                          // width={100}
-                          // height={100}
-                          layout="fill"
-                          sizes="100vw"
-                          className="w-full self-center object-cover"
-                          onError={(event) => {
-                            // @ts-ignore
-                            event.target.src = emptyImg.src;
-                            // @ts-ignore
-                            event.target.srcset = emptyImg.src;
-                          }}
+            >
+                {search !== '' ? (
+                    isLoading ? (
+                        <div className="flex flex-col px-5 pb-5">
+                            <Skeleton
+                                isLoaded={!isLoading}
+                                className="h-6 w-4/6 rounded-lg mb-5"
+                            />
+                            <Skeleton
+                                isLoaded={!isLoading}
+                                className="h-6 w-5/6 rounded-lg mb-5"
+                            />
+                            <Skeleton
+                                isLoaded={!isLoading}
+                                className="h-6 w-3/6 rounded-lg mb-5"
+                            />
+                        </div>
+                    ) : (
+                        <div className="px-5 pb-5">
+                            <p className="text-xl text-center mb-10">
+                                {dataDetail.title}
+                            </p>
+                            {dataDetail.produkPasal && (
+                                <div className="grid grid-cols-2 gap-4 mb-10">
+                                    <Tabs
+                                        items={dataDetail.produkPasal}
+                                        disableAnimation
+                                        classNames={{
+                                            tabList:
+                                                'custom-tab-tablist flex-wrap',
+                                            tab: 'custom-tab-button',
+                                            panel: 'custom-tab-panel p-4 rounded-medium',
+                                        }}
+                                    >
+                                        {(item) => (
+                                            <Tab
+                                                key={item.id}
+                                                title={item.label}
+                                            >
+                                                <p className="font-bold mb-2">
+                                                    {item.label}
+                                                </p>
+                                                {item.konten && (
+                                                    <div
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: item.konten.replace(
+                                                                /(<? *script)/gi,
+                                                                'illegalscript',
+                                                            ),
+                                                        }}
+                                                    ></div>
+                                                )}
+                                            </Tab>
+                                        )}
+                                    </Tabs>
+                                </div>
+                            )}
+                            <div>
+                                {dataDetail.content && (
+                                    <div
+                                        dangerouslySetInnerHTML={{
+                                            __html: dataDetail.content.replace(
+                                                /(<? *script)/gi,
+                                                'illegalscript',
+                                            ),
+                                        }}
+                                    ></div>
+                                )}
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <TableWrapperDefault
+                                    columns={[
+                                        {
+                                            show: true,
+                                            id: 'meta',
+                                            name: 'Meta',
+                                        },
+                                        {
+                                            show: true,
+                                            id: 'keterangan',
+                                            name: 'Keterangan',
+                                            format: (value: any) => {
+                                                if (value.meta === 'Lampiran') {
+                                                    return (
+                                                        <button className="font-bold bg-primary text-white p-2 rounded-medium">
+                                                            Unduh Produk Hukum
+                                                        </button>
+                                                    )
+                                                } else {
+                                                    return value.keterangan
+                                                }
+                                            },
+                                        },
+                                    ]}
+                                    rawData={[
+                                        {
+                                            meta: 'Tipe Dokumen',
+                                            keterangan: dataDetail.judulSeragam,
+                                        },
+                                        {
+                                            meta: 'Judul',
+                                            keterangan: dataDetail.title,
+                                        },
+                                        {
+                                            meta: 'T.E.U. Badan/Pengarang',
+                                            keterangan:
+                                                dataDetail.tajukEntriUtama,
+                                        },
+                                        {
+                                            meta: 'Nomor Peraturan',
+                                            keterangan: dataDetail.nomor,
+                                        },
+                                        {
+                                            meta: 'Jenis / Bentuk Peraturan',
+                                            keterangan: dataDetail.categoryName,
+                                        },
+                                        {
+                                            meta: 'Singkatan Jenis/Bentuk Peraturan',
+                                            keterangan: dataDetail.singkatan,
+                                        },
+                                        {
+                                            meta: 'Tempat Penetapan',
+                                            keterangan:
+                                                dataDetail.tempatPenetapan,
+                                        },
+                                        {
+                                            meta: 'Tanggal-Bulan-Tahun Penetapan/Pengundangan',
+                                            keterangan:
+                                                dataDetail.tanggalPenetapanPengundangan,
+                                        },
+                                        {
+                                            meta: 'Sumber',
+                                            keterangan: dataDetail.sumber,
+                                        },
+                                        {
+                                            meta: 'Subjek',
+                                            keterangan: dataDetail.jejakan,
+                                        },
+                                        {
+                                            meta: 'Status Peraturan',
+                                            keterangan: dataDetail.status,
+                                        },
+                                        {
+                                            meta: 'Bahasa',
+                                            keterangan: dataDetail.bahasa,
+                                        },
+                                        {
+                                            meta: 'Lokasi',
+                                            keterangan: dataDetail.lokasi,
+                                        },
+                                        {
+                                            meta: 'Bidang Hukum',
+                                            keterangan: dataDetail.bidangHukum,
+                                        },
+                                        {
+                                            meta: 'Lampiran',
+                                            keterangan: dataDetail.filePath,
+                                        },
+                                    ]}
+                                />
+                                <PdfViewer
+                                    pdfUrl={
+                                        process.env
+                                            .NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                                        '/webview/produk_hukum/pdf/' +
+                                        dataDetail.filePath
+                                    }
+                                />
+                            </div>
+                        </div>
+                    )
+                ) : (
+                    <>
+                        <TableHeaderWrapper
+                            initSearch={search}
+                            onExtra={jenisPeraturanList}
+                            onExtraTitle="Pilih Jenis Peraturan"
+                            onExtraTwo={tahunList}
+                            onExtraTwoTitle="Semua Tahun"
+                            onSearch={(value) => {
+                                setCurrentSearch(value)
+                            }}
                         />
-                      </div>
-                    ),
-                  },
-                  {
-                    show: true,
-                    id: "productName",
-                    name: "DESC",
-                    format: (value: ProdukHukumInterface) => (
-                      <div style={{ paddingRight: "10px" }}>
-                        {value?.productName && (
-                          <p
-                            className="font-bold mb-1 text-primary text-large"
-                            dangerouslySetInnerHTML={{
-                              __html: value?.productName,
+                        <motion.div
+                            transition={{
+                                ease: 'linear',
+                                duration: 0.2,
                             }}
-                          />
-                        )}
-                        {value?.descr && (
-                          <p
-                            className="font-light mb-1"
-                            style={{ color: "#282828" }}
-                            dangerouslySetInnerHTML={{
-                              __html: value?.descr,
-                            }}
-                          />
-                        )}
-                        <p
-                          className="font-bold text-xs"
-                          style={{ color: "#827272" }}
                         >
-                          Disanggah pada {value?.uploadDate}
-                        </p>
-                      </div>
-                    ),
-                  },
-                ]}
-                rawData={data}
-                rawPage={currentPage}
-                rawTotal={total}
-                rawLoading={isLoading}
-              />
+                            <TableWrapper
+                                url=""
+                                module=""
+                                ref={tableRef}
+                                title=""
+                                onSelectedRow={(id: number) => onOpen(id)}
+                                onPageChanged={(page: number) => {
+                                    setCurrentPage(page)
+                                }}
+                                // url=""
+                                columns={[
+                                    {
+                                        width: 280,
+                                        show: true,
+                                        id: 'thumbnail',
+                                        name: 'IMAGE',
+                                        format: (
+                                            value: ProdukHukumInterface,
+                                        ) => (
+                                            <div
+                                                style={{
+                                                    width: '100px',
+                                                    height: '100px',
+                                                    position: 'relative',
+                                                    borderRadius: '15px',
+                                                    overflow: 'hidden',
+                                                    marginLeft: '10px',
+                                                }}
+                                            >
+                                                <Image
+                                                    src={
+                                                        value?.thumbnail ||
+                                                        emptyImg.src
+                                                    }
+                                                    alt="image"
+                                                    // width={100}
+                                                    // height={100}
+                                                    layout="fill"
+                                                    sizes="100vw"
+                                                    className="w-full self-center object-cover"
+                                                    onError={(event) => {
+                                                        // @ts-ignore
+                                                        event.target.src =
+                                                            emptyImg.src
+                                                        // @ts-ignore
+                                                        event.target.srcset =
+                                                            emptyImg.src
+                                                    }}
+                                                />
+                                            </div>
+                                        ),
+                                    },
+                                    {
+                                        show: true,
+                                        id: 'productName',
+                                        name: 'DESC',
+                                        format: (
+                                            value: ProdukHukumInterface,
+                                        ) => (
+                                            <div
+                                                style={{ paddingRight: '10px' }}
+                                            >
+                                                {value?.productName && (
+                                                    <p
+                                                        className="font-bold mb-1 text-primary text-large"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: value?.productName,
+                                                        }}
+                                                    />
+                                                )}
+                                                {value?.descr && (
+                                                    <p
+                                                        className="font-light mb-1"
+                                                        style={{
+                                                            color: '#282828',
+                                                        }}
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: value?.descr,
+                                                        }}
+                                                    />
+                                                )}
+                                                <p
+                                                    className="font-bold text-xs"
+                                                    style={{ color: '#827272' }}
+                                                >
+                                                    Disanggah pada{' '}
+                                                    {value?.uploadDate}
+                                                </p>
+                                            </div>
+                                        ),
+                                    },
+                                ]}
+                                rawData={data}
+                                rawPage={currentPage}
+                                rawTotal={total}
+                                rawLoading={isLoading}
+                            />
+                        </motion.div>
+                    </>
+                )}
             </motion.div>
-          </>
-        )}
-      </motion.div>
-    </div>
-  );
+        </div>
+    )
 }
