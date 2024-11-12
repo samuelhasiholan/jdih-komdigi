@@ -1,5 +1,3 @@
-import { VideoInterface as VideoProps } from '@/app/types/entities'
-
 interface VideoPlayerProps {
     linkUrl: string | undefined
 }
@@ -8,8 +6,14 @@ export default function VideoPlayer(video: VideoPlayerProps) {
 
     return (
         <div className="video-card">
-            <div className="video-card-body">
-                <video controls height="100%" width="100%" autoPlay={true}>
+            <div className="video-card-body" style={{ width: '100%' }}>
+                <video
+                    controls
+                    autoPlay={true}
+                    height="100%"
+                    width="100%"
+                    style={{ height: '100%', width: '100%' }}
+                >
                     <source src={video.linkUrl} type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
