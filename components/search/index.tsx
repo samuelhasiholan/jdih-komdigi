@@ -310,7 +310,7 @@ export default function Search({
                 module=""
                 ref={tableRef}
                 title=""
-                onSelectedRow={(id: number) => onOpen(id)}
+                onSelectedRow={(id: number | string) => onOpen(id)}
                 onPageChanged={(page: number) => {
                   setCurrentPage(page);
                 }}
@@ -335,17 +335,7 @@ export default function Search({
                         <Image
                           src={value?.thumbnail || emptyImg.src}
                           alt="image"
-                          // width={100}
-                          // height={100}
-                          layout="fill"
-                          sizes="100vw"
                           className="w-full self-center object-cover"
-                          onError={(event) => {
-                            // @ts-ignore
-                            event.target.src = emptyImg.src;
-                            // @ts-ignore
-                            event.target.srcset = emptyImg.src;
-                          }}
                         />
                       </div>
                     ),

@@ -280,7 +280,7 @@ const TableWrapper = (
           removeWrapper
           aria-label="Dynamic Table"
           isHeaderSticky
-          onRowAction={(id) => onSelectedRow && onSelectedRow(id)}
+          onRowAction={(id: any) => onSelectedRow && onSelectedRow(id)}
           classNames={{
             wrapper: `p-2 bg-content1/70 ${
               !infiniteScroll && "overflow-y-hidden"
