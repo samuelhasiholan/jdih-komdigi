@@ -2,6 +2,7 @@
 import TableWrapper from "@/components/table/block/table";
 import { motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
+import { Skeleton } from "@nextui-org/skeleton";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
 import { InfografisInterface } from "@/app/types/entities";
@@ -82,35 +83,60 @@ export default function Infografis({ search, onOpen }: InfografisProps) {
         }}
       >
         {search !== "" ? (
-          <div className="px-5 pb-5">
-            <p className="text-xl text-center mb-5">{dataDetail.judul}</p>
-            <Image
-              src={dataDetail.thumbnail}
-              alt="image"
-              radius="md"
-              className="w-full self-center object-cover mb-5"
-              removeWrapper
-            />
-            <p className="mb-3 text-primary">
-              {dataDetail?.penulis}
-              {dataDetail?.penulis && dataDetail?.dateCreated && ", pada "}
-              {dataDetail?.dateCreated
-                ? moment(dataDetail?.dateCreated).format("dddd, DD MMMM YYYY")
-                : ""}
-            </p>
-            <div>
-              {dataDetail.konten && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: dataDetail.konten.replace(
-                      /(<? *script)/gi,
-                      "illegalscript",
-                    ),
-                  }}
-                ></div>
-              )}
+          isLoading ? (
+            <div className="flex flex-col px-5 pb-5">
+              <Skeleton
+                isLoaded={!isLoading}
+                className="h-7 w-5/6 rounded-lg mb-5 self-center"
+              />
+              <Skeleton
+                isLoaded={!isLoading}
+                className="h-48 w-full rounded-lg mb-5"
+              />
+              <Skeleton
+                isLoaded={!isLoading}
+                className="h-6 w-2/6 rounded-lg mb-5"
+              />
+              <Skeleton
+                isLoaded={!isLoading}
+                className="h-6 w-5/6 rounded-lg mb-5"
+              />
+              <Skeleton
+                isLoaded={!isLoading}
+                className="h-6 w-3/6 rounded-lg mb-5"
+              />
             </div>
-          </div>
+          ) : (
+            <div className="px-5 pb-5">
+              <p className="text-xl text-center mb-5">{dataDetail.judul}</p>
+              <Image
+                src={dataDetail.thumbnail}
+                alt="image"
+                radius="md"
+                className="w-full self-center object-cover mb-5"
+                removeWrapper
+              />
+              <p className="mb-3 text-primary">
+                {dataDetail?.penulis}
+                {dataDetail?.penulis && dataDetail?.dateCreated && ", pada "}
+                {dataDetail?.dateCreated
+                  ? moment(dataDetail?.dateCreated).format("dddd, DD MMMM YYYY")
+                  : ""}
+              </p>
+              <div>
+                {dataDetail.konten && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: dataDetail.konten.replace(
+                        /(<? *script)/gi,
+                        "illegalscript"
+                      ),
+                    }}
+                  ></div>
+                )}
+              </div>
+            </div>
+          )
         ) : (
           <TableWrapper
             ref={tableRef}

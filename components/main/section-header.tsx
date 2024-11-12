@@ -6,7 +6,12 @@ import { Input } from "@nextui-org/input";
 import { useState } from "react";
 
 export interface SectionHeaderProps {
-  openModal: (action: string, title: string, search?: string) => void;
+  openModal: (
+    action: string,
+    title: string,
+    search?: string,
+    keyword?: string
+  ) => void;
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = (props) => {
@@ -17,7 +22,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = (props) => {
       className="flex items-center w-full rounded-xl overflow-hidden"
       onSubmit={(e) => {
         e.preventDefault();
-        props.openModal("search", "Pencarian", search);
+        props.openModal("search", "Pencarian", "", search);
       }}
     >
       <Input

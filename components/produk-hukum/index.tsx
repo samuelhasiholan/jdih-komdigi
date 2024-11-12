@@ -3,10 +3,9 @@ import TableWrapper from "@/components/table/custom-table/table";
 import TableHeaderWrapper from "@/components/table/custom-table/table-header";
 import TableWrapperDefault from "@/components/table/default/table";
 import { AnimatePresence, motion } from "framer-motion";
-import { Input } from "@nextui-org/input";
-import { Spinner } from "@nextui-org/spinner";
 import { jenisPeraturanList, tahunList } from "@/constants";
 import { Image } from "@nextui-org/image";
+import { Skeleton } from "@nextui-org/skeleton";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
@@ -108,10 +107,8 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
   }, [search]);
 
   useEffect(() => {
-    if (currentSearch) {
-      setCurrentPage(1);
-      getData();
-    }
+    setCurrentPage(1);
+    getData();
   }, [currentSearch]);
 
   useEffect(() => {
@@ -127,7 +124,22 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
         }}
       >
         {search !== "" ? (
-          !isLoading && (
+          isLoading ? (
+            <div className="flex flex-col px-5 pb-5">
+              <Skeleton
+                isLoaded={!isLoading}
+                className="h-6 w-4/6 rounded-lg mb-5"
+              />
+              <Skeleton
+                isLoaded={!isLoading}
+                className="h-6 w-5/6 rounded-lg mb-5"
+              />
+              <Skeleton
+                isLoaded={!isLoading}
+                className="h-6 w-3/6 rounded-lg mb-5"
+              />
+            </div>
+          ) : (
             <div className="px-5 pb-5">
               <p className="text-xl text-center mb-10">{dataDetail.title}</p>
               {dataDetail.produkPasal && (

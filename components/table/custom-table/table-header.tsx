@@ -33,7 +33,7 @@ export default function TableHeaderWrapper({
   return (
     <div className="flex flex-wrap items-center justify-between gap-4">
       <form
-        className="flex items-center w-full rounded-xl overflow-hidden"
+        className="flex items-center w-full rounded-xl overflow-hidden mb-4"
         onSubmit={(e) => {
           e.preventDefault();
           onSearch && onSearch(search);
