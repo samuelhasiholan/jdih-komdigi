@@ -74,19 +74,19 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
             title: res?.data.produk.title,
             content: res?.data.produk.content,
             uploadDate: res?.data.produk.upload_date,
-            judulSeragam: res?.data.produk.katalogrel.judul_seragam,
-            tajukEntriUtama: res?.data.produk.katalogrel.tajuk_entri_utama,
+            judulSeragam: res?.data.produk.katalogrel?.judul_seragam,
+            tajukEntriUtama: res?.data.produk.katalogrel?.tajuk_entri_utama,
             nomor: res?.data.produk.nomor,
-            categoryName: res?.data.produk.kategori.category_name,
-            singkatan: res?.data.produk.kategori.singkatan,
+            categoryName: res?.data.produk.kategori?.category_name,
+            singkatan: res?.data.produk.kategori?.singkatan,
             tempatPenetapan: res?.data.produk.tempat_penetapan,
             tanggalPenetapanPengundangan:
               res?.data.produk.tanggal_penetapan +
               "/" +
               res?.data.produk.tanggal_pengundangan,
             sumber: res?.data.produk.sumber,
-            jejakan: res?.data.produk.katalogrel.jejakan,
-            status: res?.data.produk.status_peraturan.status,
+            jejakan: res?.data.produk.katalogrel?.jejakan,
+            status: res?.data.produk.status_peraturan?.status,
             bahasa:
               res?.data.produk.bahasa === "0"
                 ? "Indonesia"
