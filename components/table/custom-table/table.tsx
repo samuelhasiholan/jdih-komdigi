@@ -54,10 +54,13 @@ const TableWrapper = (
     defaultSortDescriptor,
     bgClear = false,
     onPageChanged = (page: number) => {},
+    onSelectedRow = (id: string | number) => {},
   }: TableWrapperProps,
-  refs: any,
+  refs: any
 ) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL : "";
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "";
   const dispatch = useAppDispatch();
 
   const [columnsShown, setColumnsShown] = useState<ColumnType[]>([...columns]);
@@ -69,7 +72,7 @@ const TableWrapper = (
       {
         // column: "createdAt",
         // direction: "descending",
-      },
+      }
   );
   const [filter, setFilter] = useState<FilterType[]>([]);
   const [search, setSearch] = useState("");
@@ -277,6 +280,7 @@ const TableWrapper = (
           removeWrapper
           aria-label="Dynamic Table"
           isHeaderSticky
+          onRowAction={(id) => onSelectedRow && onSelectedRow(id)}
           classNames={{
             wrapper: `p-2 bg-content1/70 ${
               !infiniteScroll && "overflow-y-hidden"
@@ -296,7 +300,7 @@ const TableWrapper = (
           }}
         >
           <TableHeader columns={columnsShown.filter((c) => c?.show)}>
-            {(column) =>
+            {(column) => (
               <TableColumn
                 key={column.id}
                 hideHeader={column.id === "actions"}
@@ -312,7 +316,11 @@ const TableWrapper = (
                     : column.id
                       ? colWidth(column.id)
                       : "auto",
-                  width: column?.width ? column.width : (column.id ? colWidth(column.id) : "auto"),
+                  width: column?.width
+                    ? column.width
+                    : column.id
+                      ? colWidth(column.id)
+                      : "auto",
                 }}
               >
                 <motion.span
@@ -326,7 +334,7 @@ const TableWrapper = (
                   {columns?.find((c) => c.id === column.id)?.name}
                 </motion.span>
               </TableColumn>
-            }
+            )}
           </TableHeader>
           <TableBody
             isLoading={isLoading}
@@ -357,7 +365,7 @@ const TableWrapper = (
           >
             {data.map((item, index) => (
               <TableRow
-                key={`row-${index}`}
+                key={item.id ? item.id : `row-${index}`}
                 className={`[&>td]:hover:bg-default-50 [&>td:first-child]:rounded-l-xl [&>td:last-child]:rounded-r-xl rounded-md cursor-pointer opacity-0 animate-fadeInScaleIn ${bgClear ? "" : "custom-table-row"}`}
                 style={{
                   animationDelay: `${index * 50}ms`,

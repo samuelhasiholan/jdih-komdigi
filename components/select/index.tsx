@@ -56,7 +56,7 @@ export default function SelectInput({
 
   return (
     <Select
-      key={data}
+      key={`${selectInputIndex}-${data}`}
       items={data}
       value={value}
       isLoading={isLoading}
@@ -69,7 +69,7 @@ export default function SelectInput({
       {data?.map((selectItem: any) => (
         <SelectItem
           {...selectItemProps}
-          key={selectItem.itemValue?.toString()}
+          key={`${selectInputIndex}-${selectItem.itemValue?.toString()}`}
           textValue={selectItem.itemLabel?.toString()}
         >
           {renderItem ? renderItem(selectItem) : selectItem.itemLabel}

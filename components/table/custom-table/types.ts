@@ -26,6 +26,7 @@ export interface TableWrapperProps {
     direction: "ascending" | "descending";
   };
   onPageChanged?: (page: number) => void;
+  onSelectedRow?: (id: string | number) => void;
 }
 
 export type DataTableOperator =
