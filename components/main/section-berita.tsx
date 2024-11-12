@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/button'
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton } from '@nextui-org/skeleton'
 import { BeritaInterface as Berita } from '@/app/types/entities'
 import { Image } from '@nextui-org/image'
 import { useHttp } from '@/app/hooks/useHttp'
@@ -49,48 +49,58 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
     }, [])
 
     return (
-        <section className="secondary-section flex flex-col py-11">
-            <div>
-                <Button color="primary" disableRipple disableAnimation>
-                    BERITA
-                </Button>
-            </div>
-            <div className="font-bold my-6 text-4xl text-title">
-                Berita Terkini
-            </div>
-            <div className="flex mb-6">
-                <span className="flex-auto text-title">
-                    Berita terkini seputar JDIH Kemkomdigi
-                </span>
-                <button
-                    className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary"
-                    onClick={() => props.openModal('berita', 'Berita')}
-                >
-                    LIHAT SEMUA
-                </button>
-            </div>
-            {
-                isLoading
-                ? <div className='flex'>
-                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
-                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
-                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
+        <section className="carousel-section flex flex-col py-11">
+            <div className="secondary-carousel-section">
+                <div className="font-bold my-6 text-4xl text-title">
+                    Berita Terkini
                 </div>
-                : dataTop5 && (
+                <div className="flex mb-6">
+                    <span className="flex-auto text-title">
+                        Berita terkini seputar JDIH Kemkomdigi
+                    </span>
+                    <button
+                        className="cursor-pointer flex-shrink-0 font-bold ml-5 text-primary"
+                        onClick={() => props.openModal('berita', 'Berita')}
+                    >
+                        LIHAT SEMUA
+                    </button>
+                </div>
+            </div>
+            {isLoading ? (
+                <div className="flex">
+                    <Skeleton
+                        isLoaded={!isLoading}
+                        className="h-24 w-1/3 rounded-lg mx-2"
+                    />
+                    <Skeleton
+                        isLoaded={!isLoading}
+                        className="h-24 w-1/3 rounded-lg mx-2"
+                    />
+                    <Skeleton
+                        isLoaded={!isLoading}
+                        className="h-24 w-1/3 rounded-lg mx-2"
+                    />
+                </div>
+            ) : (
+                dataTop5 && (
                     <Carousel
                         responsive={responsive}
                         arrows={false}
-                        infinite
                         autoPlay
                         autoPlaySpeed={8000}
                         itemClass="px-2"
                     >
+                        <div className="carausel-gap"></div>
                         {dataTop5?.map((value, index) => (
                             <Button
                                 className="flex flex-col berita-card text-small gap-0"
                                 key={index}
                                 onClick={() =>
-                                    props.openModal('berita', 'Berita', value.id)
+                                    props.openModal(
+                                        'berita',
+                                        'Berita',
+                                        value.id,
+                                    )
                                 }
                             >
                                 <Image
@@ -108,24 +118,27 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                                     <p style={{ color: '#BBBBBB' }}>
                                         {value.dateCreated
                                             ? moment(value.dateCreated).format(
-                                                'dddd, DD MMMM YYYY',
-                                            )
+                                                  'dddd, DD MMMM YYYY',
+                                              )
                                             : ''}
                                     </p>
-                                    <p className="font-bold mt-2">{value.judul}</p>
+                                    <p className="font-bold mt-2">
+                                        {value.judul}
+                                    </p>
                                     <span
                                         className="font-light mt-2"
                                         style={{ color: '#827272' }}
                                     >
-                                        {value.excerpt && value.excerpt.length > 200
+                                        {value.excerpt &&
+                                        value.excerpt.length > 200
                                             ? value.excerpt
-                                                .substr(
-                                                    0,
-                                                    value.excerpt
-                                                        .slice(0, 200)
-                                                        .lastIndexOf(' '),
-                                                )
-                                                .concat('…')
+                                                  .substr(
+                                                      0,
+                                                      value.excerpt
+                                                          .slice(0, 200)
+                                                          .lastIndexOf(' '),
+                                                  )
+                                                  .concat('…')
                                             : value.excerpt}
                                     </span>
                                 </div>
@@ -133,7 +146,7 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                         ))}
                     </Carousel>
                 )
-            }
+            )}
         </section>
     )
 }

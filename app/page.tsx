@@ -24,6 +24,7 @@ export default function Home() {
     const [modalTitle, setModalTitle] = useState('')
     const [linkUrl, setLinkUrl] = useState('')
     const [modalVideo, setModalVideo] = useState<VideoInterface | null>(null)
+    let timeout: NodeJS.Timeout
 
     const onCloseModal = () => {
         setModalAction('')
@@ -32,15 +33,21 @@ export default function Home() {
         setModalTitle('')
         setModalVideo(null)
         setShowReviewWindow(false)
+        clearTimeout(timeout)
     }
 
-    const openModal = (action: string, title: string, search: string | number = '') => {
+    const openModal = (
+        action: string,
+        title: string,
+        search: string | number = '',
+    ) => {
         setModalAction(action)
         setLinkUrl('')
         setModalSearch(search)
         setModalTitle(title)
         setShowMainModal(true)
         setModalVideo(null)
+        autoCloseModal()
     }
 
     const openModalSearch = (
@@ -54,6 +61,7 @@ export default function Home() {
         setModalTitle(title)
         setShowMainModal(true)
         setModalVideo(null)
+        autoCloseModal()
     }
 
     const openModalVideoPlayer = (
@@ -66,6 +74,7 @@ export default function Home() {
         setModalTitle(title)
         setShowMainModal(true)
         setModalVideo(video)
+        autoCloseModal()
     }
 
     const openModalIframe = (title: string, linkUrl: string) => {
@@ -75,6 +84,18 @@ export default function Home() {
         setModalTitle(title)
         setShowMainModal(true)
         setModalVideo(null)
+        autoCloseModal()
+    }
+
+    // auto close modal when idle
+    const autoCloseModal = () => {
+        clearTimeout(timeout)
+        timeout = setTimeout(
+            () => {
+                setShowMainModal(false)
+            },
+            1000 * 60 * 15,
+        )
     }
 
     return (

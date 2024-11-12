@@ -11,41 +11,42 @@ const SectionFitur: React.FC<SectionFiturProps> = (props) => {
             src: 'assets/fitur-1.png',
             title: 'Monografi Hukum',
             url:
-                process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL + '/webview/monografi',
+                process.env.NEXT_PUBLIC_ACCOUNT_IFRAME_URL +
+                '/webview/monografi',
         },
         {
             src: 'assets/fitur-2.png',
             title: 'Perkara Hukum',
             url:
-                process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                process.env.NEXT_PUBLIC_ACCOUNT_IFRAME_URL +
                 '/webview/perkara/beranda',
         },
         {
             src: 'assets/fitur-3.png',
             title: 'Grafik Statistik',
             url:
-                process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                process.env.NEXT_PUBLIC_ACCOUNT_IFRAME_URL +
                 '/webview/produk_hukum/grafik',
         },
         {
             src: 'assets/fitur-4.png',
             title: 'Artikel Hukum',
             url:
-                process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                process.env.NEXT_PUBLIC_ACCOUNT_IFRAME_URL +
                 '/webview/artikel_hukum',
         },
         {
             src: 'assets/fitur-5.png',
             title: 'Konstitusional Review',
             url:
-                process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                process.env.NEXT_PUBLIC_ACCOUNT_IFRAME_URL +
                 '/webview/judicial/beranda',
         },
         {
             src: 'assets/fitur-6.png',
             title: 'Matriks Produk',
             url:
-                process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                process.env.NEXT_PUBLIC_ACCOUNT_IFRAME_URL +
                 '/webview/produk_hukum/statistik',
         },
     ]

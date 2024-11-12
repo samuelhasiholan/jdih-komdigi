@@ -1,7 +1,7 @@
 import { Button } from '@nextui-org/button'
 import { PlayIcon } from '@/components/icons'
 import { Image } from '@nextui-org/image'
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton } from '@nextui-org/skeleton'
 import { useEffect, useState } from 'react'
 import { useHttp } from '@/app/hooks/useHttp'
 import { VideoInterface } from '@/app/types/entities'
@@ -51,11 +51,6 @@ const SectionTv: React.FC<SectionTvProps> = (props) => {
 
     return (
         <section className="main-section flex flex-col py-11">
-            <div>
-                <Button color="primary" disableRipple disableAnimation>
-                    TV
-                </Button>
-            </div>
             <div className="font-bold my-6 text-4xl text-title">
                 JDIH Kenkomdigi TV
             </div>
@@ -73,50 +68,56 @@ const SectionTv: React.FC<SectionTvProps> = (props) => {
                 </button>
             </div>
             <div className="grid grid-cols-2 gap-4">
-                {
-                    isLoading
-                    ? <>
-                        <Skeleton isLoaded={!isLoading} className="h-24 rounded-lg" />
-                        <Skeleton isLoaded={!isLoading} className="h-24 rounded-lg" />
+                {isLoading ? (
+                    <>
+                        <Skeleton
+                            isLoaded={!isLoading}
+                            className="h-24 rounded-lg"
+                        />
+                        <Skeleton
+                            isLoaded={!isLoading}
+                            className="h-24 rounded-lg"
+                        />
                     </>
-                    : data &&
-                        data?.map((value, index) => (
-                            <Button
-                                className="video-card text-xl"
-                                key={index}
-                                onClick={() =>
-                                    props.openModalVideoPlayer(
-                                        'JDIH Kenkomdigi TV',
-                                        value,
-                                    )
+                ) : (
+                    data &&
+                    data?.map((value, index) => (
+                        <Button
+                            className="video-card text-xl"
+                            key={index}
+                            onClick={() =>
+                                props.openModalVideoPlayer(
+                                    'JDIH Kenkomdigi TV',
+                                    value,
+                                )
+                            }
+                        >
+                            <div className="video-card-date">
+                                <PlayIcon />
+                            </div>
+                            <Image
+                                className="mr-1"
+                                width={200}
+                                alt="pos"
+                                radius="none"
+                                src={
+                                    process.env.NEXT_PUBLIC_FILE_URL +
+                                    '/' +
+                                    value.previewPath
                                 }
-                            >
-                                <div className="video-card-date">
-                                    <PlayIcon />
-                                </div>
-                                <Image
-                                    className="mr-1"
-                                    width={200}
-                                    alt="pos"
-                                    radius="none"
-                                    src={
-                                        process.env.NEXT_PUBLIC_FILE_URL +
-                                        '/' +
-                                        value.previewPath
-                                    }
-                                    removeWrapper
-                                />
-                                <div className="text-left text-small">
-                                    <p className="whitespace-normal font-bold mb-2">
-                                        {value?.judul}
-                                    </p>
-                                    <p className="whitespace-normal">
-                                        {value?.createdAt}
-                                    </p>
-                                </div>
-                            </Button>
-                        ))
-                }
+                                removeWrapper
+                            />
+                            <div className="text-left text-small">
+                                <p className="whitespace-normal font-bold mb-2">
+                                    {value?.judul}
+                                </p>
+                                <p className="whitespace-normal">
+                                    {value?.createdAt}
+                                </p>
+                            </div>
+                        </Button>
+                    ))
+                )}
             </div>
         </section>
     )

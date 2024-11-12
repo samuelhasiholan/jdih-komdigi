@@ -125,6 +125,12 @@
     .main-section {
         padding: 44px 50px;
     }
+    .carousel-section {
+        padding: 44px 0;
+    }
+    .secondary-carousel-section {
+        padding: 0 50px;
+    }
     .secondary-section {
         background-color: #f2f7fd;
         padding: 44px 50px;
@@ -356,29 +362,34 @@
     }
     .custom-tab-button {
         width: unset !important;
-        color: #0159DF;
-        border: 1px solid #0159DF;
+        color: #0159df;
+        border: 1px solid #0159df;
         background-color: #fff;
 
         div {
-            color: #0159DF;
+            color: #0159df;
         }
     }
-    .custom-tab-button.data-\[selected\=true\]\:bg-default[data-selected=true] {
+    .custom-tab-button.data-\[selected\=true\]\:bg-default[data-selected='true'] {
         color: #fff !important;
-        background-color: #0159DF !important;
+        background-color: #0159df !important;
 
         div {
             color: #fff;
         }
     }
     .custom-tab-panel {
-        background-color: #E6EEFB;
+        background-color: #e6eefb;
     }
 }
 span.highlight {
     background: yellow;
 }
-ol, ul {
+ol,
+ul {
     padding-left: 2rem;
+}
+
+ul.react-multi-carousel-track > li:first-child {
+    width: 50px !important;
 }

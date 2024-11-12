@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/button'
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton } from '@nextui-org/skeleton'
 import { InfografisInterface } from '@/app/types/entities'
 import { Image } from '@nextui-org/image'
 import { useHttp } from '@/app/hooks/useHttp'
@@ -48,11 +48,6 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
 
     return (
         <section className="main-section flex flex-col py-11">
-            <div>
-                <Button color="primary" disableRipple disableAnimation>
-                    INFOGRAFIS
-                </Button>
-            </div>
             <div className="font-bold my-6 text-4xl text-title">Infografis</div>
             <div className="flex mb-6">
                 <span className="flex-auto text-title"></span>
@@ -63,14 +58,23 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
                     LIHAT SEMUA
                 </button>
             </div>
-            {
-                isLoading
-                ? <div className='flex'>
-                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
-                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
-                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
+            {isLoading ? (
+                <div className="flex">
+                    <Skeleton
+                        isLoaded={!isLoading}
+                        className="h-24 w-1/3 rounded-lg mx-2"
+                    />
+                    <Skeleton
+                        isLoaded={!isLoading}
+                        className="h-24 w-1/3 rounded-lg mx-2"
+                    />
+                    <Skeleton
+                        isLoaded={!isLoading}
+                        className="h-24 w-1/3 rounded-lg mx-2"
+                    />
                 </div>
-                : dataTop5 && (
+            ) : (
+                dataTop5 && (
                     <Carousel
                         responsive={responsive}
                         arrows={false}
@@ -109,7 +113,7 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
                         ))}
                     </Carousel>
                 )
-            }
+            )}
         </section>
     )
 }

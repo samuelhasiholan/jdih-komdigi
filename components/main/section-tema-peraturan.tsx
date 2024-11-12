@@ -16,27 +16,19 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
     }
 
     return (
-        <section className="main-section flex flex-col py-11">
-            <Button
-                color="primary"
-                className="self-center"
-                disableRipple
-                disableAnimation
-            >
-                TEMA
-            </Button>
+        <section className="carousel-section flex flex-col py-11">
             <div className="self-center font-bold my-6 text-4xl text-title">
-                Telusur Tema Peraturan
+                Telusuri Tema Peraturan
             </div>
             <Carousel
                 responsive={responsive}
                 arrows={false}
-                infinite
                 autoPlay
                 autoPlaySpeed={8000}
                 centerMode={true}
                 itemClass="px-2"
             >
+                <div className="carausel-gap"></div>
                 <Button
                     className="flex flex-col tema-card items-center whitespace-normal w-full"
                     onClick={() =>
