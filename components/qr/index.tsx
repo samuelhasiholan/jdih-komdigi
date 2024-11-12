@@ -2,7 +2,11 @@
 import { motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
 
-export default function QR() {
+interface QrProps {
+  search?: string | number;
+}
+
+export default function QR({ search }: QrProps) {
   return (
     <div className="flex flex-col gap-4 items-center py-10">
       <p className="mb-10 text-2xl font-bold text-center">
@@ -17,8 +21,9 @@ export default function QR() {
         }}
       >
         <Image
-          alt="appstore"
-          src="assets/qr_code.png"
+          alt="QR"
+          width={450}
+          src={`assets/${search}.png`}
           radius="none"
           removeWrapper
         />

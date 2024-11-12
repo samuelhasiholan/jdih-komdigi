@@ -1,7 +1,7 @@
 import { Image } from "@nextui-org/image";
 
 export interface SectionFooterProps {
-  openModal: (type: string, title: string) => void;
+  openModal: (type: string, title: string, search?: string) => void;
 }
 
 const SectionFooter: React.FC<SectionFooterProps> = (props) => {
@@ -17,7 +17,8 @@ const SectionFooter: React.FC<SectionFooterProps> = (props) => {
           />
           <p className="font-bold mt-4 mb-1">Alamat</p>
           <p className="text-small font-light">
-            Gedung Utama Lantai 5 Kementerian Komunikasi dan Informatika  <br />
+            Gedung Utama Lantai 5 Kementerian Komunikasi dan Informatika
+            <br />
             JIn. Medan Merdeka Barat No. 9, 10110 Jakarta Pusat, Indonesia
           </p>
           <p className="font-bold mt-4 mb-1">Kontak</p>
@@ -32,28 +33,28 @@ const SectionFooter: React.FC<SectionFooterProps> = (props) => {
               src="assets/icon_fb.png"
               radius="none"
               removeWrapper
-              onClick={() => props.openModal("qr", "QR")}
+              onClick={() => props.openModal("qr", "QR", "qr_fb")}
             />
             <Image
               alt="instagram"
               src="assets/icon_ig.png"
               radius="none"
               removeWrapper
-              onClick={() => props.openModal("qr", "QR")}
+              onClick={() => props.openModal("qr", "QR", "qr_ig")}
             />
             <Image
               alt="youtube"
               src="assets/icon_yt.png"
               radius="none"
               removeWrapper
-              onClick={() => props.openModal("qr", "QR")}
+              onClick={() => props.openModal("qr", "QR", "qr_yt")}
             />
             <Image
               alt="x"
               src="assets/icon_x.png"
               radius="none"
               removeWrapper
-              onClick={() => props.openModal("qr", "QR")}
+              onClick={() => props.openModal("qr", "QR", "qr_x")}
             />
           </div>
         </div>
@@ -75,14 +76,14 @@ const SectionFooter: React.FC<SectionFooterProps> = (props) => {
                 src="assets/appstore.png"
                 radius="none"
                 removeWrapper
-                onClick={() => props.openModal("qr", "QR")}
+                onClick={() => props.openModal("qr", "QR", "qr_app")}
               />
               <Image
                 alt="gplay"
                 src="assets/gplay.png"
                 radius="none"
                 removeWrapper
-                onClick={() => props.openModal("qr", "QR")}
+                onClick={() => props.openModal("qr", "QR", "qr_play")}
               />
             </div>
           </div>

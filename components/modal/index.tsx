@@ -135,7 +135,7 @@ export default function MainModal({
             />
           )}
           {action === "tema" && <Tema search={search} />}
-          {action === "qr" && <QR />}
+          {action === "qr" && <QR search={search} />}
           {action === "video" && <VideoPlayer linkUrl={video?.linkUrl} />}
           {action === "iframe" && <Webview linkUrl={linkUrl} title={title} />}
         </ModalBody>
