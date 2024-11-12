@@ -263,8 +263,24 @@
         background-color: #0a48a6;
         padding: 1rem;
         text-align: left;
-        font-size: 12px;
+        font-size: 14px;
         letter-spacing: 0.025em;
+    }
+    .produk-card-title,
+    .berita-card-title {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    .produk-card-descr,
+    .berita-card-content {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
     }
     .produk-card-image {
         max-height: 140px;
@@ -308,22 +324,6 @@
         text-align: left;
         font-size: 12px;
         letter-spacing: 0.025em;
-    }
-    .produk-card-title,
-    .berita-card-title {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-    }
-    .produk-card-descr,
-    .berita-card-content {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
-        -webkit-box-orient: vertical;
     }
     .infografis-card {
         height: 100% !important;
@@ -414,13 +414,17 @@
 span.highlight {
     background: yellow;
 }
+ol,
+ul {
+    padding-left: 2rem;
+}
 
 /* ul.react-multi-carousel-track > li:first-child {
     width: 50px !important;
 } */
 
 .react-multi-carousel-item:first-child {
-    margin-left: 50px;
+    width: 33px !important;
 }
 
 @keyframes shakeHorizontal {

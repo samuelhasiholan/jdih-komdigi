@@ -124,8 +124,11 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
                         <Carousel
                             responsive={responsive}
                             arrows={false}
-                            autoPlay
+                            centerMode={false}
+                            autoPlay={true}
                             autoPlaySpeed={8000}
+                            rewind={true}
+                            rewindWithAnimation={true}
                             itemClass="px-2"
                         >
                             <div className="carausel-gap"></div>
@@ -203,11 +206,14 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
                         <Carousel
                             responsive={responsive}
                             arrows={false}
-                            infinite
-                            autoPlay
+                            centerMode={false}
+                            autoPlay={true}
                             autoPlaySpeed={8000}
+                            rewind={true}
+                            rewindWithAnimation={true}
                             itemClass="px-2"
                         >
+                            <div className="carausel-gap"></div>
                             {dataPopularProduk?.map((value, index) => (
                                 <Button
                                     className="flex flex-col produk-card text-small w-full gap-0"

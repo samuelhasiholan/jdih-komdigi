@@ -24,13 +24,14 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <Carousel
                 responsive={responsive}
                 arrows={false}
-                autoPlay
-                autoPlaySpeed={8000}
                 centerMode={false}
                 itemClass="px-2"
-                additionalTransfrom={50}
+                autoPlay={true}
+                autoPlaySpeed={8000}
+                rewind={true}
+                rewindWithAnimation={true}
             >
-                {/* <div className="carausel-gap"></div> */}
+                <div className="carausel-gap"></div>
                 <Button
                     className="flex flex-col tema-card items-center whitespace-normal w-full"
                     onClick={() =>
