@@ -81,7 +81,7 @@ export default function TableHeaderWrapper({
                 selectInputIndex={1}
                 onChange={(e) => {
                   const value = e.target.value;
-                  onExtraChange(value);
+                  onExtraChange && onExtraChange(value);
                 }}
                 children={[]}
               />
@@ -99,7 +99,7 @@ export default function TableHeaderWrapper({
                 selectInputIndex={2}
                 onChange={(e) => {
                   const value = e.target.value;
-                  onExtraTwoChange(value);
+                  onExtraTwoChange && onExtraTwoChange(value);
                 }}
                 children={[]}
               />

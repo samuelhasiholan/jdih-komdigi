@@ -16,7 +16,7 @@ export default function TV({ search, onOpen }: TVProps) {
   const tableRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [data, setData] = useState<VideoInterface[]>([]);
-  const [dataDetail, setDataDetail] = useState<VideoInterface>({});
+  const [dataDetail, setDataDetail] = useState<VideoInterface | any>({});
   const { get, isLoading } = useHttp();
 
   const getData = async () => {

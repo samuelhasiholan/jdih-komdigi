@@ -11,8 +11,8 @@ import React, { useEffect, useState } from "react";
 interface Props extends SelectProps {
   selectInputIndex?: number;
   items?: Array<any>;
-  itemLabel?: string;
-  itemValue?: string;
+  itemLabel: string;
+  itemValue: string;
   value?: any;
   renderItem?: (item: any) => React.ReactNode;
   selectItemProps?: any;
