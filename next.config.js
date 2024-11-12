@@ -24,7 +24,6 @@ const nextConfig = {
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
     },
-    pageExtensions: ['mdx', 'md', 'jsx', 'js', 'tsx', 'ts'],
 }
 
 module.exports = nextConfig
