@@ -52,9 +52,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              6 peraturan
-            </span>
+            ></span>
           </Button>
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
@@ -74,9 +72,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              45 peraturan
-            </span>
+            ></span>
           </Button>
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
@@ -96,9 +92,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              11 peraturan
-            </span>
+            ></span>
           </Button>
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
@@ -118,9 +112,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              8 peraturan
-            </span>
+            ></span>
           </Button>
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
@@ -140,9 +132,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              17 peraturan
-            </span>
+            ></span>
           </Button>
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
@@ -162,9 +152,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              11 peraturan
-            </span>
+            ></span>
           </Button>
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
@@ -184,9 +172,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              13 peraturan
-            </span>
+            ></span>
           </Button>
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
@@ -206,9 +192,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              1 peraturan
-            </span>
+            ></span>
           </Button>
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
@@ -228,9 +212,7 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
             <span
               className="text-description"
               style={{ letterSpacing: "0.3px" }}
-            >
-              31 peraturan
-            </span>
+            ></span>
           </Button>
         </Carousel>
       </div>
