@@ -20,7 +20,7 @@ export default function Home() {
     const [showReviewModal, setShowReviewModal] = useState(false)
     const [showReviewWindow, setShowReviewWindow] = useState(false)
     const [modalAction, setModalAction] = useState('')
-    const [modalSearch, setModalSearch] = useState('')
+    const [modalSearch, setModalSearch] = useState<string | number>('')
     const [modalTitle, setModalTitle] = useState('')
     const [linkUrl, setLinkUrl] = useState('')
     const [modalVideo, setModalVideo] = useState<VideoInterface | null>(null)
