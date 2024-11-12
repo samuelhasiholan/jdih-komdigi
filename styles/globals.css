@@ -398,6 +398,9 @@
 span.highlight {
   background: yellow;
 }
+section {
+  overflow-x: hidden;
+}
 
 /* ul.react-multi-carousel-track > li:first-child {
     width: 50px !important;
