@@ -419,8 +419,8 @@ span.highlight {
     width: 50px !important;
 } */
 
-.react-multi-carousel-item:first-child {
-    margin-left: 50px;
+.react-multi-carousel-list {
+    overflow: visible !important;
 }
 
 @keyframes shakeHorizontal {

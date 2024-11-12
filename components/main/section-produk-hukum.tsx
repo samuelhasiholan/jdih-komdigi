@@ -121,63 +121,63 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
                     </div>
                 ) : (
                     dataTop5Produk && (
-                        <Carousel
-                            responsive={responsive}
-                            arrows={false}
-                            centerMode={false}
-                            autoPlay={true}
-                            autoPlaySpeed={8000}
-                            rewind={true}
-                            rewindWithAnimation={true}
-                            itemClass="px-2"
-                        >
-                            <div className="carausel-gap"></div>
-                            {dataTop5Produk?.map((value, index) => (
-                                <Button
-                                    className="flex flex-col produk-card text-small w-full gap-0"
-                                    key={index}
-                                    onClick={() =>
-                                        props.openModal(
-                                            'produk',
-                                            'Detail Produk Hukum',
-                                            value.id,
-                                        )
-                                    }
-                                >
-                                    {value?.uploadDate ? (
-                                        <div className="produk-card-date">
-                                            {moment(value?.uploadDate).format(
-                                                'DD MMM YYYY',
-                                            )}
-                                        </div>
-                                    ) : (
-                                        ''
-                                    )}
-                                    <Image
-                                        alt="produk"
-                                        className="object-cover w-full produk-card-image"
-                                        src={
-                                            value.thumbnail
-                                                ? process.env
-                                                      .NEXT_PUBLIC_ACCOUNT_BASE_URL +
-                                                  '/' +
-                                                  value.thumbnail
-                                                : emptyImg.src
+                        <div className="px-10">
+                            <Carousel
+                                responsive={responsive}
+                                arrows={false}
+                                autoPlay
+                                autoPlaySpeed={8000}
+                                rewind={true}
+                                rewindWithAnimation={true}
+                                itemClass="px-2"
+                            >
+                                {dataTop5Produk?.map((value, index) => (
+                                    <Button
+                                        className="flex flex-col produk-card text-small w-full gap-0"
+                                        key={index}
+                                        onClick={() =>
+                                            props.openModal(
+                                                'produk',
+                                                'Detail Produk Hukum',
+                                                value.id,
+                                            )
                                         }
-                                        radius="none"
-                                        removeWrapper
-                                    />
-                                    <div className="produk-card-body">
-                                        <p className="font-bold produk-card-title">
-                                            {value.productName}
-                                        </p>
-                                        <span className="font-light mt-2 produk-card-descr">
-                                            {value.descr}
-                                        </span>
-                                    </div>
-                                </Button>
-                            ))}
-                        </Carousel>
+                                    >
+                                        {value?.uploadDate ? (
+                                            <div className="produk-card-date">
+                                                {moment(
+                                                    value?.uploadDate,
+                                                ).format('DD MMM YYYY')}
+                                            </div>
+                                        ) : (
+                                            ''
+                                        )}
+                                        <Image
+                                            alt="produk"
+                                            className="object-cover w-full produk-card-image"
+                                            src={
+                                                value.thumbnail
+                                                    ? process.env
+                                                          .NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                                                      '/' +
+                                                      value.thumbnail
+                                                    : emptyImg.src
+                                            }
+                                            radius="none"
+                                            removeWrapper
+                                        />
+                                        <div className="produk-card-body">
+                                            <p className="font-bold produk-card-title">
+                                                {value.productName}
+                                            </p>
+                                            <span className="font-light mt-2 produk-card-descr">
+                                                {value.descr}
+                                            </span>
+                                        </div>
+                                    </Button>
+                                ))}
+                            </Carousel>
+                        </div>
                     )
                 )}
             </div>
@@ -206,14 +206,13 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
                         <Carousel
                             responsive={responsive}
                             arrows={false}
-                            centerMode={false}
-                            autoPlay={true}
+                            infinite
+                            autoPlay
                             autoPlaySpeed={8000}
                             rewind={true}
                             rewindWithAnimation={true}
                             itemClass="px-2"
                         >
-                            <div className="carausel-gap"></div>
                             {dataPopularProduk?.map((value, index) => (
                                 <Button
                                     className="flex flex-col produk-card text-small w-full gap-0"

@@ -82,45 +82,50 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
                 </div>
             ) : (
                 dataTop5 && (
-                    <Carousel
-                        responsive={responsive}
-                        arrows={false}
-                        autoPlay
-                        autoPlaySpeed={8000}
-                        rewind={true}
-                        rewindWithAnimation={true}
-                        itemClass="px-2 pb-3"
-                    >
-                        <div className="carausel-gap"></div>
-                        {dataTop5?.map((value, index) => (
-                            <Button
-                                className="flex flex-col infografis-card text-small gap-0"
-                                key={index}
-                                onClick={() =>
-                                    props.openModal(
-                                        'infografis',
-                                        'Infografis',
-                                        value.id,
-                                    )
-                                }
-                            >
-                                <Image
-                                    alt="infografis"
-                                    className="object-cover w-full"
-                                    src={
-                                        process.env.NEXT_PUBLIC_INFOGRAFIS_URL +
-                                        '/' +
-                                        value.thumbnail
+                    <div className="px-10">
+                        <Carousel
+                            responsive={responsive}
+                            arrows={false}
+                            infinite
+                            autoPlay
+                            rewind={true}
+                            rewindWithAnimation={true}
+                            autoPlaySpeed={8000}
+                            itemClass="px-2 pb-3"
+                        >
+                            {dataTop5?.map((value, index) => (
+                                <Button
+                                    className="flex flex-col infografis-card text-small gap-0"
+                                    key={index}
+                                    onClick={() =>
+                                        props.openModal(
+                                            'infografis',
+                                            'Infografis',
+                                            value.id,
+                                        )
                                     }
-                                    radius="none"
-                                    removeWrapper
-                                />
-                                <div className="infografis-card-body">
-                                    <p className="font-bold">{value.judul}</p>
-                                </div>
-                            </Button>
-                        ))}
-                    </Carousel>
+                                >
+                                    <Image
+                                        alt="infografis"
+                                        className="object-cover w-full"
+                                        src={
+                                            process.env
+                                                .NEXT_PUBLIC_INFOGRAFIS_URL +
+                                            '/' +
+                                            value.thumbnail
+                                        }
+                                        radius="none"
+                                        removeWrapper
+                                    />
+                                    <div className="infografis-card-body">
+                                        <p className="font-bold">
+                                            {value.judul}
+                                        </p>
+                                    </div>
+                                </Button>
+                            ))}
+                        </Carousel>
+                    </div>
                 )
             )}
         </section>
