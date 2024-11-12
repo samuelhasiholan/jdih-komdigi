@@ -34,7 +34,6 @@ import { RenderCell } from "./render-cell";
 import { FilterType, TableWrapperProps } from "./types";
 import { useAppDispatch } from "@/store";
 import { motion } from "framer-motion";
-import { useAsyncList } from "@react-stately/data";
 import { Image } from "@nextui-org/image";
 
 const TableWrapper = (
@@ -53,10 +52,9 @@ const TableWrapper = (
   }: TableWrapperProps,
   refs: any,
 ) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL : "";
   const dispatch = useAppDispatch();
 
-  const [columnsShown, setColumnsShown] = useState<ColumnType[]>([...columns]);
   const [rowsPerPage, setRowsPerPage] = useState(infiniteScroll ? 20 : 10);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
@@ -218,13 +216,6 @@ const TableWrapper = (
     filter: handleFilterAction,
     clearFilter: () => setFilter([]),
   }));
-
-  useEffect(() => {
-    const _columns = localStorage.getItem(`columns-${module}-${title}`);
-    if (_columns) {
-      setColumnsShown(JSON.parse(_columns));
-    }
-  }, []);
 
   const bottomContent =
     pages > 0 && !infiniteScroll ? (

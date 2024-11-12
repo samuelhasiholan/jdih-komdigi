@@ -9,7 +9,7 @@ import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
 
 interface TemaProps {
-  search: string;
+  search?: string | number;
 }
 
 export default function Tema({ search }: TemaProps) {

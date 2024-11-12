@@ -34,7 +34,6 @@ import { RenderCell } from "./render-cell";
 import { FilterType, TableWrapperProps } from "./types";
 import { useAppDispatch } from "@/store";
 import { motion } from "framer-motion";
-import { useAsyncList } from "@react-stately/data";
 
 const TableWrapper = (
   {
@@ -43,8 +42,8 @@ const TableWrapper = (
     module,
     persistFilters = [],
     persistSearch,
-    columns,
-    infiniteScroll,
+    columns = [],
+    infiniteScroll = false,
     onView,
     onUpdate,
     extraActions,
@@ -53,7 +52,7 @@ const TableWrapper = (
   }: TableWrapperProps,
   refs: any,
 ) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL : "";
   const dispatch = useAppDispatch();
 
   const [columnsShown, setColumnsShown] = useState<ColumnType[]>([...columns]);
@@ -226,56 +225,6 @@ const TableWrapper = (
     }
   }, []);
 
-  const dropdownColumn = (columns: ColumnType[]) => (
-    <TableColumn
-      key={"actions"}
-      align="end"
-      allowsSorting={false}
-      style={{
-        width: "150px",
-        paddingRight: "8px",
-      }}
-    >
-      <Dropdown placement="bottom-end">
-        <DropdownTrigger className="float-right">
-          <Button isIconOnly variant="light" size="sm">
-            <TableIcon size={20} />
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          aria-label="Select columns"
-          variant="flat"
-          closeOnSelect={false}
-          disallowEmptySelection
-          selectionMode="multiple"
-          selectedKeys={columnsShown
-            .filter((column) => column?.show)
-            .map((column) => column.id)}
-          onSelectionChange={(selectedKeys: any) => {
-            if (selectedKeys.size === 1) return;
-            const newColumnsShown = columns.map((column) => ({
-              ...column,
-              show: selectedKeys?.has(column.id),
-            }));
-            setColumnsShown(newColumnsShown);
-            localStorage.setItem(
-              `columns-${module}-${title}`,
-              JSON.stringify(newColumnsShown),
-            );
-          }}
-        >
-          {columns
-            .filter((column) => column.id !== "actions")
-            .map((column, index) => (
-              <DropdownItem key={`${column.id}`}>
-                {columns?.find((c) => c.id === column.id)?.name}
-              </DropdownItem>
-            ))}
-        </DropdownMenu>
-      </Dropdown>
-    </TableColumn>
-  );
-
   const bottomContent =
     pages > 0 && !infiniteScroll ? (
       <div className="flex w-full items-center justify-center gap-4">
@@ -349,32 +298,32 @@ const TableWrapper = (
       >
         <TableHeader columns={columnsShown.filter((c) => c?.show)}>
           {(column) =>
-            column.id !== "actions" ? (
-              <TableColumn
-                key={column.id}
-                hideHeader={column.id === "actions"}
-                align={
-                  ["actions", "no"].includes(column.id)
-                    ? "center"
-                    : column?.align || "start"
-                }
-                allowsSorting={column.sortable}
-                style={{
-                  minWidth: column?.width ? column.width : colWidth(column.id),
-                  width: column?.width ? column.width : colWidth(column.id),
+            <TableColumn
+              key={column.id}
+              hideHeader={column.id === "actions"}
+              align={
+                column.id && ["actions", "no"].includes(column.id)
+                  ? "center"
+                  : column?.align || "start"
+              }
+              allowsSorting={column.sortable}
+              style={{
+                  minWidth: column?.width
+                    ? column.width
+                    : column.id
+                      ? colWidth(column.id)
+                      : "auto",
+                  width: column?.width ? column.width : (column.id ? colWidth(column.id) : "auto"),
                 }}
+            >
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { delay: 0.4 } }}
+                exit={{ opacity: 0 }}
               >
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { delay: 0.4 } }}
-                  exit={{ opacity: 0 }}
-                >
-                  {columns?.find((c) => c.id === column.id)?.name}
-                </motion.span>
-              </TableColumn>
-            ) : (
-              dropdownColumn(columns)
-            )
+                {columns?.find((c) => c.id === column.id)?.name}
+              </motion.span>
+            </TableColumn>
           }
         </TableHeader>
         <TableBody

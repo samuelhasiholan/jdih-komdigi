@@ -28,7 +28,7 @@ export default function Review({
   onOpenChange,
   onClose,
 }: ReviewProps) {
-  const { isLoading, error }: DashboardState = useAppSelector(
+  const { loading, error }: DashboardState = useAppSelector(
     (state) => state.dashboard,
   );
 
@@ -49,7 +49,7 @@ export default function Review({
       onOpenChange={onOpenChange}
       onClose={() => {
         setRating(0);
-        onClose();
+        onClose && onClose();
       }}
       placement="center"
       scrollBehavior="inside"

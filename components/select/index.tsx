@@ -10,10 +10,10 @@ import React, { useEffect, useState } from "react";
 
 interface Props extends SelectProps {
   selectInputIndex?: number;
-  items: Array<any>;
-  itemLabel: string;
-  itemValue: string;
-  value: any;
+  items?: Array<any>;
+  itemLabel?: string;
+  itemValue?: string;
+  value?: any;
   renderItem?: (item: any) => React.ReactNode;
   selectItemProps?: any;
 }
@@ -69,10 +69,10 @@ export default function SelectInput({
       {data?.map((selectItem: any) => (
         <SelectItem
           {...selectItemProps}
-          key={selectItem[itemValue]?.toString()}
-          textValue={selectItem[itemLabel]?.toString()}
+          key={selectItem.itemValue?.toString()}
+          textValue={selectItem.itemLabel?.toString()}
         >
-          {renderItem ? renderItem(selectItem) : selectItem[itemLabel]}
+          {renderItem ? renderItem(selectItem) : selectItem.itemLabel}
         </SelectItem>
       ))}
     </Select>

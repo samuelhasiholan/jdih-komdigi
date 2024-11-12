@@ -4,25 +4,25 @@ import { motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
-import { Infografis } from "@/app/types/entities";
+import { InfografisInterface } from "@/app/types/entities";
 import { useHttp } from "@/app/hooks/useHttp";
 import moment from "moment";
 
 interface InfografisProps {
-  search: string;
-  onOpen: () => void;
+  search: string | number;
+  onOpen: (value: number | string) => void;
 }
 
 export default function Infografis({ search, onOpen }: InfografisProps) {
   const tableRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [data, setData] = useState<Infografis[]>([]);
-  const [dataDetail, setDataDetail] = useState<Infografis>({});
+  const [data, setData] = useState<InfografisInterface[]>([]);
+  const [dataDetail, setDataDetail] = useState<InfografisInterface>({});
   const { get, isLoading } = useHttp();
 
   const getData = async () => {
     try {
-      const dataInfografis: Infografis[] = [];
+      const dataInfografis: InfografisInterface[] = [];
       const res: any = await get(`/infografis/all`);
 
       if (
@@ -38,7 +38,7 @@ export default function Infografis({ search, onOpen }: InfografisProps) {
             konten: item.konten,
             thumbnail: item.file_path
               ? process.env.NEXT_PUBLIC_INFOGRAFIS_URL + "/" + item.file_path
-              : null,
+              : "",
             dateCreated: item.created_at,
           });
         });
@@ -50,7 +50,7 @@ export default function Infografis({ search, onOpen }: InfografisProps) {
     }
   };
 
-  const detailInfografis = (id) => {
+  const detailInfografis = (id: number | string) => {
     let i = 0;
     while (i < data.length) {
       if (data[i].id === id) {
@@ -87,15 +87,8 @@ export default function Infografis({ search, onOpen }: InfografisProps) {
             <Image
               src={dataDetail.thumbnail}
               alt="image"
-              layout="fill"
               radius="md"
               className="w-full self-center object-cover mb-5"
-              onError={(event) => {
-                // @ts-ignore
-                event.target.src = emptyImg.src;
-                // @ts-ignore
-                event.target.srcset = emptyImg.src;
-              }}
               removeWrapper
             />
             <p className="mb-3 text-primary">
@@ -126,7 +119,6 @@ export default function Infografis({ search, onOpen }: InfografisProps) {
               setDataDetail({});
               onOpen(id);
             }}
-            bgClear={true}
             columns={[]}
             rawData={data}
             rawLoading={isLoading}

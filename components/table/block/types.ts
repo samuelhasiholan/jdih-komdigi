@@ -4,12 +4,12 @@ import React from "react";
 
 export interface TableWrapperProps {
   url?: string;
-  title: string;
+  title?: string;
   module?: string;
   search?: string;
   persistFilters?: Array<FilterType>;
   persistSearch?: string;
-  columns: ColumnType[];
+  columns?: ColumnType[];
   infiniteScroll?: boolean;
   selectionMode?: SelectionMode;
   onView?: (item: any) => void;

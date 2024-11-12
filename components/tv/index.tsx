@@ -2,26 +2,26 @@
 import TableWrapper from "@/components/table/block/table";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { Video } from "@/app/types/entities";
+import { VideoInterface } from "@/app/types/entities";
 import { useHttp } from "@/app/hooks/useHttp";
 import VideoPlayer from "../video-player";
 import moment from "moment";
 
 interface TVProps {
-  search: string;
-  onOpen: () => void;
+  search: string | number;
+  onOpen: (value: number | string) => void;
 }
 
 export default function TV({ search, onOpen }: TVProps) {
   const tableRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [data, setData] = useState<Video[]>([]);
-  const [dataDetail, setDataDetail] = useState<TV>({});
+  const [data, setData] = useState<VideoInterface[]>([]);
+  const [dataDetail, setDataDetail] = useState<VideoInterface>({});
   const { get, isLoading } = useHttp();
 
   const getData = async () => {
     try {
-      const dataTV: Video[] = [];
+      const dataTV: VideoInterface[] = [];
       const res: any = await get(`/site/video`);
       console.log(res.data);
       if (res && res.data && res.data.length > 0) {
@@ -35,7 +35,7 @@ export default function TV({ search, onOpen }: TVProps) {
             orders: item.orders,
             previewPath: item.preview_path
               ? process.env.NEXT_PUBLIC_FILE_URL + "/" + item.preview_path
-              : null,
+              : "",
           });
         });
       }
@@ -46,7 +46,7 @@ export default function TV({ search, onOpen }: TVProps) {
     }
   };
 
-  const detailTV = (id) => {
+  const detailTV = (id: number | string) => {
     let i = 0;
     while (i < data.length) {
       if (data[i].id === id) {
@@ -87,7 +87,6 @@ export default function TV({ search, onOpen }: TVProps) {
               setDataDetail({});
               onOpen(id);
             }}
-            bgClear={true}
             columns={[]}
             rawData={data}
             rawLoading={isLoading}

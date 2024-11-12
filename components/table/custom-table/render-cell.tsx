@@ -1,11 +1,10 @@
 import React from "react";
-import { DeleteIcon, EditIcon, EyeIcon } from "@/components/icons";
 
 interface Props {
   columns: any;
   item: any;
   index: number;
-  columnKey: string | React.Key;
+  columnKey: any;
   canEdit?: boolean;
   canDelete?: boolean;
   onView?: (item: any) => void;

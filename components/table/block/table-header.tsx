@@ -1,6 +1,6 @@
 "use client";
 
-import { AddIcon, SearchIcon } from "@/components/icons";
+import { SearchIcon } from "@/components/icons";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { motion } from "framer-motion";

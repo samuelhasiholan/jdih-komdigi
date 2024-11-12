@@ -11,7 +11,7 @@ import SectionInfografis from '@/components/main/section-infografis'
 import SectionFooter from '@/components/main/section-footer'
 import SectionHeader from '@/components/main/section-header'
 import { Image } from '@nextui-org/image'
-import { Video } from './types/entities'
+import { VideoInterface } from './types/entities'
 import { CloseIcon2 } from '@/components/icons'
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
     const [modalSearch, setModalSearch] = useState('')
     const [modalTitle, setModalTitle] = useState('')
     const [linkUrl, setLinkUrl] = useState('')
-    const [modalVideo, setModalVideo] = useState<Video | null>(null)
+    const [modalVideo, setModalVideo] = useState<VideoInterface | null>(null)
 
     const onCloseModal = () => {
         setModalAction('')
@@ -58,7 +58,7 @@ export default function Home() {
 
     const openModalVideoPlayer = (
         title: string,
-        video: Video | null = null,
+        video: VideoInterface | null = null,
     ) => {
         setModalAction('video')
         setLinkUrl('')

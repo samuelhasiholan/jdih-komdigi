@@ -21,15 +21,15 @@ import TV from '@/components/tv'
 import QR from '@/components/qr'
 import toast from 'react-hot-toast'
 import VideoPlayer from '../video-player'
-import { Video } from '@/app/types/entities'
+import { VideoInterface } from '@/app/types/entities'
 import Webview from '../webview'
 
 interface MainModalProps {
     action: string
-    search?: string
+    search?: string | number
     title: string
     isOpen: boolean
-    video?: Video | null
+    video?: VideoInterface | null
     linkUrl?: string
     onOpenChange?: (open: boolean) => void
     onClose?: () => void
@@ -45,11 +45,11 @@ export default function MainModal({
     onOpenChange,
     onClose,
 }: MainModalProps) {
-    const { isLoading, error }: DashboardState = useAppSelector(
+    const { loading, error }: DashboardState = useAppSelector(
         (state) => state.dashboard,
     )
 
-    const [detail, setDetail] = useState<string>(search)
+    const [detail, setDetail] = useState<string | number>(search || "")
 
     useEffect(() => {
         if (search) {
@@ -72,7 +72,7 @@ export default function MainModal({
             onOpenChange={onOpenChange}
             onClose={() => {
                 setDetail('')
-                onClose()
+                onClose && onClose()
             }}
             placement="center"
             scrollBehavior="inside"
@@ -107,25 +107,25 @@ export default function MainModal({
                     {action === 'berita' && (
                         <Berita
                             search={detail}
-                            onOpen={(value) => setDetail(value)}
+                            onOpen={(value: string | number) => setDetail(value)}
                         />
                     )}
                     {action === 'produk' && (
                         <ProdukHukum
                             search={detail}
-                            onOpen={(value) => setDetail(value)}
+                            onOpen={(value: string | number) => setDetail(value)}
                         />
                     )}
                     {action === 'tv' && (
                         <TV
                             search={detail}
-                            onOpen={(value) => setDetail(value)}
+                            onOpen={(value: string | number) => setDetail(value)}
                         />
                     )}
                     {action === 'infografis' && (
                         <Infografis
                             search={detail}
-                            onOpen={(value) => setDetail(value)}
+                            onOpen={(value: string | number) => setDetail(value)}
                         />
                     )}
                     {action === 'search' && <Search search={search} />}

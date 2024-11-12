@@ -1,4 +1,4 @@
-import { Video as VideoProps } from '@/app/types/entities'
+import { VideoInterface as VideoProps } from '@/app/types/entities'
 
 interface VideoPlayerProps {
     linkUrl: string | undefined

@@ -3,22 +3,22 @@ import { PlayIcon } from '@/components/icons'
 import { Image } from '@nextui-org/image'
 import { useEffect, useState } from 'react'
 import { useHttp } from '@/app/hooks/useHttp'
-import { Video } from '@/app/types/entities'
+import { VideoInterface } from '@/app/types/entities'
 import moment from 'moment'
 
 export interface SectionTvProps {
-    openModal: (type: string, title: string) => void
-    openModalVideoPlayer: (title: string, video: Video) => void
+    openModal: (type: string, title: string, search?: number | string) => void
+    openModalVideoPlayer: (title: string, video: VideoInterface) => void
 }
 
 const SectionTv: React.FC<SectionTvProps> = (props) => {
     const [video, setVideo] = useState([0, 1])
     const { get, isLoading } = useHttp()
-    const [data, setData] = useState<Video[]>([])
+    const [data, setData] = useState<VideoInterface[]>([])
 
     const getData = async () => {
         try {
-            const videos: Video[] = []
+            const videos: VideoInterface[] = []
             const res: any = await get('/site/video?limit=2')
 
             if (res && res.data) {

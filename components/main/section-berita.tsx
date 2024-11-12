@@ -8,7 +8,7 @@ import 'react-multi-carousel/lib/styles.css'
 import moment from 'moment'
 
 export interface SectionBeritaProps {
-    openModal: (type: string, title: string, search: string) => void
+    openModal: (type: string, title: string, search?: number | string) => void
 }
 
 const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
@@ -109,7 +109,7 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                                     className="font-light mt-2"
                                     style={{ color: '#827272' }}
                                 >
-                                    {value.excerpt.length > 200
+                                    {value.excerpt && value.excerpt.length > 200
                                         ? value.excerpt
                                               .substr(
                                                   0,

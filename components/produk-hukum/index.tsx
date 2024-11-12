@@ -7,26 +7,26 @@ import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
-import { ProdukHukum } from "@/app/types/entities";
+import { ProdukHukumInterface } from "@/app/types/entities";
 import { useHttp } from "@/app/hooks/useHttp";
 import moment from "moment";
 
 interface ProdukHukumProps {
-  search: string;
-  onOpen: () => void;
+  search: string | number;
+  onOpen: (value: number | string) => void;
 }
 
 export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
   const tableRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [data, setData] = useState<ProdukHukum[]>([]);
+  const [data, setData] = useState<ProdukHukumInterface[]>([]);
   const [total, setTotal] = useState<number>(1);
-  const [dataDetail, setDataDetail] = useState<ProdukHukum>({});
+  const [dataDetail, setDataDetail] = useState<ProdukHukumInterface>({});
   const { get, isLoading } = useHttp();
 
   const getData = async () => {
     try {
-      const dataProduk: ProdukHukum[] = [];
+      const dataProduk: ProdukHukumInterface[] = [];
       const res: any = await get(
         `/produk-hukum/pencarian?tahun=&kategori=&tentang=&page=${currentPage}`,
       );
@@ -60,9 +60,9 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
     }
   };
 
-  const detailProdukHukum = async (id) => {
+  const detailProdukHukum = async (id: number | string) => {
     get("/produk-hukum/detail/" + id).then((res: any) => {
-      const data: ProdukHukum[] = [];
+      const data: ProdukHukumInterface[] = [];
 
       if (res?.data) {
         if (res?.data.produk) {
@@ -108,15 +108,8 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
                 process.env.NEXT_PUBLIC_PICTURE_URL + "/" + dataDetail.thumbnail
               }
               alt="image"
-              layout="fill"
               radius="md"
               className="w-full self-center object-cover mb-5"
-              onError={(event) => {
-                // @ts-ignore
-                event.target.src = emptyImg.src;
-                // @ts-ignore
-                event.target.srcset = emptyImg.src;
-              }}
               removeWrapper
             />
             <p className="mb-3 text-primary">
@@ -161,14 +154,7 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
                     <Image
                       src={value?.img || emptyImg.src}
                       alt="image"
-                      layout="fill"
                       className="w-full self-center object-cover"
-                      onError={(event) => {
-                        // @ts-ignore
-                        event.target.src = emptyImg.src;
-                        // @ts-ignore
-                        event.target.srcset = emptyImg.src;
-                      }}
                     />
                   </div>
                 ),

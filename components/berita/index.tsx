@@ -9,8 +9,8 @@ import { useHttp } from "@/app/hooks/useHttp";
 import moment from "moment";
 
 interface BeritaProps {
-  search: string;
-  onOpen: () => void;
+  search: string | number;
+  onOpen: (value: number | string) => void;
 }
 
 export default function Berita({ search, onOpen }: BeritaProps) {
@@ -25,7 +25,7 @@ export default function Berita({ search, onOpen }: BeritaProps) {
     try {
       const dataBerita: BeritaInterface[] = [];
       const res: any = await get(`/berita/all?page=${currentPage}`);
-      console.log(res.data);
+
       if (
         res &&
         res.data &&
@@ -53,7 +53,7 @@ export default function Berita({ search, onOpen }: BeritaProps) {
     }
   };
 
-  const detailBerita = async (id) => {
+  const detailBerita = async (id: number | string) => {
     get("/berita/detail/" + id).then((res: any) => {
       const data: BeritaInterface[] = [];
 
@@ -99,15 +99,8 @@ export default function Berita({ search, onOpen }: BeritaProps) {
                 process.env.NEXT_PUBLIC_PICTURE_URL + "/" + dataDetail.thumbnail
               }
               alt="image"
-              layout="fill"
               radius="md"
               className="w-full self-center object-cover mb-5"
-              onError={(event) => {
-                // @ts-ignore
-                event.target.src = emptyImg.src;
-                // @ts-ignore
-                event.target.srcset = emptyImg.src;
-              }}
               removeWrapper
             />
             <p className="mb-3 text-primary">
@@ -165,12 +158,6 @@ export default function Berita({ search, onOpen }: BeritaProps) {
                             value.thumbnail
                           : emptyImg.src
                       }
-                      onError={(event) => {
-                        // @ts-ignore
-                        event.target.src = emptyImg.src;
-                        // @ts-ignore
-                        event.target.srcset = emptyImg.src;
-                      }}
                     />
                   </div>
                 ),

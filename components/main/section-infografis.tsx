@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/button'
-import { Infografis } from '@/app/types/entities'
+import { InfografisInterface } from '@/app/types/entities'
 import { Image } from '@nextui-org/image'
 import { useHttp } from '@/app/hooks/useHttp'
 import Carousel from 'react-multi-carousel'
@@ -8,12 +8,12 @@ import 'react-multi-carousel/lib/styles.css'
 import moment from 'moment'
 
 export interface SectionInfografisProps {
-    openModal: (type: string, title: string) => void
+    openModal: (type: string, title: string, search?: number | string) => void
 }
 
 const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
     const { get, isLoading } = useHttp()
-    const [dataTop5, setDataTop5] = useState<Infografis[]>([])
+    const [dataTop5, setDataTop5] = useState<InfografisInterface[]>([])
     const responsive = {
         any: {
             breakpoint: { max: 4000, min: 0 },
@@ -23,7 +23,7 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
 
     const top5 = async () => {
         get('/infografis/top5').then((res: any) => {
-            const data: Infografis[] = []
+            const data: InfografisInterface[] = []
 
             if (res?.data && res?.data.length > 0) {
                 res?.data.map((item: any) => {

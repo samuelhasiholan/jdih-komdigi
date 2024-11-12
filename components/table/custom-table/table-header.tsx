@@ -1,6 +1,6 @@
 "use client";
 
-import { AddIcon, SearchIcon } from "@/components/icons";
+import { SearchIcon } from "@/components/icons";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { motion } from "framer-motion";
@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 import SelectInput from "@/components/select";
 
 interface TableHeaderWrapperProps {
-  initSearch: string;
-  onSearch?: (value: string) => void;
+  initSearch: string | number;
+  onSearch?: (value: any) => void;
   onExtra?: any;
   onExtraTwo?: any;
   onExtraTitle?: string;
@@ -26,7 +26,7 @@ export default function TableHeaderWrapper({
   onExtraTitle,
   onExtraTwoTitle,
 }: TableHeaderWrapperProps) {
-  const [search, setSearch] = useState<string>(initSearch || "");
+  const [search, setSearch] = useState<any>(initSearch || "");
   const [isSearchFocused, setIsSearchFocused] = useState<boolean>(false);
   const router = useRouter();
 
@@ -71,6 +71,7 @@ export default function TableHeaderWrapper({
                 itemLabel="label"
                 itemValue="value"
                 selectInputIndex={1}
+                children={[]}
               />
             </div>
           )}
@@ -84,6 +85,7 @@ export default function TableHeaderWrapper({
                 itemLabel="label"
                 itemValue="value"
                 selectInputIndex={2}
+                children={[]}
               />
             </div>
           )}

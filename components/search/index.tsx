@@ -9,25 +9,25 @@ import TableWrapper from "@/components/table/custom-table/table";
 import TableHeaderWrapper from "@/components/table/custom-table/table-header";
 import { jenisPeraturanList, tahunList } from "@/constants";
 import { useHttp } from "@/app/hooks/useHttp";
-import { ProdukHukum } from "@/app/types/entities";
+import { ProdukHukumInterface } from "@/app/types/entities";
 import moment from "moment";
 moment.locale("id");
 interface SearchProps {
-  search?: string;
+  search?: string | number;
 }
 
 export default function Search({ search = "" }: SearchProps) {
   const formRef = useRef<any>(null);
   const tableRef = useRef<any>(null);
-  const [currentSearch, setCurrentSearch] = useState<string>(search);
+  const [currentSearch, setCurrentSearch] = useState<string | number>(search);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [data, setData] = useState<ProdukHukum[]>([]);
+  const [data, setData] = useState<ProdukHukumInterface[]>([]);
   const [total, setTotal] = useState<number>(1);
   const { get, isLoading } = useHttp();
 
   const getData = async () => {
     try {
-      const dataProduk: ProdukHukum[] = [];
+      const dataProduk: ProdukHukumInterface[] = [];
       const res: any = await get(
         `/produk-hukum/advance-search?tentang=${currentSearch}&page=${currentPage}`,
       );
@@ -100,7 +100,7 @@ export default function Search({ search = "" }: SearchProps) {
               show: true,
               id: "thumbnail",
               name: "IMAGE",
-              format: (value: ProdukHukum) => (
+              format: (value: ProdukHukumInterface) => (
                 <div
                   style={{
                     width: "100px",
@@ -133,22 +133,27 @@ export default function Search({ search = "" }: SearchProps) {
               show: true,
               id: "productName",
               name: "DESC",
-              format: (value: ProdukHukum) => (
+              format: (value: ProdukHukumInterface) => (
                 <div style={{ paddingRight: "10px" }}>
-                  <p
-                    className="font-bold mb-1 text-primary text-large"
-                    dangerouslySetInnerHTML={{
-                      __html: value?.productName,
-                    }}
-                  />
-                  <p
-                    className="font-light mb-1"
-                    style={{ color: "#282828" }}
-                    dangerouslySetInnerHTML={{
-                      __html: value?.descr,
-                    }}
-                  />
-
+                  {
+                    value?.productName &&
+                    <p
+                      className="font-bold mb-1 text-primary text-large"
+                      dangerouslySetInnerHTML={{
+                        __html: value?.productName,
+                      }}
+                    />
+                  }
+                  {
+                    value?.descr &&
+                    <p
+                      className="font-light mb-1"
+                      style={{ color: "#282828" }}
+                      dangerouslySetInnerHTML={{
+                        __html: value?.descr,
+                      }}
+                    />
+                  }
                   <p className="font-bold text-xs" style={{ color: "#827272" }}>
                     Disanggah pada {value?.uploadDate}
                   </p>

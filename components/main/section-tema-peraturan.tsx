@@ -4,7 +4,7 @@ import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 export interface SectionTemaPeraturanProps {
-    openModal: (type: string, title: string, tema: string) => void
+    openModal: (type: string, title: string, tema?: number | string) => void
 }
 
 const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
