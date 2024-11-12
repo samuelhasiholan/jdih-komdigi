@@ -81,53 +81,56 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
         </div>
       ) : (
         dataTop5 && (
-          <Carousel
-            responsive={responsive}
-            arrows={false}
-            autoPlay
-            autoPlaySpeed={8000}
-            itemClass="px-2"
-          >
-            <div className="carausel-gap"></div>
-            {dataTop5?.map((value, index) => (
-              <Button
-                className="flex flex-col berita-card text-small gap-0"
-                key={index}
-                onClick={() => props.openModal("berita", "Berita", value.id)}
-              >
-                <Image
-                  alt="berita"
-                  height={180}
-                  className="object-cover rounded-medium w-full"
-                  src={
-                    process.env.NEXT_PUBLIC_PICTURE_URL + "/" + value.thumbnail
-                  }
-                  removeWrapper
-                />
-                <div className="berita-card-body">
-                  <p style={{ color: "#BBBBBB" }}>
-                    {value.dateCreated
-                      ? moment(value.dateCreated).format("dddd, DD MMMM YYYY")
-                      : ""}
-                  </p>
-                  <p className="font-bold mt-2">{value.judul}</p>
-                  <span
-                    className="font-light mt-2"
-                    style={{ color: "#827272" }}
-                  >
-                    {value.excerpt && value.excerpt.length > 200
-                      ? value.excerpt
-                          .substr(
-                            0,
-                            value.excerpt.slice(0, 200).lastIndexOf(" ")
-                          )
-                          .concat("…")
-                      : value.excerpt}
-                  </span>
-                </div>
-              </Button>
-            ))}
-          </Carousel>
+          <div className="px-10">
+            <Carousel
+              responsive={responsive}
+              arrows={false}
+              autoPlay
+              autoPlaySpeed={8000}
+              itemClass="px-2"
+            >
+              {dataTop5?.map((value, index) => (
+                <Button
+                  className="flex flex-col berita-card text-small gap-0"
+                  key={index}
+                  onClick={() => props.openModal("berita", "Berita", value.id)}
+                >
+                  <Image
+                    alt="berita"
+                    height={180}
+                    className="object-cover rounded-medium w-full"
+                    src={
+                      process.env.NEXT_PUBLIC_PICTURE_URL +
+                      "/" +
+                      value.thumbnail
+                    }
+                    removeWrapper
+                  />
+                  <div className="berita-card-body">
+                    <p style={{ color: "#BBBBBB" }}>
+                      {value.dateCreated
+                        ? moment(value.dateCreated).format("dddd, DD MMMM YYYY")
+                        : ""}
+                    </p>
+                    <p className="font-bold mt-2">{value.judul}</p>
+                    <span
+                      className="font-light mt-2"
+                      style={{ color: "#827272" }}
+                    >
+                      {value.excerpt && value.excerpt.length > 200
+                        ? value.excerpt
+                            .substr(
+                              0,
+                              value.excerpt.slice(0, 200).lastIndexOf(" ")
+                            )
+                            .concat("…")
+                        : value.excerpt}
+                    </span>
+                  </div>
+                </Button>
+              ))}
+            </Carousel>
+          </div>
         )
       )}
     </section>
