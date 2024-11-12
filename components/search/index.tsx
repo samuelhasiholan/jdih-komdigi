@@ -29,6 +29,8 @@ export default function Search({
   const tableRef = useRef<any>(null);
   const [currentSearch, setCurrentSearch] = useState<string | number>(keyword);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentKategori, setCurrentKategori] = useState<string | number>("");
+  const [currentTahun, setCurrentTahun] = useState<string | number>("");
   const [data, setData] = useState<ProdukHukumInterface[]>([]);
   const [total, setTotal] = useState<number>(1);
   const [dataDetail, setDataDetail] = useState<ProdukHukumInterface>({});
@@ -38,7 +40,7 @@ export default function Search({
     try {
       const dataProduk: ProdukHukumInterface[] = [];
       const res: any = await get(
-        `/produk-hukum/advance-search?tentang=${currentSearch}&page=${currentPage}`
+        `/produk-hukum/advance-search?tentang=${currentSearch}&kategori=${currentKategori}&tahun=${currentTahun}&page=${currentPage}`
       );
 
       if (res && res.data && res.data.produk && res.data.produk.length > 0) {
@@ -112,11 +114,6 @@ export default function Search({
       detailProdukHukum(search);
     }
   }, [search]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-    getData();
-  }, [currentSearch]);
 
   useEffect(() => {
     getData();
@@ -294,12 +291,22 @@ export default function Search({
           <>
             <TableHeaderWrapper
               initSearch={currentSearch}
-              onExtra={jenisPeraturanList}
+              onExtra="/kategori/list"
               onExtraTitle="Pilih Jenis Peraturan"
               onExtraTwo={tahunList}
               onExtraTwoTitle="Semua Tahun"
               onSearch={(value) => {
                 setCurrentSearch(value);
+              }}
+              onExtraChange={(value) => {
+                setCurrentKategori(value);
+              }}
+              onExtraTwoChange={(value) => {
+                setCurrentTahun(value);
+              }}
+              onSubmit={() => {
+                setCurrentPage(1);
+                getData();
               }}
             />
             <motion.div

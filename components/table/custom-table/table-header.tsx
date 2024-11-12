@@ -13,8 +13,11 @@ interface TableHeaderWrapperProps {
   onSearch?: (value: any) => void;
   onExtra?: any;
   onExtraTwo?: any;
+  onExtraChange?: (value: any) => void;
+  onExtraTwoChange?: (value: any) => void;
   onExtraTitle?: string;
   onExtraTwoTitle?: string;
+  onSubmit?: () => void;
   formRef?: any;
 }
 
@@ -22,9 +25,12 @@ export default function TableHeaderWrapper({
   initSearch,
   onSearch,
   onExtra,
+  onExtraChange,
   onExtraTwo,
+  onExtraTwoChange,
   onExtraTitle,
   onExtraTwoTitle,
+  onSubmit,
 }: TableHeaderWrapperProps) {
   const [search, setSearch] = useState<any>(initSearch || "");
   const [isSearchFocused, setIsSearchFocused] = useState<boolean>(false);
@@ -36,7 +42,7 @@ export default function TableHeaderWrapper({
         className="flex items-center w-full rounded-xl overflow-hidden mb-4"
         onSubmit={(e) => {
           e.preventDefault();
-          onSearch && onSearch(search);
+          onSubmit && onSubmit();
         }}
       >
         <div className="grid grid-cols-5 items-center w-full">
@@ -50,6 +56,7 @@ export default function TableHeaderWrapper({
                 isClearable
                 onClear={() => {
                   setSearch("");
+                  onSearch("");
                 }}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
@@ -57,6 +64,7 @@ export default function TableHeaderWrapper({
                 onChange={(e) => {
                   const value = e.target.value;
                   setSearch(value);
+                  onSearch(value);
                 }}
               />
             </div>
@@ -68,9 +76,13 @@ export default function TableHeaderWrapper({
                 placeholder={onExtraTitle}
                 labelPlacement="outside"
                 items={onExtra}
-                itemLabel="label"
-                itemValue="value"
+                itemLabel="category_name"
+                itemValue="id"
                 selectInputIndex={1}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  onExtraChange(value);
+                }}
                 children={[]}
               />
             </div>
@@ -85,6 +97,10 @@ export default function TableHeaderWrapper({
                 itemLabel="label"
                 itemValue="value"
                 selectInputIndex={2}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  onExtraTwoChange(value);
+                }}
                 children={[]}
               />
             </div>
