@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/button";
+import { Skeleton } from "@nextui-org/skeleton";
 import { ProdukHukumInterface } from "@/app/types/entities";
 import { Image } from "@nextui-org/image";
 import { useHttp } from "@/app/hooks/useHttp";
@@ -91,106 +92,124 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
         </Button>
       </div>
       <div className={top5View ? "" : "hidden"}>
-        {dataTop5Produk && (
-          <Carousel
-            responsive={responsive}
-            arrows={false}
-            infinite
-            autoPlay
-            autoPlaySpeed={8000}
-            itemClass="px-2"
-          >
-            {dataTop5Produk?.map((value, index) => (
-              <Button
-                className="flex flex-col produk-card text-small w-full gap-0"
-                key={index}
-                onClick={() =>
-                  props.openModal("produk", "Detail Produk Hukum", value.id)
-                }
-              >
-                {value?.uploadDate ? (
-                  <div className="produk-card-date">
-                    {moment(value?.uploadDate).format("DD MMM YYYY")}
-                  </div>
-                ) : (
-                  ""
-                )}
-                <Image
-                  alt="produk"
-                  className="object-cover w-full produk-card-image"
-                  src={
-                    value.thumbnail
-                      ? process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
-                        "/" +
-                        value.thumbnail
-                      : emptyImg.src
+        {
+          isLoading
+          ? <div className='flex'>
+              <Skeleton isLoaded={!isLoading} className="h-24 w-1/4 rounded-lg mx-2" />
+              <Skeleton isLoaded={!isLoading} className="h-24 w-1/4 rounded-lg mx-2" />
+              <Skeleton isLoaded={!isLoading} className="h-24 w-1/4 rounded-lg mx-2" />
+              <Skeleton isLoaded={!isLoading} className="h-24 w-1/4 rounded-lg mx-2" />
+          </div>
+          : dataTop5Produk && (
+            <Carousel
+              responsive={responsive}
+              arrows={false}
+              infinite
+              autoPlay
+              autoPlaySpeed={8000}
+              itemClass="px-2"
+            >
+              {dataTop5Produk?.map((value, index) => (
+                <Button
+                  className="flex flex-col produk-card text-small w-full gap-0"
+                  key={index}
+                  onClick={() =>
+                    props.openModal("produk", "Detail Produk Hukum", value.id)
                   }
-                  radius="none"
-                  removeWrapper
-                />
-                <div className="produk-card-body">
-                  <p className="font-bold produk-card-title">
-                    {value.productName}
-                  </p>
-                  <span className="font-light mt-2 produk-card-descr">
-                    {value.descr}
-                  </span>
-                </div>
-              </Button>
-            ))}
-          </Carousel>
-        )}
+                >
+                  {value?.uploadDate ? (
+                    <div className="produk-card-date">
+                      {moment(value?.uploadDate).format("DD MMM YYYY")}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <Image
+                    alt="produk"
+                    className="object-cover w-full produk-card-image"
+                    src={
+                      value.thumbnail
+                        ? process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                          "/" +
+                          value.thumbnail
+                        : emptyImg.src
+                    }
+                    radius="none"
+                    removeWrapper
+                  />
+                  <div className="produk-card-body">
+                    <p className="font-bold produk-card-title">
+                      {value.productName}
+                    </p>
+                    <span className="font-light mt-2 produk-card-descr">
+                      {value.descr}
+                    </span>
+                  </div>
+                </Button>
+              ))}
+            </Carousel>
+          )
+        }
       </div>
       <div className={top5View ? "hidden" : ""}>
-        {dataPopularProduk && (
-          <Carousel
-            responsive={responsive}
-            arrows={false}
-            infinite
-            autoPlay
-            autoPlaySpeed={8000}
-            itemClass="px-2"
-          >
-            {dataPopularProduk?.map((value, index) => (
-              <Button
-                className="flex flex-col produk-card text-small w-full gap-0"
-                key={index}
-                onClick={() =>
-                  props.openModal("produk", "Detail Produk Hukum", value.id)
-                }
-              >
-                {value?.uploadDate ? (
-                  <div className="produk-card-date">
-                    {moment(value?.uploadDate).format("DD MMM YYYY")}
-                  </div>
-                ) : (
-                  ""
-                )}
-                <Image
-                  alt="produk"
-                  className="object-cover w-full produk-card-image"
-                  src={
-                    value.thumbnail
-                      ? process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
-                        "/" +
-                        value.thumbnail
-                      : emptyImg.src
+        {
+          isLoading
+          ? <div className='flex'>
+              <Skeleton isLoaded={!isLoading} className="h-24 w-1/4 rounded-lg mx-2" />
+              <Skeleton isLoaded={!isLoading} className="h-24 w-1/4 rounded-lg mx-2" />
+              <Skeleton isLoaded={!isLoading} className="h-24 w-1/4 rounded-lg mx-2" />
+              <Skeleton isLoaded={!isLoading} className="h-24 w-1/4 rounded-lg mx-2" />
+          </div>
+          : dataPopularProduk && (
+            <Carousel
+              responsive={responsive}
+              arrows={false}
+              infinite
+              autoPlay
+              autoPlaySpeed={8000}
+              itemClass="px-2"
+            >
+              {dataPopularProduk?.map((value, index) => (
+                <Button
+                  className="flex flex-col produk-card text-small w-full gap-0"
+                  key={index}
+                  onClick={() =>
+                    props.openModal("produk", "Detail Produk Hukum", value.id)
                   }
-                  radius="none"
-                  removeWrapper
-                />
-                <div className="produk-card-body">
-                  <p className="font-bold produk-card-title">
-                    {value.productName}
-                  </p>
-                  <span className="font-light mt-2 produk-card-descr">
-                    {value.descr}
-                  </span>
-                </div>
-              </Button>
-            ))}
-          </Carousel>
-        )}
+                >
+                  {value?.uploadDate ? (
+                    <div className="produk-card-date">
+                      {moment(value?.uploadDate).format("DD MMM YYYY")}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <Image
+                    alt="produk"
+                    className="object-cover w-full produk-card-image"
+                    src={
+                      value.thumbnail
+                        ? process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                          "/" +
+                          value.thumbnail
+                        : emptyImg.src
+                    }
+                    radius="none"
+                    removeWrapper
+                  />
+                  <div className="produk-card-body">
+                    <p className="font-bold produk-card-title">
+                      {value.productName}
+                    </p>
+                    <span className="font-light mt-2 produk-card-descr">
+                      {value.descr}
+                    </span>
+                  </div>
+                </Button>
+              ))}
+            </Carousel>
+          )
+        }
       </div>
     </section>
   );

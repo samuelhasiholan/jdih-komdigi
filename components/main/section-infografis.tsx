@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/button'
+import { Skeleton } from "@nextui-org/skeleton";
 import { InfografisInterface } from '@/app/types/entities'
 import { Image } from '@nextui-org/image'
 import { useHttp } from '@/app/hooks/useHttp'
@@ -62,45 +63,53 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
                     LIHAT SEMUA
                 </button>
             </div>
-            {dataTop5 && (
-                <Carousel
-                    responsive={responsive}
-                    arrows={false}
-                    infinite
-                    autoPlay
-                    autoPlaySpeed={8000}
-                    itemClass="px-2 pb-3"
-                >
-                    {dataTop5?.map((value, index) => (
-                        <Button
-                            className="flex flex-col infografis-card text-small gap-0"
-                            key={index}
-                            onClick={() =>
-                                props.openModal(
-                                    'infografis',
-                                    'Infografis',
-                                    value.id,
-                                )
-                            }
-                        >
-                            <Image
-                                alt="infografis"
-                                className="object-cover w-full"
-                                src={
-                                    process.env.NEXT_PUBLIC_INFOGRAFIS_URL +
-                                    '/' +
-                                    value.thumbnail
+            {
+                isLoading
+                ? <div className='flex'>
+                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
+                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
+                    <Skeleton isLoaded={!isLoading} className="h-24 w-1/3 rounded-lg mx-2" />
+                </div>
+                : dataTop5 && (
+                    <Carousel
+                        responsive={responsive}
+                        arrows={false}
+                        infinite
+                        autoPlay
+                        autoPlaySpeed={8000}
+                        itemClass="px-2 pb-3"
+                    >
+                        {dataTop5?.map((value, index) => (
+                            <Button
+                                className="flex flex-col infografis-card text-small gap-0"
+                                key={index}
+                                onClick={() =>
+                                    props.openModal(
+                                        'infografis',
+                                        'Infografis',
+                                        value.id,
+                                    )
                                 }
-                                radius="none"
-                                removeWrapper
-                            />
-                            <div className="infografis-card-body">
-                                <p className="font-bold">{value.judul}</p>
-                            </div>
-                        </Button>
-                    ))}
-                </Carousel>
-            )}
+                            >
+                                <Image
+                                    alt="infografis"
+                                    className="object-cover w-full"
+                                    src={
+                                        process.env.NEXT_PUBLIC_INFOGRAFIS_URL +
+                                        '/' +
+                                        value.thumbnail
+                                    }
+                                    radius="none"
+                                    removeWrapper
+                                />
+                                <div className="infografis-card-body">
+                                    <p className="font-bold">{value.judul}</p>
+                                </div>
+                            </Button>
+                        ))}
+                    </Carousel>
+                )
+            }
         </section>
     )
 }

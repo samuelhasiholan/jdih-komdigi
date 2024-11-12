@@ -34,10 +34,10 @@ export default function Home() {
         setShowReviewWindow(false)
     }
 
-    const openModal = (action: string, title: string) => {
+    const openModal = (action: string, title: string, search: string | number = '') => {
         setModalAction(action)
         setLinkUrl('')
-        setModalSearch('')
+        setModalSearch(search)
         setModalTitle(title)
         setShowMainModal(true)
         setModalVideo(null)
