@@ -5,6 +5,7 @@ import TableWrapperDefault from "@/components/table/default/table";
 import { AnimatePresence, motion } from "framer-motion";
 import { jenisPeraturanList, tahunList } from "@/constants";
 import { Image } from "@nextui-org/image";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { Skeleton } from "@nextui-org/skeleton";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import emptyImg from "@/public/empty-image.png";
@@ -172,18 +173,20 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
                   </Tabs>
                 </div>
               )}
-              <div>
-                {dataDetail.content && (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: dataDetail.content.replace(
-                        /(<? *script)/gi,
-                        "illegalscript"
-                      ),
-                    }}
-                  ></div>
-                )}
-              </div>
+              {dataDetail.content && (
+                <div className="border-solid border-1 border-current rounded-medium mb-10">
+                  <ScrollShadow className="w-full h-[400px] p-4">
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: dataDetail.content.replace(
+                          /(<? *script)/gi,
+                          "illegalscript"
+                        ),
+                      }}
+                    ></div>
+                  </ScrollShadow>
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <TableWrapperDefault
                   columns={[

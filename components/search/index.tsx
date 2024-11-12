@@ -5,6 +5,7 @@ import TableWrapperDefault from "@/components/table/default/table";
 import { AnimatePresence, motion } from "framer-motion";
 import { jenisPeraturanList, tahunList } from "@/constants";
 import { Image } from "@nextui-org/image";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { Skeleton } from "@nextui-org/skeleton";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import emptyImg from "@/public/empty-image.png";
@@ -12,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { ProdukHukumInterface } from "@/app/types/entities";
 import { useHttp } from "@/app/hooks/useHttp";
 import moment from "moment";
+import PdfViewer from "../pdfviewer";
 moment.locale("id");
 interface SearchProps {
   search?: string | number;
@@ -176,18 +178,20 @@ export default function Search({
                   </Tabs>
                 </div>
               )}
-              <div>
-                {dataDetail.content && (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: dataDetail.content.replace(
-                        /(<? *script)/gi,
-                        "illegalscript"
-                      ),
-                    }}
-                  ></div>
-                )}
-              </div>
+              {dataDetail.content && (
+                <div className="border-solid border-1 border-current rounded-medium mb-10">
+                  <ScrollShadow className="w-full h-[400px] p-4">
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: dataDetail.content.replace(
+                          /(<? *script)/gi,
+                          "illegalscript"
+                        ),
+                      }}
+                    ></div>
+                  </ScrollShadow>
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <TableWrapperDefault
                   columns={[
@@ -276,14 +280,13 @@ export default function Search({
                     },
                   ]}
                 />
-                <embed
-                  src={
-                    process.env.NEXT_PUBLIC_FILE_URL + "/" + dataDetail.filePath
+                <PdfViewer
+                  pdfUrl={
+                    process.env.NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                    "/webview/produk_hukum/pdf/" +
+                    dataDetail.filePath
                   }
-                  width="100%"
-                  height="600"
-                  type="application/pdf"
-                ></embed>
+                />
               </div>
             </div>
           )
