@@ -1,10 +1,12 @@
 "use client";
 import TableWrapper from "@/components/table/custom-table/table";
 import TableHeaderWrapper from "@/components/table/custom-table/table-header";
+import TableWrapperDefault from "@/components/table/default/table";
 import { AnimatePresence, motion } from "framer-motion";
 import { Input } from "@nextui-org/input";
 import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
+import { Tabs, Tab } from "@nextui-org/tabs";
 import emptyImg from "@/public/empty-image.png";
 import { useEffect, useRef, useState } from "react";
 import { ProdukHukumInterface } from "@/app/types/entities";
@@ -30,7 +32,7 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
       const res: any = await get(
         `/produk-hukum/pencarian?tahun=&kategori=&tentang=&page=${currentPage}`,
       );
-      console.log(res.data);
+      
       if (
         res &&
         res.data &&
@@ -76,6 +78,23 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
             title: res?.data.produk.title,
             content: res?.data.produk.content,
             uploadDate: res?.data.produk.upload_date,
+            judulSeragam: res?.data.produk.katalogrel.judul_seragam,
+            tajukEntriUtama: res?.data.produk.katalogrel.tajuk_entri_utama,
+            nomor: res?.data.produk.nomor,
+            categoryName: res?.data.produk.kategori.category_name,
+            singkatan: res?.data.produk.kategori.singkatan,
+            tempatPenetapan: res?.data.produk.tempat_penetapan,
+            tanggalPenetapanPengundangan: res?.data.produk.tanggal_penetapan + "/" + res?.data.produk.tanggal_pengundangan,
+            sumber: res?.data.produk.sumber,
+            jejakan: res?.data.produk.katalogrel.jejakan,
+            status: res?.data.produk.status_peraturan.status,
+            bahasa: res?.data.produk.bahasa === "0"
+              ? "Indonesia"
+              : res?.data.produk.bahasa === "1"
+                ? "Inggris"
+                : res?.data.produk.bahasa,
+            lokasi: res?.data.produk.lokasi,
+            produkPasal: res?.data.produkPasal,
           });
         }
       }
@@ -100,99 +119,211 @@ export default function ProdukHukum({ search, onOpen }: ProdukHukumProps) {
           duration: 0.2,
         }}
       >
-        {search !== "" ? (
-          <div className="px-5 pb-5">
-            <p className="text-xl text-center mb-5">{dataDetail.title}</p>
-            <Image
-              src={
-                process.env.NEXT_PUBLIC_PICTURE_URL + "/" + dataDetail.thumbnail
-              }
-              alt="image"
-              radius="md"
-              className="w-full self-center object-cover mb-5"
-              removeWrapper
-            />
-            <p className="mb-3 text-primary">
-              {dataDetail?.uploadDate
-                ? moment(dataDetail?.uploadDate).format("dddd, DD MMMM YYYY")
-                : ""}
-            </p>
-            <div>
-              {dataDetail.content && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: dataDetail.content.replace(
-                      /(<? *script)/gi,
-                      "illegalscript",
-                    ),
-                  }}
-                ></div>
-              )}
-            </div>
-          </div>
-        ) : (
-          <TableWrapper
-            ref={tableRef}
-            title=""
-            // url=""
-            bgClear={true}
-            columns={[
+        {
+          search !== "" 
+          ? !isLoading && (
+            <div className="px-5 pb-5">
+              <p className="text-xl text-center mb-10">{dataDetail.title}</p>
               {
-                show: true,
-                id: "img",
-                name: "IMAGE",
-                format: (value: any) => (
-                  <div
-                    style={{
-                      width: "230px",
-                      height: "150px",
-                      position: "relative",
-                      borderRadius: "15px",
-                      overflow: "hidden",
+                dataDetail.produkPasal &&
+                <div className="grid grid-cols-2 gap-4 mb-10">
+                  <Tabs 
+                    items={dataDetail.produkPasal} 
+                    disableAnimation
+                    classNames={{
+                      tabList: "custom-tab-tablist flex-wrap",
+                      tab: "custom-tab-button",
+                      panel: "custom-tab-panel p-4 rounded-medium"
                     }}
                   >
-                    <Image
-                      src={value?.img || emptyImg.src}
-                      alt="image"
-                      className="w-full self-center object-cover"
-                    />
-                  </div>
-                ),
-              },
-              {
-                show: true,
-                id: "desc",
-                name: "DESC",
-                format: (value: any) => (
+                    {(item) => (
+                      <Tab key={item.id} title={item.label}>
+                        <p className="font-bold mb-2">{item.label}</p>
+                        {item.konten && (
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: item.konten.replace(
+                                /(<? *script)/gi,
+                                "illegalscript",
+                              ),
+                            }}
+                          ></div>
+                        )}
+                      </Tab>
+                    )}
+                  </Tabs>
+                </div>
+              }
+              <div>
+                {dataDetail.content && (
                   <div
-                    style={{ paddingRight: "10px" }}
-                    onClick={() => onOpen(value?.id)}
-                  >
-                    <p className="font-bold mb-1 text-primary text-large">
-                      {value?.productName}
-                    </p>
-                    <p
-                      className="font-light text-xs mb-1"
-                      style={{ color: "#827272" }}
+                    dangerouslySetInnerHTML={{
+                      __html: dataDetail.content.replace(
+                        /(<? *script)/gi,
+                        "illegalscript",
+                      ),
+                    }}
+                  ></div>
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <TableWrapperDefault
+                  columns={[
+                    {
+                      show: true,
+                      id: "meta",
+                      name: "Meta",
+                    },
+                    {
+                      show: true,
+                      id: "keterangan",
+                      name: "Keterangan",
+                      format: (value: any) => {
+                        if (value.meta === "Lampiran") {
+                          return (
+                            <button
+                                className="font-bold bg-primary text-white p-2 rounded-medium"
+                            >
+                                Unduh Produk Hukum
+                            </button>
+                          ); 
+                        } else {
+                          return (value.keterangan); 
+                        }
+                      },
+                    },
+                  ]}
+                  rawData={[
+                    {
+                      meta: "Tipe Dokumen",
+                      keterangan: dataDetail.judulSeragam,
+                    },
+                    {
+                      meta: "Judul",
+                      keterangan: dataDetail.title,
+                    },
+                    {
+                      meta: "T.E.U. Badan/Pengarang",
+                      keterangan: dataDetail.tajukEntriUtama,
+                    },
+                    {
+                      meta: "Nomor Peraturan",
+                      keterangan: dataDetail.nomor,
+                    },
+                    {
+                      meta: "Jenis / Bentuk Peraturan",
+                      keterangan: dataDetail.categoryName,
+                    },
+                    {
+                      meta: "Singkatan Jenis/Bentuk Peraturan",
+                      keterangan: dataDetail.singkatan,
+                    },
+                    {
+                      meta: "Tempat Penetapan",
+                      keterangan: dataDetail.tempatPenetapan,
+                    },
+                    {
+                      meta: "Tanggal-Bulan-Tahun Penetapan/Pengundangan",
+                      keterangan: dataDetail.tanggalPenetapanPengundangan,
+                    },
+                    {
+                      meta: "Sumber",
+                      keterangan: dataDetail.sumber,
+                    },
+                    {
+                      meta: "Subjek",
+                      keterangan: dataDetail.jejakan,
+                    },
+                    {
+                      meta: "Status Peraturan",
+                      keterangan: dataDetail.status,
+                    },
+                    {
+                      meta: "Bahasa",
+                      keterangan: dataDetail.bahasa,
+                    },
+                    {
+                      meta: "Lokasi",
+                      keterangan: dataDetail.lokasi,
+                    },
+                    {
+                      meta: "Bidang Hukum",
+                      keterangan: dataDetail.bidangHukum,
+                    },
+                    {
+                      meta: "Lampiran",
+                      keterangan: dataDetail.filePath,
+                    },
+                  ]}
+                />
+                <embed src={process.env.NEXT_PUBLIC_FILE_URL + "/" + dataDetail.filePath} width="100%" height="600" type="application/pdf"></embed>
+              </div>
+            </div>
+          ) 
+          : (
+            <TableWrapper
+              ref={tableRef}
+              title=""
+              // url=""
+              bgClear={true}
+              columns={[
+                {
+                  show: true,
+                  id: "img",
+                  name: "IMAGE",
+                  format: (value: any) => (
+                    <div
+                      style={{
+                        width: "230px",
+                        height: "150px",
+                        position: "relative",
+                        borderRadius: "15px",
+                        overflow: "hidden",
+                      }}
                     >
-                      {"Diunggah pada " + value?.uploadDate}
-                    </p>
-                    <p className="font-light mb-1" style={{ color: "#282828" }}>
-                      {value?.descr}
-                    </p>
-                    <p className="font-light text-primary text-small">
-                      Selengkapnya &gt;
-                    </p>
-                  </div>
-                ),
-              },
-            ]}
-            rawData={data}
-            rawPage={currentPage}
-            rawTotal={total}
-            rawLoading={isLoading}
-          />
-        )}
+                      <Image
+                        src={value?.img || emptyImg.src}
+                        alt="image"
+                        className="w-full self-center object-cover"
+                      />
+                    </div>
+                  ),
+                },
+                {
+                  show: true,
+                  id: "desc",
+                  name: "DESC",
+                  format: (value: any) => (
+                    <div
+                      style={{ paddingRight: "10px" }}
+                      onClick={() => onOpen(value?.id)}
+                    >
+                      <p className="font-bold mb-1 text-primary text-large">
+                        {value?.productName}
+                      </p>
+                      <p
+                        className="font-light text-xs mb-1"
+                        style={{ color: "#827272" }}
+                      >
+                        {"Diunggah pada " + value?.uploadDate}
+                      </p>
+                      <p className="font-light mb-1" style={{ color: "#282828" }}>
+                        {value?.descr}
+                      </p>
+                      <p className="font-light text-primary text-small">
+                        Selengkapnya &gt;
+                      </p>
+                    </div>
+                  ),
+                },
+              ]}
+              rawData={data}
+              rawPage={currentPage}
+              rawTotal={total}
+              rawLoading={isLoading}
+            />
+          )
+        }
       </motion.div>
     </div>
   );

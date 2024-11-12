@@ -8,6 +8,19 @@ export interface ProdukHukumInterface {
     title?: string
     content?: string
     uploadDate?: string
+    judulSeragam?: string
+    tajukEntriUtama?: string
+    nomor?: string
+    categoryName?: string
+    singkatan?: string
+    tempatPenetapan?: string
+    tanggalPenetapanPengundangan?: string
+    sumber?: string
+    jejakan?: string
+    status?: string
+    bahasa?: string
+    lokasi?: string
+    produkPasal?: Array<ProdukPasal>
 }
 
 export interface BeritaInterface {
@@ -38,3 +51,9 @@ export interface VideoInterface {
     orders?: number
     previewPath?: string
 }
+
+export type ProdukPasal = {
+    id?: string;
+    label?: string;
+    konten?: string;
+  };

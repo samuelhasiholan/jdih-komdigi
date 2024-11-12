@@ -351,7 +351,34 @@
         background: url('/assets/loading.svg') 0px 0px no-repeat;
         background-position: center;
     }
+    .custom-tab-tablist {
+        background-color: #fff !important;
+    }
+    .custom-tab-button {
+        width: unset !important;
+        color: #0159DF;
+        border: 1px solid #0159DF;
+        background-color: #fff;
+
+        div {
+            color: #0159DF;
+        }
+    }
+    .custom-tab-button.data-\[selected\=true\]\:bg-default[data-selected=true] {
+        color: #fff !important;
+        background-color: #0159DF !important;
+
+        div {
+            color: #fff;
+        }
+    }
+    .custom-tab-panel {
+        background-color: #E6EEFB;
+    }
 }
 span.highlight {
     background: yellow;
+}
+ol, ul {
+    padding-left: 2rem;
 }

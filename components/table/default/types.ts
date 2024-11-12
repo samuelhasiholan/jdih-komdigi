@@ -3,13 +3,13 @@ import { SelectionMode } from "@react-types/shared";
 import React from "react";
 
 export interface TableWrapperProps {
-  url: string;
-  title: string;
-  module: string;
+  url?: string;
+  title?: string;
+  module?: string;
   search?: string;
   persistFilters?: Array<FilterType>;
   persistSearch?: string;
-  columns: ColumnType[];
+  columns?: ColumnType[];
   infiniteScroll?: boolean;
   selectionMode?: SelectionMode;
   onView?: (item: any) => void;

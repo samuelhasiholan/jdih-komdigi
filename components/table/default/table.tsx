@@ -35,7 +35,7 @@ import { FilterType, TableWrapperProps } from "./types";
 import { useAppDispatch } from "@/store";
 import { motion } from "framer-motion";
 
-const TableWrapper = (
+const TableWrapperDefault = (
   {
     url,
     title,
@@ -56,7 +56,7 @@ const TableWrapper = (
   const dispatch = useAppDispatch();
 
   const [columnsShown, setColumnsShown] = useState<ColumnType[]>([...columns]);
-  const [rowsPerPage, setRowsPerPage] = useState(infiniteScroll ? 20 : 10);
+  const [rowsPerPage, setRowsPerPage] = useState(infiniteScroll ? 20 : 99);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
@@ -143,10 +143,10 @@ const TableWrapper = (
             }
           }
         }
-        setData(filterData.slice(begin, end));
+        setData(filterData);
         setTotal(filterData.length);
       } else {
-        setData(rawData.slice(begin, end));
+        setData(rawData);
         setTotal(rawData.length);
       }
       setIsLoading(false);
@@ -244,26 +244,6 @@ const TableWrapper = (
 
   return (
     <div className="[& .nextui-table-container]:shadow-none] w-full">
-      <Skeleton
-        isLoaded={!isLoading}
-        className="rounded-lg !bg-transparent mb-1"
-      >
-        <div className="text-sm">
-          <span
-            className="hidden md:inline"
-            style={{ color: "#444444", letterSpacing: "0.15px" }}
-          >
-            Menampilkan
-          </span>{" "}
-          {data?.length
-            ? (page === 1 ? 1 : (page - 1) * rowsPerPage + 1) +
-              " - " +
-              (data?.length + rowsPerPage * (page - 1)) +
-              " dari " +
-              total
-            : 0}
-        </div>
-      </Skeleton>
       <Table
         // baseRef={scrollerRef}
         aria-label="Dynamic Table"
@@ -277,8 +257,6 @@ const TableWrapper = (
           }
         }}
         sortDescriptor={sortDescriptor}
-        bottomContent={bottomContent}
-        bottomContentPlacement="outside"
         isHeaderSticky
         classNames={{
           wrapper: `p-2 bg-content1/70 ${
@@ -393,4 +371,4 @@ const TableWrapper = (
   );
 };
 
-export default forwardRef(TableWrapper);
+export default forwardRef(TableWrapperDefault);
