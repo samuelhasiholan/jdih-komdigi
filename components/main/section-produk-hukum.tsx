@@ -101,22 +101,22 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
             </div>
             <div className={top5View ? '' : 'hidden'}>
                 {isLoading ? (
-                    <div className="flex">
+                    <div className="flex secondary-carousel-section gap-4">
                         <Skeleton
                             isLoaded={!isLoading}
-                            className="h-24 w-1/4 rounded-lg mx-2"
+                            className="h-24 w-1/4 rounded-[20px]"
                         />
                         <Skeleton
                             isLoaded={!isLoading}
-                            className="h-24 w-1/4 rounded-lg mx-2"
+                            className="h-24 w-1/4 rounded-[20px]"
                         />
                         <Skeleton
                             isLoaded={!isLoading}
-                            className="h-24 w-1/4 rounded-lg mx-2"
+                            className="h-24 w-1/4 rounded-[20px]"
                         />
                         <Skeleton
                             isLoaded={!isLoading}
-                            className="h-24 w-1/4 rounded-lg mx-2"
+                            className="h-24 w-1/4 rounded-[20px]"
                         />
                     </div>
                 ) : (
@@ -183,82 +183,83 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
             </div>
             <div className={top5View ? 'hidden' : ''}>
                 {isLoading ? (
-                    <div className="flex">
+                    <div className="flex secondary-carousel-section gap-4">
                         <Skeleton
                             isLoaded={!isLoading}
-                            className="h-24 w-1/4 rounded-lg mx-2"
+                            className="h-24 w-1/4 rounded-[20px]"
                         />
                         <Skeleton
                             isLoaded={!isLoading}
-                            className="h-24 w-1/4 rounded-lg mx-2"
+                            className="h-24 w-1/4 rounded-[20px]"
                         />
                         <Skeleton
                             isLoaded={!isLoading}
-                            className="h-24 w-1/4 rounded-lg mx-2"
+                            className="h-24 w-1/4 rounded-[20px]"
                         />
                         <Skeleton
                             isLoaded={!isLoading}
-                            className="h-24 w-1/4 rounded-lg mx-2"
+                            className="h-24 w-1/4 rounded-[20px]"
                         />
                     </div>
                 ) : (
                     dataPopularProduk && (
-                        <Carousel
-                            responsive={responsive}
-                            arrows={false}
-                            infinite
-                            autoPlay
-                            autoPlaySpeed={8000}
-                            rewind={true}
-                            rewindWithAnimation={true}
-                            itemClass="px-2"
-                        >
-                            {dataPopularProduk?.map((value, index) => (
-                                <Button
-                                    className="flex flex-col produk-card text-small w-full gap-0"
-                                    key={index}
-                                    onClick={() =>
-                                        props.openModal(
-                                            'produk',
-                                            'Detail Produk Hukum',
-                                            value.id,
-                                        )
-                                    }
-                                >
-                                    {value?.uploadDate ? (
-                                        <div className="produk-card-date">
-                                            {moment(value?.uploadDate).format(
-                                                'DD MMM YYYY',
-                                            )}
-                                        </div>
-                                    ) : (
-                                        ''
-                                    )}
-                                    <Image
-                                        alt="produk"
-                                        className="object-cover w-full produk-card-image"
-                                        src={
-                                            value.thumbnail
-                                                ? process.env
-                                                      .NEXT_PUBLIC_ACCOUNT_BASE_URL +
-                                                  '/' +
-                                                  value.thumbnail
-                                                : emptyImg.src
+                        <div className="px-10">
+                            <Carousel
+                                responsive={responsive}
+                                arrows={false}
+                                autoPlay
+                                autoPlaySpeed={8000}
+                                rewind={true}
+                                rewindWithAnimation={true}
+                                itemClass="px-2"
+                            >
+                                {dataPopularProduk?.map((value, index) => (
+                                    <Button
+                                        className="flex flex-col produk-card text-small w-full gap-0"
+                                        key={index}
+                                        onClick={() =>
+                                            props.openModal(
+                                                'produk',
+                                                'Detail Produk Hukum',
+                                                value.id,
+                                            )
                                         }
-                                        radius="none"
-                                        removeWrapper
-                                    />
-                                    <div className="produk-card-body">
-                                        <p className="font-bold produk-card-title">
-                                            {value.productName}
-                                        </p>
-                                        <span className="font-light mt-2 produk-card-descr">
-                                            {value.descr}
-                                        </span>
-                                    </div>
-                                </Button>
-                            ))}
-                        </Carousel>
+                                    >
+                                        {value?.uploadDate ? (
+                                            <div className="produk-card-date">
+                                                {moment(value?.uploadDate).format(
+                                                    'DD MMM YYYY',
+                                                )}
+                                            </div>
+                                        ) : (
+                                            ''
+                                        )}
+                                        <Image
+                                            alt="produk"
+                                            className="object-cover w-full produk-card-image"
+                                            src={
+                                                value.thumbnail
+                                                    ? process.env
+                                                          .NEXT_PUBLIC_ACCOUNT_BASE_URL +
+                                                      '/' +
+                                                      value.thumbnail
+                                                    : emptyImg.src
+                                            }
+                                            radius="none"
+                                            removeWrapper
+                                        />
+                                        <div className="produk-card-body">
+                                            <p className="font-bold produk-card-title">
+                                                {value.productName}
+                                            </p>
+                                            <span className="font-light mt-2 produk-card-descr">
+                                                {value.descr}
+                                            </span>
+                                        </div>
+                                    </Button>
+                                ))}
+                            </Carousel>
+                        </div>
                     )
                 )}
             </div>

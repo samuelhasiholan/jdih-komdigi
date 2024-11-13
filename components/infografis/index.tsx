@@ -103,7 +103,7 @@ export default function Infografis({ search, onOpen }: InfografisProps) {
               />
               <Skeleton
                 isLoaded={!isLoading}
-                className="h-6 w-3/6 rounded-lg mb-5"
+                className="h-6 w-3/6 rounded-lg"
               />
             </div>
           ) : (

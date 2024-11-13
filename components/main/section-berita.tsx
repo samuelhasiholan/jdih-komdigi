@@ -67,18 +67,18 @@ const SectionBerita: React.FC<SectionBeritaProps> = (props) => {
                 </div>
             </div>
             {isLoading ? (
-                <div className="flex">
+                <div className="flex secondary-carousel-section gap-4">
                     <Skeleton
                         isLoaded={!isLoading}
-                        className="h-24 w-1/3 rounded-lg mx-2"
+                        className="h-24 w-1/3 rounded-[20px]"
                     />
                     <Skeleton
                         isLoaded={!isLoading}
-                        className="h-24 w-1/3 rounded-lg mx-2"
+                        className="h-24 w-1/3 rounded-[20px]"
                     />
                     <Skeleton
                         isLoaded={!isLoading}
-                        className="h-24 w-1/3 rounded-lg mx-2"
+                        className="h-24 w-1/3 rounded-[20px]"
                     />
                 </div>
             ) : (

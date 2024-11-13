@@ -66,18 +66,18 @@ const SectionInfografis: React.FC<SectionInfografisProps> = (props) => {
             </div>
 
             {isLoading ? (
-                <div className="flex">
+                <div className="flex secondary-carousel-section gap-4">
                     <Skeleton
                         isLoaded={!isLoading}
-                        className="h-24 w-1/3 rounded-lg mx-2"
+                        className="h-24 w-1/3 rounded-[10px]"
                     />
                     <Skeleton
                         isLoaded={!isLoading}
-                        className="h-24 w-1/3 rounded-lg mx-2"
+                        className="h-24 w-1/3 rounded-[10px]"
                     />
                     <Skeleton
                         isLoaded={!isLoading}
-                        className="h-24 w-1/3 rounded-lg mx-2"
+                        className="h-24 w-1/3 rounded-[10px]"
                     />
                 </div>
             ) : (

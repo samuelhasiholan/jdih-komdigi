@@ -346,44 +346,48 @@ export const PlayIcon: React.FC<IconSvgProps> = ({
 export const CloseIcon = ({ size = 24 }: IconSvgProps) => {
   return (
     <svg
-      width="25"
-      height="25"
-      viewBox="0 0 25 25"
+      width="40"
+      height="39"
+      viewBox="0 0 40 39"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath="url(#clip0_137_1440)">
+      <mask
+        id="mask0_418_28604"
+        style={{ maskType: "luminance" }}
+        maskUnits="userSpaceOnUse"
+        x="0"
+        y="0"
+        width="40"
+        height="39"
+      >
         <path
-          d="M24 12.5428C24 18.5598 18.8927 23.5109 12.5 23.5109C6.1073 23.5109 1 18.5598 1 12.5428C1 6.52582 6.1073 1.57471 12.5 1.57471C18.8927 1.57471 24 6.52582 24 12.5428Z"
+          d="M39.4183 0.927734H0.463867V38.2451H39.4183V0.927734Z"
+          fill="white"
+        />
+      </mask>
+      <g mask="url(#mask0_418_28604)">
+        <path
+          d="M37.8601 19.586C37.8601 28.9667 29.9025 36.6857 19.941 36.6857C9.97959 36.6857 2.02197 28.9667 2.02197 19.586C2.02197 10.2053 9.97959 2.48633 19.941 2.48633C29.9025 2.48633 37.8601 10.2053 37.8601 19.586Z"
           fill="#E64B4B"
           stroke="#666666"
           strokeWidth="2"
         />
         <path
-          d="M8.00012 16.8514L12.5001 12.5429L17.0001 8.23438"
+          d="M12.9292 26.3034L19.941 19.5862L26.9528 12.8691"
           stroke="white"
           strokeWidth="2"
           strokeMiterlimit="10"
           strokeLinecap="round"
         />
         <path
-          d="M8.00012 8.23438L12.5001 12.5429L17.0001 16.8514"
+          d="M12.9292 12.8691L19.941 19.5862L26.9528 26.3034"
           stroke="white"
           strokeWidth="2"
           strokeMiterlimit="10"
           strokeLinecap="round"
         />
       </g>
-      <defs>
-        <clipPath id="clip0_137_1440">
-          <rect
-            width="25"
-            height="23.9362"
-            fill="white"
-            transform="translate(0 0.574707)"
-          />
-        </clipPath>
-      </defs>
     </svg>
   );
 };

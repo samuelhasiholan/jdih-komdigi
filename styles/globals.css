@@ -209,6 +209,9 @@
             transform 0.4s,
             visibility 0.4s;
     }
+    .review-form-label {
+        color: #949494 !important;
+    }
     .navbar-btn {
         font-family: var(--font-sans);
     }
@@ -297,6 +300,7 @@
         border-radius: 20px !important;
         background-color: #ffffff !important;
         justify-content: flex-start !important;
+        transition: none !important;
     }
     .berita-card-body {
         display: flex;
@@ -331,6 +335,7 @@
         border-radius: 10px !important;
         background-color: #f2f7fd !important;
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.10000000149011612));
+        transition: none !important;
     }
     .infografis-card-body {
         display: flex;

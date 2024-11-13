@@ -246,6 +246,7 @@ const TableWrapperDefault = (
     <div className="[& .nextui-table-container]:shadow-none] w-full">
       <Table
         // baseRef={scrollerRef}
+        isStriped
         aria-label="Dynamic Table"
         onSortChange={(e: any) => {
           if (sortDescriptor.column === "") {

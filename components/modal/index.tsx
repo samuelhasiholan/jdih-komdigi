@@ -94,7 +94,7 @@ export default function MainModal({
                         <div className="modal-head flex">
                             {detail && (
                                 <div
-                                    className="mr-3"
+                                    className="mr-3 self-center"
                                     onClick={() => setDetail('')}
                                 >
                                     <BackIcon />
@@ -105,7 +105,7 @@ export default function MainModal({
                         <div className="long-bar"></div>
                     </ModalHeader>
                 )}
-                <ModalBody>
+                <ModalBody className="px-6 pb-6">
                     {action === 'berita' && (
                         <Berita
                             search={detail}
