@@ -3,7 +3,6 @@ import TableWrapper from "@/components/table/custom-table/table";
 import TableHeaderWrapper from "@/components/table/custom-table/table-header";
 import TableWrapperDefault from "@/components/table/default/table";
 import { AnimatePresence, motion } from "framer-motion";
-import { jenisPeraturanList, tahunList } from "@/constants";
 import { Image } from "@nextui-org/image";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { Skeleton } from "@nextui-org/skeleton";
