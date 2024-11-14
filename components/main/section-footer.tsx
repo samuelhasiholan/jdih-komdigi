@@ -76,6 +76,19 @@ const SectionFooter: React.FC<SectionFooterProps> = (props) => {
                 props.openModal("qr", "QR", "https://x.com/jdihkemkominfo")
               }
             />
+            <Image
+              alt="tiktok"
+              src="assets/icon_tiktok.png"
+              radius="none"
+              removeWrapper
+              onClick={() =>
+                props.openModal(
+                  "qr",
+                  "QR",
+                  "https://www.tiktok.com/@jdihkemkominfo"
+                )
+              }
+            />
           </div>
         </div>
         <div className="flex">

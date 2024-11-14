@@ -38,7 +38,9 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
         >
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
-            onClick={() => props.openModal("tema", "Telusur Tema", "", "pos")}
+            onClick={() =>
+              props.openModal("tema", "Telusur Tema: POS", "", "pos")
+            }
           >
             <Image
               className="mb-4"
@@ -57,7 +59,12 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
             onClick={() =>
-              props.openModal("tema", "Telusur Tema", "", "telekomunikasi")
+              props.openModal(
+                "tema",
+                "Telusur Tema: Telekomunikasi",
+                "",
+                "telekomunikasi"
+              )
             }
           >
             <Image
@@ -77,7 +84,12 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
             onClick={() =>
-              props.openModal("tema", "Telusur Tema", "", "penyiaran")
+              props.openModal(
+                "tema",
+                "Telusur Tema: Penyiaran",
+                "",
+                "penyiaran"
+              )
             }
           >
             <Image
@@ -97,7 +109,12 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
             onClick={() =>
-              props.openModal("tema", "Telusur Tema", "", "sistem")
+              props.openModal(
+                "tema",
+                "Telusur Tema: Informasi & Transaksi Elektronik",
+                "",
+                "sistem"
+              )
             }
           >
             <Image
@@ -117,7 +134,12 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
             onClick={() =>
-              props.openModal("tema", "Telusur Tema", "", "frekuensi")
+              props.openModal(
+                "tema",
+                "Telusur Tema: Frekuensi Radio",
+                "",
+                "frekuensi"
+              )
             }
           >
             <Image
@@ -137,7 +159,12 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
             onClick={() =>
-              props.openModal("tema", "Telusur Tema", "", "sertifikasi")
+              props.openModal(
+                "tema",
+                "Telusur Tema: Sertifikasi",
+                "",
+                "sertifikasi"
+              )
             }
           >
             <Image
@@ -157,7 +184,12 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
             onClick={() =>
-              props.openModal("tema", "Telusur Tema", "", "perizinan")
+              props.openModal(
+                "tema",
+                "Telusur Tema: Perizinan",
+                "",
+                "perizinan"
+              )
             }
           >
             <Image
@@ -177,7 +209,12 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
             onClick={() =>
-              props.openModal("tema", "Telusur Tema", "", "ikp|prahukum")
+              props.openModal(
+                "tema",
+                "Telusur Tema: Komunikasi Publik",
+                "",
+                "ikp|prahukum"
+              )
             }
           >
             <Image
@@ -197,7 +234,12 @@ const SectionTemaPeraturan: React.FC<SectionTemaPeraturanProps> = (props) => {
           <Button
             className="flex flex-col tema-card items-center whitespace-normal w-full"
             onClick={() =>
-              props.openModal("tema", "Telusur Tema", "", "organisasi")
+              props.openModal(
+                "tema",
+                "Telusur Tema: Kepegawaian & Organisasi",
+                "",
+                "organisasi"
+              )
             }
           >
             <Image
