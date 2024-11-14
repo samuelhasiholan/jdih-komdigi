@@ -6,7 +6,7 @@ import { Image } from '@nextui-org/image'
 import { useHttp } from '@/app/hooks/useHttp'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
-import emptyImg from '@/public/empty-image.png'
+import emptyImg from '@/public/document.png'
 import moment from 'moment'
 
 export interface SectionProdukHukumProps {
@@ -156,12 +156,26 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
                                             alt="produk"
                                             className="object-cover w-full produk-card-image"
                                             src={
-                                                value.thumbnail
+                                                value.thumbnail &&
+                                                !value.thumbnail.includes(
+                                                    'default-thumbnail',
+                                                )
                                                     ? process.env
                                                           .NEXT_PUBLIC_ACCOUNT_BASE_URL +
                                                       '/' +
                                                       value.thumbnail
                                                     : emptyImg.src
+                                            }
+                                            style={
+                                                value.thumbnail &&
+                                                !value.thumbnail.includes(
+                                                    'default-thumbnail',
+                                                )
+                                                    ? {}
+                                                    : {
+                                                          width: '50%',
+                                                          margin: '18px 0',
+                                                      }
                                             }
                                             radius="none"
                                             removeWrapper
@@ -227,9 +241,9 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
                                     >
                                         {value?.uploadDate ? (
                                             <div className="produk-card-date">
-                                                {moment(value?.uploadDate).format(
-                                                    'DD MMM YYYY',
-                                                )}
+                                                {moment(
+                                                    value?.uploadDate,
+                                                ).format('DD MMM YYYY')}
                                             </div>
                                         ) : (
                                             ''
@@ -238,12 +252,26 @@ const SectionProdukHukum: React.FC<SectionProdukHukumProps> = (props) => {
                                             alt="produk"
                                             className="object-cover w-full produk-card-image"
                                             src={
-                                                value.thumbnail
+                                                value.thumbnail &&
+                                                !value.thumbnail.includes(
+                                                    'default-thumbnail',
+                                                )
                                                     ? process.env
                                                           .NEXT_PUBLIC_ACCOUNT_BASE_URL +
                                                       '/' +
                                                       value.thumbnail
                                                     : emptyImg.src
+                                            }
+                                            style={
+                                                value.thumbnail &&
+                                                !value.thumbnail.includes(
+                                                    'default-thumbnail',
+                                                )
+                                                    ? {}
+                                                    : {
+                                                          width: '50%',
+                                                          margin: '18px 0',
+                                                      }
                                             }
                                             radius="none"
                                             removeWrapper
