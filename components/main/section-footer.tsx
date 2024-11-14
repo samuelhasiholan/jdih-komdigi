@@ -33,28 +33,48 @@ const SectionFooter: React.FC<SectionFooterProps> = (props) => {
               src="assets/icon_fb.png"
               radius="none"
               removeWrapper
-              onClick={() => props.openModal("qr", "QR", "qr_fb")}
+              onClick={() =>
+                props.openModal(
+                  "qr",
+                  "QR",
+                  "https://www.facebook.com/profile.php?id=100083145504178"
+                )
+              }
             />
             <Image
               alt="instagram"
               src="assets/icon_ig.png"
               radius="none"
               removeWrapper
-              onClick={() => props.openModal("qr", "QR", "qr_ig")}
+              onClick={() =>
+                props.openModal(
+                  "qr",
+                  "QR",
+                  "https://www.instagram.com/jdihkemkomdigi"
+                )
+              }
             />
             <Image
               alt="youtube"
               src="assets/icon_yt.png"
               radius="none"
               removeWrapper
-              onClick={() => props.openModal("qr", "QR", "qr_yt")}
+              onClick={() =>
+                props.openModal(
+                  "qr",
+                  "QR",
+                  "https://www.youtube.com/@jdihkemenkominfo3044"
+                )
+              }
             />
             <Image
               alt="x"
               src="assets/icon_x.png"
               radius="none"
               removeWrapper
-              onClick={() => props.openModal("qr", "QR", "qr_x")}
+              onClick={() =>
+                props.openModal("qr", "QR", "https://x.com/jdihkemkominfo")
+              }
             />
           </div>
         </div>
@@ -76,14 +96,26 @@ const SectionFooter: React.FC<SectionFooterProps> = (props) => {
                 src="assets/appstore.png"
                 radius="none"
                 removeWrapper
-                onClick={() => props.openModal("qr", "QR", "qr_app")}
+                onClick={() =>
+                  props.openModal(
+                    "qr",
+                    "QR",
+                    "https://apps.apple.com/id/app/jdih-kemkominfo/id6447154641"
+                  )
+                }
               />
               <Image
                 alt="gplay"
                 src="assets/gplay.png"
                 radius="none"
                 removeWrapper
-                onClick={() => props.openModal("qr", "QR", "qr_play")}
+                onClick={() =>
+                  props.openModal(
+                    "qr",
+                    "QR",
+                    "https://play.google.com/store/apps/details?id=com.kominfo.jdih_mobile&hl=id"
+                  )
+                }
               />
             </div>
           </div>

@@ -1,12 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
+import QRCode from "react-qr-code";
 
 interface QrProps {
   search?: string | number;
 }
 
-export default function QR({ search }: QrProps) {
+export default function QR({ search = "" }: QrProps) {
   return (
     <div className="flex flex-col gap-4 items-center py-10">
       <p className="mb-10 text-2xl font-bold text-center">
@@ -20,12 +21,11 @@ export default function QR({ search }: QrProps) {
           duration: 0.2,
         }}
       >
-        <Image
-          alt="QR"
-          width={450}
-          src={`assets/${search}.png`}
-          radius="none"
-          removeWrapper
+        <QRCode
+          size={350}
+          style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+          value={search?.toString()}
+          viewBox={`0 0 350 350`}
         />
       </motion.div>
       <div
