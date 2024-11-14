@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-	"prestart": "start http://localhost:3000",
+	"prestart": "start firefox -kiosk",
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
