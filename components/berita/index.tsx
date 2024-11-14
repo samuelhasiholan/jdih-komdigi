@@ -173,6 +173,10 @@ export default function Berita({ search, onOpen }: BeritaProps) {
                       borderRadius: "15px",
                       overflow: "hidden",
                     }}
+                    onClick={() => {
+                      setDataDetail({});
+                      onOpen(value?.id);
+                    }}
                   >
                     <Image
                       removeWrapper
