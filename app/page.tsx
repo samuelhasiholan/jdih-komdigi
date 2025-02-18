@@ -126,7 +126,7 @@ export default function Home() {
         const minutes = now.getMinutes()
         const second = now.getSeconds()
 
-        if ((hours === 20 || hours === 7) && minutes === 0 && second === 0) {
+        if ((hours === 17 || hours === 7) && minutes === 0 && second === 0) {
             window.location.reload()
         }
     }, [])
