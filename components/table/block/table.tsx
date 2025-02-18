@@ -50,20 +50,22 @@ const TableWrapper = (
     defaultSortDescriptor,
     onClick = (id: number) => {},
   }: TableWrapperProps,
-  refs: any,
+  refs: any
 ) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL : "";
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "";
   const dispatch = useAppDispatch();
 
   const [rowsPerPage, setRowsPerPage] = useState(infiniteScroll ? 20 : 10);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+  const [sortDescriptor, setSortDescriptor] = useState<any>(
     defaultSortDescriptor ||
       {
         // column: "createdAt",
         // direction: "descending",
-      },
+      }
   );
   const [filter, setFilter] = useState<FilterType[]>([]);
   const [search, setSearch] = useState("");

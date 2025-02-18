@@ -67,7 +67,7 @@ const TableWrapper = (
   const [rowsPerPage, setRowsPerPage] = useState(infiniteScroll ? 20 : 10);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+  const [sortDescriptor, setSortDescriptor] = useState<any>(
     defaultSortDescriptor ||
       {
         // column: "createdAt",

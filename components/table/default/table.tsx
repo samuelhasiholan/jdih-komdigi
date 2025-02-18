@@ -50,21 +50,23 @@ const TableWrapperDefault = (
     rawData,
     defaultSortDescriptor,
   }: TableWrapperProps,
-  refs: any,
+  refs: any
 ) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL : "";
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "";
   const dispatch = useAppDispatch();
 
   const [columnsShown, setColumnsShown] = useState<ColumnType[]>([...columns]);
   const [rowsPerPage, setRowsPerPage] = useState(infiniteScroll ? 20 : 99);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+  const [sortDescriptor, setSortDescriptor] = useState<any>(
     defaultSortDescriptor ||
       {
         // column: "createdAt",
         // direction: "descending",
-      },
+      }
   );
   const [filter, setFilter] = useState<FilterType[]>([]);
   const [search, setSearch] = useState("");
@@ -276,7 +278,7 @@ const TableWrapperDefault = (
         // }}
       >
         <TableHeader columns={columnsShown.filter((c) => c?.show)}>
-          {(column) =>
+          {(column) => (
             <TableColumn
               key={column.id}
               hideHeader={column.id === "actions"}
@@ -287,13 +289,17 @@ const TableWrapperDefault = (
               }
               allowsSorting={column.sortable}
               style={{
-                  minWidth: column?.width
-                    ? column.width
-                    : column.id
-                      ? colWidth(column.id)
-                      : "auto",
-                  width: column?.width ? column.width : (column.id ? colWidth(column.id) : "auto"),
-                }}
+                minWidth: column?.width
+                  ? column.width
+                  : column.id
+                    ? colWidth(column.id)
+                    : "auto",
+                width: column?.width
+                  ? column.width
+                  : column.id
+                    ? colWidth(column.id)
+                    : "auto",
+              }}
             >
               <motion.span
                 initial={{ opacity: 0 }}
@@ -303,7 +309,7 @@ const TableWrapperDefault = (
                 {columns?.find((c) => c.id === column.id)?.name}
               </motion.span>
             </TableColumn>
-          }
+          )}
         </TableHeader>
         <TableBody
           isLoading={isLoading}
